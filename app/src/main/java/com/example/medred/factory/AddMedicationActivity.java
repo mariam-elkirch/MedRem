@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.medred.R;
-import com.example.medred.presenter.AddMedicationPrimary;
+import com.example.medred.addmedication.view.AddMedicationPrimary;
 
 
 public class AddMedicationActivity extends AppCompatActivity implements FragmentChanger{

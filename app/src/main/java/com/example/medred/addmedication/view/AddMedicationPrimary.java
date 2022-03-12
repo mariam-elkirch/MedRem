@@ -1,4 +1,4 @@
-package com.example.medred.presenter;
+package com.example.medred.addmedication.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

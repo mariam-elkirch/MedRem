@@ -29,6 +29,93 @@
     <string name="dependents">Dependents</string>
     <string name="healthtaker">Healthtaker</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="logout">Logout</string>
+
+    <string name="addMedication">Add Medication Screen</string>
+    <string name="MedicationName">Medication Name</string>
+    <string name="strength">Strength</string>
+    <string name="unit">Unit</string>
+    <string name="apperance">Apperance</string>
+    <string name="frequency">Frequency</string>
+    <string name="next">next</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cycle">Cycle</string>
+    <string name="cycleQuestions">when did you take your first pill ?</string>
+    <string name="everydayfragment">EveryDay Fragment</string>
+    <string name="timesADay">How Many Times A Day</string>
+    <string name="startDate">Start Date</string>
+    <string name="endDate">End Date</string>
+    <string name="daysIntervalFragment">days interval and specific days fragment</string>
+    <string name="chooseDay">Choose A Day</string>
+    <string name="everyday">EveryDay</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="finalFragment">Final Fragment</string>
+    <string name="reasons">Reasons</string>
+    <string name="pillStock">pills in stock</string>
+    <string name="reminderSwitch">Refill Reminder</string>
+    <string name="pillLeft">Remind When Pills Left</string>
+    <string name="reminderRefill">set Refill Reminder</string>
+    <string name="done">Done</string>
+    <string name="setAlarm">Set Alarm</string>
+    <string name="setNumberOfPills">Add Number of Pills</string>
+    <string name="pillleft">Pills Left</string>
+
+    //try spinner for cycle
+    <string-array name="cycleItemSpinner">
+        <item>21+7</item>
+        <item>22+6</item>
+        <item>23+5</item>
+        <item>24+4</item>
+        <item>26+2</item>
+        <item>28</item>
+        <item>35+7</item>
+        <item>42+7</item>
+        <item>63+7</item>
+        <item>84+7</item>
+        <item>14+14</item>
+    </string-array>
+
+    //spinner for medication reasons
+    <string-array name="doseItemSpinner">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    //spinner for unit medication
+    <string-array name="unitItemSpinner">
+        <item>g</item>
+        <item>IU</item>
+        <item>mcg</item>
+        <item>mcg/hr</item>
+        <item>mcg/ml</item>
+        <item>mRq</item>
+        <item>mg</item>
+        <item>mg/cm2</item>
+        <item>mg/g</item>
+        <item>mg/ml</item>
+        <item>mL</item>
+        <item>%</item>
+    </string-array>
+
+
+    //spinner for frequency medication
+    <string-array name="frequencyItemSpinner">
+        <item>As Needed</item>
+        <item>EveryDay</item>
+        <item>Specific Day</item>
+        <item>Days Interval</item>
+    </string-array>
+
 </resources>

@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.medred.R;
@@ -33,6 +34,9 @@ public class HomeActivity extends AppCompatActivity {
         mToolbar  = findViewById(R.id.toolBar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView=findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.name_text);
+        navUsername.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
       //   userName.setText("FirebaseAuth.getInstance().getCurrentUser().getDisplayName()");
         getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new HomeFragment()).commit();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -48,6 +52,7 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_logout:
                         FirebaseAuth.getInstance().signOut();
+
                         //fabb.hide();
 
 

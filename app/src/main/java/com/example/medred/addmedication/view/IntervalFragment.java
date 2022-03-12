@@ -1,4 +1,4 @@
-package com.example.medred.presenter;
+package com.example.medred.addmedication.view;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;

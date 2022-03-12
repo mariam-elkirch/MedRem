@@ -25,8 +25,8 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ivHealthTakerRemove"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="32dp"
+            android:layout_height="31dp"
             android:layout_marginEnd="24dp"
             android:insetLeft="0dp"
             android:insetTop="0dp"
