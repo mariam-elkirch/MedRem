@@ -21,7 +21,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvActiveMeds"
         android:layout_width="match_parent"
-        android:layout_height="270dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvInactiveMeds"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,24 +45,28 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvInactiveMeds"
         android:layout_width="match_parent"
-        android:layout_height="270dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/btnAddMed"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvInactiveMeds"
+        android:layout_marginBottom="15dp"
         tools:listitem="@layout/medication_item"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAddMed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_button"
         android:padding="15dp"
         android:text="Add a Med"
         android:textSize="18sp"
         app:cornerRadius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

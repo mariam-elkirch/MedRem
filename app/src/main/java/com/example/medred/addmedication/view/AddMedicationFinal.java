@@ -18,7 +18,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.medred.R;
-import com.example.medred.factory.AddMedicationActivity;
 
 
 public class AddMedicationFinal extends Fragment {

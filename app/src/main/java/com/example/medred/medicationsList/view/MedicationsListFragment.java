@@ -1,12 +1,15 @@
 package com.example.medred.medicationsList.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.medred.R;
+import com.example.medred.addmedication.view.AddMedicationActivity;
 
 
 public class MedicationsListFragment extends Fragment {

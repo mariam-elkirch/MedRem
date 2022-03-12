@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.medred.R;
-import com.example.medred.factory.AlarmAdapter;
 import com.example.medred.model.Alarm;
 
 import java.util.ArrayList;

@@ -21,6 +21,8 @@
         <activity
             android:name=".Registeration.view.LoginActivity"
             android:exported="true" />
+        <activity android:name=".addmedication.view.AddMedicationActivity"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -1,4 +1,4 @@
-package com.example.medred.factory;
+package com.example.medred.addmedication.view;
 
 import android.os.Bundle;
 
@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.medred.R;
-import com.example.medred.addmedication.view.AddMedicationPrimary;
 
 
 public class AddMedicationActivity extends AppCompatActivity implements FragmentChanger{

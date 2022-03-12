@@ -1,4 +1,4 @@
-package com.example.medred.factory;
+package com.example.medred.addmedication.view;
 
 import android.app.TimePickerDialog;
 import android.text.Editable;

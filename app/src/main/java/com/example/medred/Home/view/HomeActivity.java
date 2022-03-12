@@ -8,7 +8,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.ListFragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +19,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.medred.R;
+import com.example.medred.addmedication.view.AddMedicationActivity;
+import com.example.medred.dependentsList.view.DependantsListFragment;
+import com.example.medred.medicationsList.view.MedicationsListFragment;
+import com.example.medred.requestsList.view.RequestsListFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -49,6 +55,18 @@ public class HomeActivity extends AppCompatActivity {
                 switch (z){
                     case R.id.nav_home:
                         changeFragment(new HomeFragment());
+                        break;
+                    case R.id.nav_healthtaker:
+                        changeFragment(new ListFragment());
+                        break;
+                    case R.id.nav_medication:
+                        changeFragment(new MedicationsListFragment());
+                        break;
+                    case R.id.nav_dependent:
+                        changeFragment(new DependantsListFragment());
+                        break;
+                    case R.id.nav_requests:
+                        changeFragment(new RequestsListFragment());
                         break;
                     case R.id.nav_logout:
                         FirebaseAuth.getInstance().signOut();
@@ -84,9 +102,9 @@ public class HomeActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
     }
-    private void homeActivity() {
+    private void changeActivity(Activity activity) {
 
-        Intent i = new Intent(HomeActivity.this, HomeActivity.class);
+        Intent i = new Intent(HomeActivity.this, activity.getClass());
         startActivity(i);
     }
 

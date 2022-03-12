@@ -18,7 +18,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 
 import com.example.medred.R;
-import com.example.medred.factory.AddMedicationActivity;
 
 import java.util.Calendar;
 

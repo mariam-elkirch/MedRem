@@ -1,4 +1,4 @@
-package com.example.medred.factory;
+package com.example.medred.addmedication.view;
 
 import androidx.fragment.app.Fragment;
 
