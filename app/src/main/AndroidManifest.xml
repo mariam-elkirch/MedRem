@@ -10,16 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MedRed">
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".Registeration.view.ForgotPasswordActivity"
             android:exported="true" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".Home.view.HomeActivity"
             android:exported="true" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Registeration.view.RegisterActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Registeration.view.LoginActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

@@ -1,9 +1,8 @@
-package com.example.medred;
+package com.example.medred.Registeration.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.medred.Home.view.HomeActivity;
+import com.example.medred.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -60,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         mForgetPassText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this,ForgotPasswordActivity.class);
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 startActivity(intent);
             }
         });
@@ -153,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         //db updated
                         progressDialog.dismiss();
-                        startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                         finish();
                     }
                 })
