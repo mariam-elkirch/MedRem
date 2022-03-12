@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "975941830408",
+    "firebase_url": "https://medrem-5444e-default-rtdb.firebaseio.com",
+    "project_id": "medrem-5444e",
+    "storage_bucket": "medrem-5444e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975941830408:android:ec6967bc65fe12cb15cebd",
+        "android_client_info": {
+          "package_name": "com.example.medred"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975941830408-2vusvvk0he4s2fksha3il7k981sh7sho.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.medred",
+            "certificate_hash": "4290eedcaa89cadea248b1a993d896d5df461677"
+          }
+        },
+        {
+          "client_id": "975941830408-o03u9edsbg58aaqs793r0hb3dh7598k7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxx1Z67TlgNIuTKwVNgm-QsqHmAYq5sus"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975941830408-o03u9edsbg58aaqs793r0hb3dh7598k7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
