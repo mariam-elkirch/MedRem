@@ -15,10 +15,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Calendar;
 
@@ -29,15 +31,17 @@ public class HomeActivity extends AppCompatActivity {
     Toolbar mToolbar;
     NavigationView navigationView;
     DrawerLayout drawerLayout;
+    TextView userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         mToolbar  = findViewById(R.id.toolBar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView=findViewById(R.id.nav_view);
-
+      //   userName.setText("FirebaseAuth.getInstance().getCurrentUser().getDisplayName()");
         getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new HomeFragment()).commit();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -50,7 +54,8 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.nav_home:
                         changeFragment(new HomeFragment());
                         break;
-                    case R.id.nav_healthtaker:
+                    case R.id.nav_logout:
+                        FirebaseAuth.getInstance().signOut();
                         //fabb.hide();
 
 
