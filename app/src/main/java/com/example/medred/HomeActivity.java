@@ -34,41 +34,11 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Calendar startDate = Calendar.getInstance();
-        startDate.add(Calendar.MONTH, -3);
-
-
-        Calendar endDate = Calendar.getInstance();
-        endDate.add(Calendar.MONTH, 3);
-
-
-        HorizontalCalendar horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarView)
-
-                .range(startDate, endDate)
-
-                .datesNumberOnScreen(5)
-
-                .build();
-
-        horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
-            @Override
-            public void onDateSelected(Calendar date, int position) {
-                // on below line we are printing date
-                // in the logcat which is selected.
-                Log.i("TAG", "CURRENT DATE IS " + date);
-            }
-        });
         mToolbar  = findViewById(R.id.toolBar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView=findViewById(R.id.nav_view);
-        FloatingActionButton fabb=findViewById(R.id.fab);
-        fabb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i("TAG","click fab");
-            }
-        });
-       // getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new HomeFragment()).commit();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new HomeFragment()).commit();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -78,10 +48,11 @@ public class HomeActivity extends AppCompatActivity {
                 Log.i("TAG",menuItem.getItemId()+"id");
                 switch (z){
                     case R.id.nav_home:
-                        homeActivity();
+                        changeFragment(new HomeFragment());
                         break;
                     case R.id.nav_healthtaker:
-                       // changeFragment(new HomeFragment());
+                        //fabb.hide();
+
 
                 }
                 menuItem.setChecked(true);
