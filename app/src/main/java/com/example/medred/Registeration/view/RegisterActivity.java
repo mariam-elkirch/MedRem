@@ -108,15 +108,15 @@ public class RegisterActivity extends AppCompatActivity implements Registeration
             try {
 
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-
-                firebaseAuthWithGoogle(account);
+                sendCredintalGoogle(account);
+               // firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Toast.makeText(RegisterActivity.this, "fail", Toast.LENGTH_SHORT).show();
             }
         }
     }
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+  /*  private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
 
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         auth.signInWithCredential(credential)
@@ -137,7 +137,7 @@ public class RegisterActivity extends AppCompatActivity implements Registeration
                         }
                     }
                 });
-    }
+    }*/
 
 
     private void inputData() {
@@ -169,32 +169,9 @@ public class RegisterActivity extends AppCompatActivity implements Registeration
 
 
 
-    private void CreateAccount() {
-        progressDialog.setMessage("Creating Account...");
-        progressDialog.show();
 
 
-        //create account
-        auth.createUserWithEmailAndPassword(EmailText,PasswordText)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        //accountCreated
-                        storeFirebaseData();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-    }
-
-    private void storeFirebaseData() {
+   /* private void storeFirebaseData() {
         progressDialog.setMessage("Saving Account Info ...");
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("uid",""+auth.getUid());
@@ -251,7 +228,7 @@ public class RegisterActivity extends AppCompatActivity implements Registeration
                     }
                 });
 
-    }
+    }*/
 
     private void initView() {
         mNameEdittext = findViewById(R.id.name_editText);
@@ -277,5 +254,10 @@ public class RegisterActivity extends AppCompatActivity implements Registeration
             finish();
         }
        // finish();
+    }
+
+    @Override
+    public void sendCredintalGoogle(GoogleSignInAccount account) {
+          registrationPresenter.RegistrationGoogle(account);
     }
 }

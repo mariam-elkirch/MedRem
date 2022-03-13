@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.medred.network.FirebaseManager;
 import com.example.medred.network.FirebaseSource;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 public class Repository implements RepositoryInterface{
     FirebaseSource firebaseSource;
@@ -27,6 +28,10 @@ public class Repository implements RepositoryInterface{
        return  firebaseSource.authunticateUser(user,fireBaseCallBack);
     }
 
+    @Override
+    public Boolean RegisterationGoogle(GoogleSignInAccount account, FirebaseManager.FireBaseCallBack fireBaseCallBack) {
+        return  firebaseSource.RegisterationGoogle(account,fireBaseCallBack);
+    }
 
 
 }

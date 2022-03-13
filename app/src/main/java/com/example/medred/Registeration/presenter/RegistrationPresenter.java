@@ -8,6 +8,7 @@ import com.example.medred.model.RepositoryInterface;
 import com.example.medred.model.User;
 import com.example.medred.network.FirebaseManager;
 import com.example.medred.network.FirebaseSource;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 public class RegistrationPresenter implements RegisterationPresenterInterface  {
     RepositoryInterface repo;
@@ -24,13 +25,24 @@ public class RegistrationPresenter implements RegisterationPresenterInterface  {
            @Override
            public void onCallBack(boolean stored) {
                Log.i("TAG",result+"Result");
-               view.GoToHome(result);
+               view.GoToHome(stored);
            }
        });
 
 
                 // Boolean success=repo.authunticateUser(user);
                 //view.GoToHome(success);
+    }
+
+    @Override
+    public void RegistrationGoogle(GoogleSignInAccount account) {
+        result=repo.RegisterationGoogle(account, new FirebaseManager.FireBaseCallBack() {
+            @Override
+            public void onCallBack(boolean stored) {
+                Log.i("TAG",result+"Result");
+                view.GoToHome(stored);
+            }
+        });
     }
 
 
