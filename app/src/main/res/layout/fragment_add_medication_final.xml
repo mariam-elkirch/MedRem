@@ -33,7 +33,7 @@
             android:inputType="number"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+            app:layout_constraintTop_toBottomOf="@+id/reasonsET" />
 
 
         <CheckBox
@@ -121,7 +121,7 @@
             app:layout_constraintVertical_bias="0.952" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/reasonsET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"

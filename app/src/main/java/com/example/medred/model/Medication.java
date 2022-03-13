@@ -1,36 +1,89 @@
 package com.example.medred.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.versionedparcelable.VersionedParcelize;
+
 import java.util.ArrayList;
+import java.util.List;
+
+@Entity(tableName = "medication")
 public class Medication {
-    private  String id;
+    @PrimaryKey(autoGenerate = true)
+    private  int id;
+
+    @ColumnInfo(name = "name")
+    @NonNull
     private String name;
-    private int strength;
+
+    @ColumnInfo(name = "strength")
+    @NonNull
+    private String strength;
+
+    @ColumnInfo(name = "unit")
+    @NonNull
     private String unit;
+
+    @ColumnInfo(name = "frequency")
+    @NonNull
     private int frequency;
+
+    @ColumnInfo(name = "imageID")
+    @NonNull
     private int imageID;
 
-    private String numberOfDoses;
-    private String startDate;
-    private String endDate;
-    private ArrayList<String> days;
+    @ColumnInfo(name = "numberOfDoses")
 
-    private ArrayList<String> setAlarm;
+    private int numberOfDoses;
+
+    @ColumnInfo(name = "startDate")
+
+    private String startDate;
+
+    @ColumnInfo(name = "endDate")
+
+    private String endDate;
+
+    @ColumnInfo(name = "days")
+
+    private String days;
+
+    @ColumnInfo(name = "setAlarm")
+
+    private ArrayList<Alarm> setAlarm;
+
+    @ColumnInfo(name = "pillEachDose")
+
     private ArrayList<String> pillEachDose;
 
+    @ColumnInfo(name = "reason")
     private String reason;
+
+    @ColumnInfo(name = "pillStock")
+
     private String pillStock;
+
+    @ColumnInfo(name = "refillReminder")
     private boolean refillReminder;
+
+    @ColumnInfo(name = "leftPillReminder")
+
     private String leftPillReminder;
+
+    @ColumnInfo(name = "alarmRefillTime")
+
     private String alarmRefillTime;
 
     public Medication() {
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -42,11 +95,11 @@ public class Medication {
         this.name = name;
     }
 
-    public int getStrength() {
+    public String getStrength() {
         return strength;
     }
 
-    public void setStrength(int strength) {
+    public void setStrength(String strength) {
         this.strength = strength;
     }
 
@@ -74,11 +127,11 @@ public class Medication {
         this.imageID = imageID;
     }
 
-    public String getNumberOfDoses() {
+    public int getNumberOfDoses() {
         return numberOfDoses;
     }
 
-    public void setNumberOfDoses(String numberOfDoses) {
+    public void setNumberOfDoses(int numberOfDoses) {
         this.numberOfDoses = numberOfDoses;
     }
 
@@ -98,19 +151,19 @@ public class Medication {
         this.endDate = endDate;
     }
 
-    public ArrayList<String> getDays() {
+    public String getDays() {
         return days;
     }
 
-    public void setDays(ArrayList<String> days) {
+    public void setDays(String days) {
         this.days = days;
     }
 
-    public ArrayList<String> getSetAlarm() {
+    public ArrayList<Alarm> getSetAlarm() {
         return setAlarm;
     }
 
-    public void setSetAlarm(ArrayList<String> setAlarm) {
+    public void setSetAlarm(ArrayList<Alarm> setAlarm) {
         this.setAlarm = setAlarm;
     }
 
@@ -162,8 +215,8 @@ public class Medication {
         this.alarmRefillTime = alarmRefillTime;
     }
 
-    public Medication(String id, String name, int strength, String unit, int frequency, int imageID, String numberOfDoses, String startDate, String endDate, ArrayList<String> days, ArrayList<String> setAlarm, ArrayList<String> pillEachDose, String reason, String pillStock, boolean refillReminder, String leftPillReminder, String alarmRefillTime) {
-        this.id = id;
+    public Medication( String name, String strength, String unit, int frequency, int imageID, int numberOfDoses, String startDate, String endDate, String days, ArrayList<Alarm> setAlarm, ArrayList<String> pillEachDose, String reason, String pillStock, boolean refillReminder, String leftPillReminder, String alarmRefillTime) {
+        //this.id = id;
         this.name = name;
         this.strength = strength;
         this.unit = unit;
