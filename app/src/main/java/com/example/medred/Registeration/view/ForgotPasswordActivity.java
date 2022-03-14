@@ -12,14 +12,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.medred.R;
+import com.example.medred.Registeration.presenter.RegistrationPresenter;
+import com.example.medred.model.Repository;
+import com.example.medred.network.FirebaseManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ForgotPasswordActivity extends AppCompatActivity {
+public class ForgotPasswordActivity extends AppCompatActivity implements ForgotPasswordViewInterface{
     protected EditText email;
     protected Button recover;
-
+    RegistrationPresenter registrationPresenter;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
     @Override
@@ -29,11 +32,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         recover=findViewById(R.id.recoverButton);
         email=findViewById(R.id.email_editText);
-
+        registrationPresenter=new RegistrationPresenter(Repository.getInstance(this, FirebaseManager.getInstance(this),null), this);
         firebaseAuth = FirebaseAuth.getInstance();
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Please wait");
-        progressDialog.setCanceledOnTouchOutside(false);
+      //  progressDialog = new ProgressDialog(this);
+       // progressDialog.setTitle("Please wait");
+       // progressDialog.setCanceledOnTouchOutside(false);
 
 
 
@@ -52,23 +55,15 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             Toast.makeText(this, "Invalid Email", Toast.LENGTH_SHORT).show();
             return;
         }
-        progressDialog.setMessage("Sending instructions to reset passwords");
-        progressDialog.show();
+       // progressDialog.setMessage("Sending instructions to reset passwords");
+       // progressDialog.show();
+          forgotPassword(Email);
 
-        firebaseAuth.sendPasswordResetEmail(Email)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        progressDialog.dismiss();
-                        Toast.makeText(ForgotPasswordActivity.this, "Password reset instructions sent to your email", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(ForgotPasswordActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+    }
+
+    @Override
+    public void forgotPassword(String email) {
+            registrationPresenter.forgotPassword(email);
+
     }
 }

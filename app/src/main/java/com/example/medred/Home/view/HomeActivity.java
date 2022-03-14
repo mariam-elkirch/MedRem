@@ -70,7 +70,7 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_logout:
                         FirebaseAuth.getInstance().signOut();
-
+                        navUsername.setText("Guest");
                         //fabb.hide();
 
 
