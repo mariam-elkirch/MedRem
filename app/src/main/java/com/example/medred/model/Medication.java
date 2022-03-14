@@ -2,7 +2,7 @@ package com.example.medred.model;
 
 import java.util.ArrayList;
 public class Medication {
-    private  String id;
+    private String id;
     private String name;
     private int strength;
     private String unit;
