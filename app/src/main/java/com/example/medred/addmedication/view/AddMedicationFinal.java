@@ -181,17 +181,22 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
             Log.d("TAG", "checkMedication: "+medicationMain.getStartDate());
             Log.d("TAG", "checkMedication: "+medicationMain.getEndDate());
             Log.d("TAG", "checkMedication: "+medicationMain.getDays());
-            for(int i = 0 ; i<medicationMain.getSetAlarm().size();i++){
-                Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().get(i).getHour());
-                Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().get(i).getMinute());
-                Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().get(i).getFormat());
-            }
+
+            if(medicationMain.getFrequency()==2 || medicationMain.getFrequency()==3){
+                for(int i = 0 ; i<medicationMain.getSetAlarm().size();i++){
+                    Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().get(i).getHour());
+                    Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().get(i).getMinute());
+                    Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().get(i).getFormat());
+                }
 //            Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().getHour());
 //            Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().getMinute());
 //            Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().getFormat());
-            for(int i = 0 ; i<medicationMain.getPillEachDose().size();i++){
-                Log.d("TAG", "medication doses : "+medicationMain.getPillEachDose().get(i));
+                for(int i = 0 ; i<medicationMain.getPillEachDose().size();i++){
+                    Log.d("TAG", "medication doses : "+medicationMain.getPillEachDose().get(i));
+                }
             }
+
+
             //Log.d("TAG", "checkMedication: "+medicationMain.getPillEachDose());
 
             Log.d("TAG", "checkMedication: "+medicationMain.getReason());
