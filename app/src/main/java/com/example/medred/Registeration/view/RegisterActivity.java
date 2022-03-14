@@ -116,28 +116,6 @@ public class RegisterActivity extends AppCompatActivity implements Registeration
             }
         }
     }
-  /*  private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
-
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        auth.signInWithCredential(credential)
-                .addOnCompleteListener(RegisterActivity.this,new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(RegisterActivity.this, "Register Successfully", Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = auth.getCurrentUser();
-
-                           storeFirebaseDataGoogle(account.getDisplayName(),account.getEmail(),auth.getUid());
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(RegisterActivity.this, "failure", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                });
-    }*/
 
 
     private void inputData() {
@@ -170,65 +148,6 @@ public class RegisterActivity extends AppCompatActivity implements Registeration
 
 
 
-
-   /* private void storeFirebaseData() {
-        progressDialog.setMessage("Saving Account Info ...");
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("uid",""+auth.getUid());
-        hashMap.put("name",""+NameText);
-        hashMap.put("email",""+EmailText);
-        hashMap.put("password",""+PasswordText);
-
-        DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("user");
-        databaseReference.child(auth.getUid()).setValue(hashMap)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        //db updated
-                        progressDialog.dismiss();
-                        startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(RegisterActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                });
-
-    }
-    private void storeFirebaseDataGoogle(String name, String email,String id) {
-        progressDialog.setMessage("Saving Account Info ...");
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("uid",""+id);
-        hashMap.put("name",""+name);
-        hashMap.put("email",""+email);
-        hashMap.put("password",""+"Password");
-
-        DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("user");
-        databaseReference.child(auth.getUid()).setValue(hashMap)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        //db updated
-                        progressDialog.dismiss();
-                        startActivity(new Intent(RegisterActivity.this,HomeActivity.class));
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(RegisterActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                });
-
-    }*/
 
     private void initView() {
         mNameEdittext = findViewById(R.id.name_editText);

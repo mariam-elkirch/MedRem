@@ -23,14 +23,24 @@ public class Repository implements RepositoryInterface{
         return  repo;
     }
     @Override
-    public Boolean authunticateUser(User user, FirebaseManager.FireBaseCallBack fireBaseCallBack) {
+    public void authunticateUser(User user, FirebaseManager.FireBaseCallBack fireBaseCallBack) {
          // fireBaseCallBack.onCallBack(firebaseSource);
-       return  firebaseSource.authunticateUser(user,fireBaseCallBack);
+         firebaseSource.authunticateUser(user,fireBaseCallBack);
     }
 
     @Override
-    public Boolean RegisterationGoogle(GoogleSignInAccount account, FirebaseManager.FireBaseCallBack fireBaseCallBack) {
-        return  firebaseSource.RegisterationGoogle(account,fireBaseCallBack);
+    public void RegisterationGoogle(GoogleSignInAccount account, FirebaseManager.FireBaseCallBack fireBaseCallBack) {
+        firebaseSource.RegisterationGoogle(account,fireBaseCallBack);
+    }
+
+    @Override
+    public void loginEmailPassword(String email, String password, FirebaseManager.FireBaseCallBack fireBaseCallBack) {
+       firebaseSource.loginEmailPassword(email,password,fireBaseCallBack);
+    }
+
+    @Override
+    public void forgotPassword(String email) {
+      firebaseSource.forgotPassword(email);
     }
 
 

@@ -9,6 +9,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.medred.Home.view.HomeActivity;
+import com.example.medred.Registeration.view.ForgotPasswordActivity;
+import com.example.medred.Registeration.view.LoginActivity;
 import com.example.medred.Registeration.view.RegisterActivity;
 import com.example.medred.model.User;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -35,6 +37,7 @@ public class FirebaseManager implements  FirebaseSource {
     Context context;
     Boolean stored=false;
     Boolean success=false;
+
     private  static FirebaseSource instance=null;
     private FirebaseManager(Context context){
       this.context=context;
@@ -46,9 +49,8 @@ public class FirebaseManager implements  FirebaseSource {
     }
 
     @Override
-    public Boolean authunticateUser(User user,FireBaseCallBack fireBaseCallBack) {
-     //   progressDialog.setMessage("Creating Account...");
-      //  progressDialog.show();
+    public void authunticateUser(User user,FireBaseCallBack fireBaseCallBack) {
+
         auth = FirebaseAuth.getInstance();
        // progressDialog = new ProgressDialog(context);
 
@@ -95,11 +97,11 @@ public class FirebaseManager implements  FirebaseSource {
                         fireBaseCallBack.onCallBack(stored);
                     }
                 });
-        return stored;
+       // return stored;
     }
 
     @Override
-    public Boolean RegisterationGoogle(GoogleSignInAccount account, FireBaseCallBack fireBaseCallBack) {
+    public void RegisterationGoogle(GoogleSignInAccount account, FireBaseCallBack fireBaseCallBack) {
         auth = FirebaseAuth.getInstance();
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         auth.signInWithCredential(credential)
@@ -147,7 +149,48 @@ public class FirebaseManager implements  FirebaseSource {
                         }
                     }
                 });
-        return  stored;
+        //return  stored;
+    }
+
+    @Override
+    public void loginEmailPassword(String email, String password,FireBaseCallBack fireBaseCallBack) {
+        auth = FirebaseAuth.getInstance();
+       auth.signInWithEmailAndPassword(email,password)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        success = true;
+                        fireBaseCallBack.onCallBack(success);
+                        Log.i("TAG", success + "Result");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // progressDialog.dismiss();
+                        Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    @Override
+    public void forgotPassword(String email) {
+        auth = FirebaseAuth.getInstance();
+       auth.sendPasswordResetEmail(email)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                      //  progressDialog.dismiss();
+                        Toast.makeText(context, "Password reset instructions sent to your email", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                      //  progressDialog.dismiss();
+                        Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     public interface FireBaseCallBack {

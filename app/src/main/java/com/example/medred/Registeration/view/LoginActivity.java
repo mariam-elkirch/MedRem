@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 import com.example.medred.Home.view.HomeActivity;
 import com.example.medred.R;
+import com.example.medred.Registeration.presenter.RegistrationPresenter;
+import com.example.medred.model.Repository;
+import com.example.medred.network.FirebaseManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -36,7 +39,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements  LoginViewInterface{
     private static final int RC_SIGN_IN =200;
     private AppCompatEditText mEmailEdittext;
     private AppCompatEditText mPasswordEdit;
@@ -49,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private String Email, Password;
     GoogleSignInClient mGoogleSignInClient;
+    RegistrationPresenter registrationPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait..");
         progressDialog.setCanceledOnTouchOutside(false);
+        registrationPresenter=new RegistrationPresenter(Repository.getInstance(this, FirebaseManager.getInstance(this)), this);
         mForgetPassText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,64 +115,15 @@ public class LoginActivity extends AppCompatActivity {
 
                 GoogleSignInAccount account = task.getResult(ApiException.class);
 
-                firebaseAuthWithGoogle(account);
+                sendCredintalGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Toast.makeText(LoginActivity.this, "fail", Toast.LENGTH_SHORT).show();
             }
         }
     }
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
 
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(LoginActivity.this,new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                            storeFirebaseDataGoogle(account.getDisplayName(),account.getEmail(),firebaseAuth.getUid());
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(LoginActivity.this, "failure", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                });
-    }
-    private void storeFirebaseDataGoogle(String name, String email,String id) {
-        progressDialog.setMessage("Saving Account Info ...");
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("uid",""+id);
-        hashMap.put("name",""+name);
-        hashMap.put("email",""+email);
-        hashMap.put("password",""+"Password");
-
-        DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("user");
-        databaseReference.child(firebaseAuth.getUid()).setValue(hashMap)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        //db updated
-                        progressDialog.dismiss();
-                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(LoginActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                });
-
-    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -188,26 +144,11 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this,"Enter password",Toast.LENGTH_SHORT).show();
             return;
         }
+          loginEmailPassword(Email,Password);
+      //  progressDialog.setMessage("Logging in");
+       // progressDialog.show();
 
-        progressDialog.setMessage("Logging in");
-        progressDialog.show();
 
-        firebaseAuth.signInWithEmailAndPassword(Email,Password)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        progressDialog.dismiss();
-                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(LoginActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
     }
     private void initView() {
         mEmailEdittext = findViewById(R.id.email_editText);
@@ -217,5 +158,24 @@ public class LoginActivity extends AppCompatActivity {
         mDontHaveAccount = findViewById(R.id.dont_have_account);
        mGoogleIcon = findViewById(R.id.google_icon);
 
+    }
+
+    @Override
+    public void loginEmailPassword(String email, String password) {
+        registrationPresenter.loginEmailPassword(email,password);
+    }
+
+    @Override
+    public void GoToHome(Boolean succes) {
+       // progressDialog.dismiss();
+        if(succes){
+        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+        finish();}
+
+    }
+
+    @Override
+    public void sendCredintalGoogle(GoogleSignInAccount account) {
+             registrationPresenter.LoginGoogle(account);
     }
 }
