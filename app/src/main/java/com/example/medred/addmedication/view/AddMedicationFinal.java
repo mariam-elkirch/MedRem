@@ -24,11 +24,8 @@ import com.example.medred.R;
 import com.example.medred.addmedication.presenter.AddMedicationPresenterInterface;
 import com.example.medred.addmedication.presenter.MedicationPresenter;
 import com.example.medred.db.ConcreteLocalSource;
-import com.example.medred.db.LocalSource;
 import com.example.medred.model.Medication;
-import com.example.medred.model.MedicationRepository;
-import com.example.medred.model.MedicationRepositoryInterface;
-import com.example.medred.network.RemoteResource;
+import com.example.medred.model.Repository;
 
 
 public class AddMedicationFinal extends Fragment implements AddMedicationViewInterface {
@@ -74,7 +71,9 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
         reasonsET=view.findViewById(R.id.reasonsET);
         addMedicationActivity = new AddMedicationActivity();
 
-        addMedicationPresenterInterface = new MedicationPresenter(this, MedicationRepository.getInstance(ConcreteLocalSource.getInstance(getContext()),getContext()));
+        addMedicationPresenterInterface = new MedicationPresenter(this,
+                Repository.getInstance(getContext(),null,
+                        ConcreteLocalSource.getInstance(getContext())));
 
 
         refillReminderTV.setOnClickListener(new View.OnClickListener() {

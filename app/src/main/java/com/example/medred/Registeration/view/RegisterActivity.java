@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity implements Registeration
         auth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
         initView();
-        registrationPresenter=new RegistrationPresenter(Repository.getInstance(this,FirebaseManager.getInstance(this)), this);
+        registrationPresenter=new RegistrationPresenter(Repository.getInstance(this,FirebaseManager.getInstance(this),null), this);
         mGoogleIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

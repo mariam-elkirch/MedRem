@@ -1,5 +1,6 @@
 package com.example.medred.medicationsList.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.medred.addmedication.view.AddMedicationActivity;
 import com.example.medred.databinding.FragmentMedicationsListBinding;
 import com.example.medred.medicationsList.presenter.MedicationsListIPresenterInterface;
 import com.example.medred.medicationsList.presenter.MedicationsListPresenter;
@@ -24,7 +26,8 @@ public class MedicationsListFragment extends Fragment implements OnMedicationCli
 
     private FragmentMedicationsListBinding binding;
     private MedicationsListAdapter activeListAdapter,inactiveListAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.LayoutManager activeLayoutManager;
+    private RecyclerView.LayoutManager inActiveLayoutManager;
     private MedicationsListIPresenterInterface medsPresenter;
 
     @Override
@@ -52,10 +55,11 @@ public class MedicationsListFragment extends Fragment implements OnMedicationCli
         binding.tvInactiveMeds.setVisibility(View.GONE);
         binding.rvInactiveMeds.setVisibility(View.GONE);
 
-        layoutManager = new LinearLayoutManager(MedicationsListFragment.this.getContext());
+        activeLayoutManager = new LinearLayoutManager(MedicationsListFragment.this.getContext());
+        inActiveLayoutManager = new LinearLayoutManager(MedicationsListFragment.this.getContext());
 
-        binding.rvActiveMeds.setLayoutManager(layoutManager);
-        binding.rvInactiveMeds.setLayoutManager(layoutManager);
+        binding.rvActiveMeds.setLayoutManager(activeLayoutManager);
+        binding.rvInactiveMeds.setLayoutManager(inActiveLayoutManager);
 
         binding.rvActiveMeds.setAdapter(activeListAdapter);
         binding.rvInactiveMeds.setAdapter(inactiveListAdapter);
@@ -64,6 +68,14 @@ public class MedicationsListFragment extends Fragment implements OnMedicationCli
         medsPresenter.getActiveMedications(this);
         medsPresenter.getInactiveMedications(this);
 
+        binding.btnAddMed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddMedicationActivity.class);
+                startActivity(intent);
+
+            }
+        });
         //TODO: complete the presenter & dependant functionalities
     }
 
