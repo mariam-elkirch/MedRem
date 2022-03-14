@@ -1,5 +1,7 @@
 package com.example.medred.addmedication.view;
 
+import static com.example.medred.addmedication.view.AddMedicationActivity.medicationMain;
+
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 
 import com.example.medred.R;
@@ -31,6 +34,7 @@ public class EveryDayFragment extends Fragment {
     Spinner doseSpinnerEV;
     String itemDoseEV;
     public static int numberOfDoseEV;
+    SetAlarmFragment setAlarmFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -142,20 +146,29 @@ public class EveryDayFragment extends Fragment {
         String setStartStr = setStartEV.getText().toString();
         String setEndStr = setEndEV.getText().toString();
         if (!setStartStr.trim().isEmpty() && !setEndStr.trim().isEmpty() && numberOfDoseEV != 0) {
-            replaceFragment(new SetAlarmFragment(numberOfDoseEV));
+            //replaceFragment(new SetAlarmFragment(numberOfDoseEV));
             Toast.makeText(getContext(), "num is" + numberOfDoseEV, Toast.LENGTH_SHORT).show();
+           // Navigation.findNavController(view).navigate(R.id.action_everyDayFragment_to_setAlarmFragment);
+            medicationMain.setNumberOfDoses(numberOfDoseEV);
+            medicationMain.setStartDate(setStartStr);
+            medicationMain.setEndDate(setEndStr);
+            replaceFragment(new SetAlarmFragment(numberOfDoseEV));
+
+
         } else {
             Toast.makeText(getContext(), "please fill all fields", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void replaceFragment(Fragment someFragment) {
+        public void replaceFragment(Fragment someFragment) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainer, someFragment);
+        transaction.replace(R.id.fragmentContainerView, someFragment);
         transaction.addToBackStack(null);
         transaction.commit();
 
     }
+
+
 
 }
 

@@ -1,5 +1,7 @@
 package com.example.medred.addmedication.view;
 
+import static com.example.medred.addmedication.view.AddMedicationActivity.medicationMain;
+
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 
 import com.example.medred.R;
@@ -222,19 +225,25 @@ public class IntervalFragment extends Fragment {
         String endIntStr = endInt.getText().toString();
         String choosenStr = choosenInt.getText().toString();
         if(!startIntStr.trim().isEmpty()&&!endIntStr.trim().isEmpty()&&numberOfDosesInt!=0&&!choosenStr.trim().isEmpty()){
+            medicationMain.setNumberOfDoses(numberOfDosesInt);
+            medicationMain.setStartDate(startIntStr);
+            medicationMain.setEndDate(endIntStr);
+            medicationMain.setDays(choosenStr);
             replaceFragment(new SetAlarmFragment(numberOfDosesInt));
+           // Navigation.findNavController(view).navigate(R.id.action_intervalFragment_to_setAlarmFragment);
         }
         else{
             Toast.makeText(getContext(), "please fill all fields", Toast.LENGTH_SHORT).show();
         }
     }
+
     public void replaceFragment(Fragment someFragment) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainer, someFragment);
+        transaction.replace(R.id.fragmentContainerView, someFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-    }
 
+    }
 
 
 

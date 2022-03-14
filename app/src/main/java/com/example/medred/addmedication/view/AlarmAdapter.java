@@ -1,5 +1,7 @@
 package com.example.medred.addmedication.view;
 
+import static com.example.medred.addmedication.view.AddMedicationActivity.medicationMain;
+
 import android.app.TimePickerDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,6 +33,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
     int selectedHour, selectedMinute;
     ArrayList<String> arrayListNumber = new ArrayList<String>();
     ArrayList<String> arrayListDate = new ArrayList<String>();
+    Alarm alarmItem;
+    ArrayList<Alarm> arrayListAlarm = new ArrayList<Alarm>();
 
 
     public AlarmAdapter() {
@@ -73,10 +77,13 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
                             format = "AM";
                         }
                         //holder.alarmSetTV.setText(String.format(Locale.getDefault(),"%02d:%02d",hour,minute));
-                        holder.alarmSetTV.setText(selectedHour+" : "+selectedMinute+" "+format);
+                        holder.alarmSetTV.setText(selectedHour+":"+selectedMinute+":"+format);
                         holder.alarmSetTV.setVisibility(View.VISIBLE);
                         time = holder.alarmSetTV.getText().toString();
                         arrayListDate.add(time);
+                        alarmItem= new Alarm(selectedHour,selectedMinute,format);
+                        arrayListAlarm.add(alarmItem);
+
 
 
                         holder.numberPillsED.addTextChangedListener(new TextWatcher() {
@@ -87,13 +94,20 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
                             @Override
                             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                                 numDoses= holder.numberPillsED.getText().toString();
+
                                // Log.d("TAG", "onTimeSet: "+numDoses);
-                                arrayListNumber.add(numDoses);
+//                                arrayListNumber.add(numDoses);
+//                                Log.d("TAG", "onTimeSet: "+numDoses);
                             }
 
                             @Override
                             public void afterTextChanged(Editable editable) {
+//                            numDoses= holder.numberPillsED.getText().toString();
+                               // Log.d("TAG", "onTimeSet: "+numDoses);
+//                                arrayListNumber.add(numDoses);
+                                arrayListNumber.add(numDoses);
                             }
+
                         });
 
 
@@ -105,7 +119,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
             }
         });
 
-        alarmCheck();
+        //alarmCheck();
     }
 
             @Override
@@ -145,15 +159,21 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
 
         int reInt=0;
 
+
+
         if(numDoses!=null&&!numDoses.trim().isEmpty()&& !time.trim().isEmpty()){
             reInt=1;
-            for(int i = 0 ; i < arrayListDate.size();i++){
-                Log.d("TAG", "item date is:"+ arrayListDate.get(i));
+            for(int i = 0 ; i < arrayListAlarm.size();i++){
+                Log.d("TAG", "item date is:"+ arrayListAlarm.get(i));
+                Log.d("TAG", "alarmCheck: "+arrayListAlarm.get(i));
+                medicationMain.setSetAlarm(arrayListAlarm);
             }
             for(int i = 0 ; i < arrayListNumber.size();i++){
                 Log.d("TAG", "item number is:"+ arrayListNumber.get(i));
+                medicationMain.setPillEachDose(arrayListNumber);
             }
 
+           // medicationMain.setSetAlarm(alarmItem);
 
         }
         return reInt;

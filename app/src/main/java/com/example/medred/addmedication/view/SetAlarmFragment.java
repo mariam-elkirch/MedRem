@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,6 +55,7 @@ public class SetAlarmFragment extends Fragment {
 
                if(alarmAdapter.alarmCheck()==1){
                    replaceFragment(new AddMedicationFinal());
+                   //Navigation.findNavController(view).navigate(R.id.action_setAlarmFragment_to_addMedicationFinal);
                } else{
                    Toast.makeText(getContext(), "please fill all fields", Toast.LENGTH_SHORT).show();
                }
@@ -75,7 +77,7 @@ public class SetAlarmFragment extends Fragment {
     public void replaceFragment(Fragment someFragment) {
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainer, someFragment);
+        transaction.replace(R.id.fragmentContainerView, someFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
