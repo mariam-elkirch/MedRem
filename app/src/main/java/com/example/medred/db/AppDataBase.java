@@ -17,7 +17,7 @@ public abstract class AppDataBase extends RoomDatabase {
     public abstract MedicationDAO medicationDAO();
     public static synchronized AppDataBase getInstance(Context context){
         if (appDataBase == null){
-            appDataBase = Room.databaseBuilder(context.getApplicationContext(), AppDataBase.class,"medication").build();
+            appDataBase = Room.databaseBuilder(context.getApplicationContext(), AppDataBase.class,"medications").build();
         }
         return appDataBase;
     }

@@ -1,5 +1,6 @@
 package com.example.medred.medicationsList.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.medred.addmedication.view.AddMedicationActivity;
 import com.example.medred.databinding.FragmentMedicationsListBinding;
 import com.example.medred.medicationsList.presenter.MedicationsListIPresenterInterface;
 import com.example.medred.medicationsList.presenter.MedicationsListPresenter;
@@ -63,7 +65,13 @@ public class MedicationsListFragment extends Fragment implements OnMedicationCli
         medsPresenter = new MedicationsListPresenter(this);
         medsPresenter.getActiveMedications(this);
         medsPresenter.getInactiveMedications(this);
-
+        binding.btnAddMed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddMedicationActivity.class);
+                startActivity(intent);
+            }
+        });
         //TODO: complete the presenter & dependant functionalities
     }
 

@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity implements  LoginViewInterf
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait..");
         progressDialog.setCanceledOnTouchOutside(false);
-        registrationPresenter=new RegistrationPresenter(Repository.getInstance(this, FirebaseManager.getInstance(this)), this);
+        registrationPresenter=new RegistrationPresenter(Repository.getInstance(this, FirebaseManager.getInstance(this),null), this);
         mForgetPassText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

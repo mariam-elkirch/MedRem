@@ -32,7 +32,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements ForgotP
 
         recover=findViewById(R.id.recoverButton);
         email=findViewById(R.id.email_editText);
-        registrationPresenter=new RegistrationPresenter(Repository.getInstance(this, FirebaseManager.getInstance(this)), this);
+        registrationPresenter=new RegistrationPresenter(Repository.getInstance(this, FirebaseManager.getInstance(this),null), this);
         firebaseAuth = FirebaseAuth.getInstance();
       //  progressDialog = new ProgressDialog(this);
        // progressDialog.setTitle("Please wait");
