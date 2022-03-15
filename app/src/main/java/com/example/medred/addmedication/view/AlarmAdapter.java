@@ -32,7 +32,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
     public static int numD;
     int selectedHour, selectedMinute;
     ArrayList<String> arrayListNumber = new ArrayList<String>();
-    ArrayList<String> arrayListDate = new ArrayList<String>();
+    //ArrayList<String> arrayListDate = new ArrayList<String>();
     Alarm alarmItem;
     ArrayList<Alarm> arrayListAlarm = new ArrayList<Alarm>();
 
@@ -80,7 +80,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
                         holder.alarmSetTV.setText(selectedHour+":"+selectedMinute+":"+format);
                         holder.alarmSetTV.setVisibility(View.VISIBLE);
                         time = holder.alarmSetTV.getText().toString();
-                        arrayListDate.add(time);
+                        //arrayListDate.add(time);
                         alarmItem= new Alarm(selectedHour,selectedMinute,format);
                         arrayListAlarm.add(alarmItem);
 
