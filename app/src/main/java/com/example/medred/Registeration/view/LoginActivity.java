@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.medred.Home.view.HomeActivity;
 import com.example.medred.R;
 import com.example.medred.Registeration.presenter.RegistrationPresenter;
+import com.example.medred.db.ConcreteLocalSource;
 import com.example.medred.model.Repository;
 import com.example.medred.network.FirebaseManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -62,7 +63,7 @@ public class LoginActivity extends AppCompatActivity implements  LoginViewInterf
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait..");
         progressDialog.setCanceledOnTouchOutside(false);
-        registrationPresenter=new RegistrationPresenter(Repository.getInstance(this, FirebaseManager.getInstance(this),null), this);
+        registrationPresenter=new RegistrationPresenter(Repository.getInstance(this, FirebaseManager.getInstance(this), ConcreteLocalSource.getInstance(this)), this);
         mForgetPassText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

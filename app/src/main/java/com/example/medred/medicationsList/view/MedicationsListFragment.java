@@ -26,7 +26,8 @@ public class MedicationsListFragment extends Fragment implements OnMedicationCli
 
     private FragmentMedicationsListBinding binding;
     private MedicationsListAdapter activeListAdapter,inactiveListAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.LayoutManager activeLayoutManager;
+    private RecyclerView.LayoutManager inActiveLayoutManager;
     private MedicationsListIPresenterInterface medsPresenter;
 
     @Override
@@ -54,10 +55,11 @@ public class MedicationsListFragment extends Fragment implements OnMedicationCli
         binding.tvInactiveMeds.setVisibility(View.GONE);
         binding.rvInactiveMeds.setVisibility(View.GONE);
 
-        layoutManager = new LinearLayoutManager(MedicationsListFragment.this.getContext());
+        activeLayoutManager = new LinearLayoutManager(MedicationsListFragment.this.getContext());
+        inActiveLayoutManager = new LinearLayoutManager(MedicationsListFragment.this.getContext());
 
-        binding.rvActiveMeds.setLayoutManager(layoutManager);
-        binding.rvInactiveMeds.setLayoutManager(layoutManager);
+        binding.rvActiveMeds.setLayoutManager(activeLayoutManager);
+        binding.rvInactiveMeds.setLayoutManager(inActiveLayoutManager);
 
         binding.rvActiveMeds.setAdapter(activeListAdapter);
         binding.rvInactiveMeds.setAdapter(inactiveListAdapter);
