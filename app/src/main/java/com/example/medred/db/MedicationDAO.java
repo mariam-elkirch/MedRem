@@ -23,4 +23,10 @@ public interface MedicationDAO {
 
     @Delete
     void deleteMedication(Medication medicationModel);
+
+    @Query("SELECT * FROM medication WHERE (:time BETWEEN startDateInMillis AND endDateInMillis) AND isActive = 1")
+    LiveData<List<Medication>> getActiveMedications(long time);
+
+    @Query("SELECT * FROM medication WHERE (:time < startDateInMillis OR :time > endDateInMillis) OR isActive = 0")
+    LiveData<List<Medication>> getInactiveMedications(long time);
 }

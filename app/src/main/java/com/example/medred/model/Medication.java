@@ -34,6 +34,10 @@ public class Medication {
     @NonNull
     private int imageID;
 
+    @ColumnInfo(name = "isActive")
+    @NonNull
+    private boolean isActive;
+
     @ColumnInfo(name = "numberOfDoses")
 
     private int numberOfDoses;
@@ -45,6 +49,14 @@ public class Medication {
     @ColumnInfo(name = "endDate")
 
     private String endDate;
+
+    @ColumnInfo(name = "startDateInMillis")
+
+    private long startDateInMillis;
+
+    @ColumnInfo(name = "endDateInMillis")
+
+    private long endDateInMillis;
 
     @ColumnInfo(name = "days")
 
@@ -215,7 +227,35 @@ public class Medication {
         this.alarmRefillTime = alarmRefillTime;
     }
 
-    public Medication( String name, String strength, String unit, int frequency, int imageID, int numberOfDoses, String startDate, String endDate, String days, ArrayList<Alarm> setAlarm, ArrayList<String> pillEachDose, String reason, String pillStock, boolean refillReminder, String leftPillReminder, String alarmRefillTime) {
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public long getStartDateInMillis() {
+        return startDateInMillis;
+    }
+
+    public void setStartDateInMillis(long startDateInMillis) {
+        this.startDateInMillis = startDateInMillis;
+    }
+
+    public long getEndDateInMillis() {
+        return endDateInMillis;
+    }
+
+    public void setEndDateInMillis(long endDateInMillis) {
+        this.endDateInMillis = endDateInMillis;
+    }
+
+    public Medication(String name, String strength, String unit, int frequency,
+                      int imageID, int numberOfDoses, String startDate, String endDate, long startDateInMillis,
+                      long endDateInMillis, String days, ArrayList<Alarm> setAlarm, ArrayList<String> pillEachDose,
+                      String reason, String pillStock, boolean refillReminder, String leftPillReminder,
+                      String alarmRefillTime, boolean isActive) {
         //this.id = id;
         this.name = name;
         this.strength = strength;
@@ -225,6 +265,8 @@ public class Medication {
         this.numberOfDoses = numberOfDoses;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.startDateInMillis = startDateInMillis;
+        this.endDateInMillis = endDateInMillis;
         this.days = days;
         this.setAlarm = setAlarm;
         this.pillEachDose = pillEachDose;
@@ -233,5 +275,6 @@ public class Medication {
         this.refillReminder = refillReminder;
         this.leftPillReminder = leftPillReminder;
         this.alarmRefillTime = alarmRefillTime;
+        this.isActive = isActive;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.medred.addmedication.view;
 
 import static com.example.medred.addmedication.view.AddMedicationActivity.medicationMain;
+import static com.example.medred.model.Utils.convertDateToMillis;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -20,7 +21,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.Navigation;
 
 
 import com.example.medred.R;
@@ -229,6 +229,8 @@ public class IntervalFragment extends Fragment {
             medicationMain.setStartDate(startIntStr);
             medicationMain.setEndDate(endIntStr);
             medicationMain.setDays(choosenStr);
+            medicationMain.setStartDateInMillis(convertDateToMillis(startIntStr));
+            medicationMain.setEndDateInMillis(convertDateToMillis(endIntStr));
             replaceFragment(new SetAlarmFragment(numberOfDosesInt));
            // Navigation.findNavController(view).navigate(R.id.action_intervalFragment_to_setAlarmFragment);
         }
@@ -242,13 +244,5 @@ public class IntervalFragment extends Fragment {
         transaction.replace(R.id.fragmentContainerView, someFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-
     }
-
-
-
-
-
-
-
 }

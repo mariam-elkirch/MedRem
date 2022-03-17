@@ -48,4 +48,14 @@ public class ConcreteLocalSource implements LocalSource{
     public LiveData<List<Medication>> getAllMedications() {
         return medicationModel;
     }
+
+    @Override
+    public LiveData<List<Medication>> getActiveMedications(long time) {
+        return medicationDAO.getActiveMedications(time);
+    }
+
+    @Override
+    public LiveData<List<Medication>> getInactiveMedications(long time) {
+        return medicationDAO.getInactiveMedications(time);
+    }
 }

@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.medred.R;
 import com.example.medred.databinding.MedicationItemBinding;
 import com.example.medred.model.Medication;
 import java.util.List;
@@ -32,14 +33,19 @@ public class MedicationsListAdapter extends RecyclerView.Adapter<MedicationsList
         holder.binding.tvMedicationName.setText(medicine.getName());
         holder.binding.tvMedicationDose.setText(medicine.getStrength()
                 + " " + medicine.getUnit());
-        holder.binding.tvMedicationLeft.setText(medicine.getPillStock());
-        holder.binding.ivMedicationIcon.setImageResource(medicine.getImageID());
+        holder.binding.tvMedicationLeft.setText(medicine.getPillStock() + " left");
+        if(medicine.getImageID() == 0){
+            holder.binding.ivMedicationIcon.setImageResource(R.drawable.ic_baseline_medical_services_24);
+        }else{
+            holder.binding.ivMedicationIcon.setImageResource(medicine.getImageID());
+        }
         holder.binding.btnMedicationEdit.setOnClickListener(view -> {
             listener.onEdit(medicine.getId());
         });
 
         holder.binding.btnMedicationRemove.setOnClickListener(view -> {
-            listener.onDelete(medicine.getId());
+            listener.onDelete(medicine);
+            notifyDataSetChanged();
         });
 
         holder.binding.cvMedicationItem.setOnClickListener(new View.OnClickListener() {

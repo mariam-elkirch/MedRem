@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.example.medred.R;
 import com.example.medred.addmedication.view.AddMedicationActivity;
 import com.example.medred.dependentsList.view.DependantsListFragment;
+import com.example.medred.healthtakerslist.view.HealthTakersListFragment;
 import com.example.medred.medicationsList.view.MedicationsListFragment;
 import com.example.medred.requestsList.view.RequestsListFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -57,7 +58,7 @@ public class HomeActivity extends AppCompatActivity {
                         changeFragment(new HomeFragment());
                         break;
                     case R.id.nav_healthtaker:
-                        changeFragment(new ListFragment());
+                        changeFragment(new HealthTakersListFragment());
                         break;
                     case R.id.nav_medication:
                         changeFragment(new MedicationsListFragment());

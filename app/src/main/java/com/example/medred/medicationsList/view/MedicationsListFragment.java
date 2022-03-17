@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,9 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medred.addmedication.view.AddMedicationActivity;
 import com.example.medred.databinding.FragmentMedicationsListBinding;
+import com.example.medred.db.ConcreteLocalSource;
 import com.example.medred.medicationsList.presenter.MedicationsListIPresenterInterface;
 import com.example.medred.medicationsList.presenter.MedicationsListPresenter;
 import com.example.medred.model.Medication;
+import com.example.medred.model.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +67,8 @@ public class MedicationsListFragment extends Fragment implements OnMedicationCli
         binding.rvActiveMeds.setAdapter(activeListAdapter);
         binding.rvInactiveMeds.setAdapter(inactiveListAdapter);
 
-        medsPresenter = new MedicationsListPresenter(this);
+        medsPresenter = new MedicationsListPresenter(this, Repository.getInstance(this.getContext(),
+                null, ConcreteLocalSource.getInstance(this.getContext())));
         medsPresenter.getActiveMedications(this);
         medsPresenter.getInactiveMedications(this);
         binding.btnAddMed.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +124,8 @@ public class MedicationsListFragment extends Fragment implements OnMedicationCli
     }
 
     @Override
-    public void onDelete(int medicationId) {
-
+    public void onDelete(Medication medication) {
+        medsPresenter.deleteMedication(medication);
+        Toast.makeText(this.getContext(), "medication: " + medication.getName() + " is deleted", Toast.LENGTH_SHORT).show();
     }
 }

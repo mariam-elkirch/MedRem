@@ -7,15 +7,16 @@ import androidx.lifecycle.LiveData;
 import com.example.medred.db.LocalSource;
 import com.example.medred.network.FirebaseManager;
 import com.example.medred.network.FirebaseSource;
+import com.example.medred.network.NetworkDelegate;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import java.util.List;
 
 public class Repository implements RepositoryInterface{
-    FirebaseSource firebaseSource;
+    private FirebaseSource firebaseSource;
     // RemoteSource remoteSource;
-    LocalSource localSource;
-
+    private LocalSource localSource;
+    private NetworkDelegate networkDelegate;
 
     Context context;
     Boolean success=false;
@@ -25,11 +26,19 @@ public class Repository implements RepositoryInterface{
         this.context=context;
         this.localSource=localSource;
     }
+
     public  static  Repository getInstance(Context context, FirebaseSource firebaseSource, LocalSource localSource){
         if(repo==null)
             repo=new Repository(context,firebaseSource,localSource);
         return  repo;
     }
+
+    @Override
+    public void setNetworkDelegate(NetworkDelegate networkDelegate) {
+        this.networkDelegate = networkDelegate;
+        firebaseSource.setNetworkDelegate(networkDelegate);
+    }
+
     @Override
     public void authunticateUser(User user, FirebaseManager.FireBaseCallBack fireBaseCallBack) {
         // fireBaseCallBack.onCallBack(firebaseSource);
@@ -50,9 +59,21 @@ public class Repository implements RepositoryInterface{
     public void forgotPassword(String email) {
         firebaseSource.forgotPassword(email);
     }
+
+
     @Override
     public LiveData<List<Medication>> getAllMedications() {
         return localSource.getAllMedications();
+    }
+
+    @Override
+    public LiveData<List<Medication>> getActiveMedications(long time) {
+        return localSource.getActiveMedications(time);
+    }
+
+    @Override
+    public LiveData<List<Medication>> getInactiveMedications(long time) {
+        return localSource.getInactiveMedications(time);
     }
 
     @Override
@@ -71,6 +92,16 @@ public class Repository implements RepositoryInterface{
     public void deleteMedication(Medication medicationModel) {
 
         localSource.deleteMedication(medicationModel);
+    }
+
+    @Override
+    public void userExistence(String receiverEmail) {
+        firebaseSource.userExistence(receiverEmail);
+    }
+
+    @Override
+    public void addHealthTaker(Request request, String healthTakerEmail) {
+        firebaseSource.sendRequest(request, healthTakerEmail);
     }
 
 }

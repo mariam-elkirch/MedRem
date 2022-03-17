@@ -1,6 +1,7 @@
 package com.example.medred.addmedication.view;
 
 import static com.example.medred.addmedication.view.AddMedicationActivity.medicationMain;
+import static com.example.medred.model.Utils.convertDateToMillis;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -17,7 +18,6 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.Navigation;
 
 
 import com.example.medred.R;
@@ -152,6 +152,8 @@ public class EveryDayFragment extends Fragment {
             medicationMain.setNumberOfDoses(numberOfDoseEV);
             medicationMain.setStartDate(setStartStr);
             medicationMain.setEndDate(setEndStr);
+            medicationMain.setStartDateInMillis(convertDateToMillis(setStartStr));
+            medicationMain.setEndDateInMillis(convertDateToMillis(setEndStr));
             replaceFragment(new SetAlarmFragment(numberOfDoseEV));
 
 

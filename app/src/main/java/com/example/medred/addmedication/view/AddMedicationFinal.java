@@ -139,7 +139,7 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
         pillLeftItem=pillLeftEt.getText().toString();
         String refillStr = dateRefill.getText().toString();
         reasonsETStr=reasonsET.getText().toString();
-
+        medicationMain.setActive(true);
 
         if(constraintFinal.getVisibility() == View.VISIBLE&&!pillStockItem.trim().isEmpty()&&!pillLeftItem.trim().isEmpty()&&!refillStr.trim().isEmpty()){
                 Toast.makeText(getContext(), "Done!", Toast.LENGTH_SHORT).show();

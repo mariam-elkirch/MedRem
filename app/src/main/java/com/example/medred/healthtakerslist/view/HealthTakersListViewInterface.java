@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface HealthTakersListViewInterface {
     void showHealthTakers(List<HealthTaker> healthTakers);
+    void isUserExist(boolean userExistence, String receiverId);
 }
