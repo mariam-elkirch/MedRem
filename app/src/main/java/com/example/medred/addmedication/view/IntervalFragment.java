@@ -250,6 +250,8 @@ public class IntervalFragment extends Fragment {
             intervalMedication.setStartDate(startIntStr);
             intervalMedication.setEndDate(endIntStr);
             intervalMedication.setDays(choosenStr);
+            intervalMedication.setStartDateInMillis(convertDateToMillis(startIntStr));
+            intervalMedication.setEndDateInMillis(convertDateToMillis(endIntStr));
 
             bundle.putSerializable("alarm", intervalMedication);
             Navigation.findNavController(view).navigate(R.id.action_intervalFragment_to_setAlarmFragment);

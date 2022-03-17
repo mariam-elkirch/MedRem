@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 
 import com.example.medred.R;
@@ -186,6 +187,8 @@ public class EveryDayFragment extends Fragment {
             everydayMedication.setNumberOfDoses(numberOfDoseEV);
             everydayMedication.setStartDate(setStartStr);
             everydayMedication.setEndDate(setEndStr);
+            everydayMedication.setStartDateInMillis(convertDateToMillis(setStartStr));
+            everydayMedication.setEndDateInMillis(convertDateToMillis(setEndStr));
             bundle.putSerializable("alarm", everydayMedication);
             Navigation.findNavController(view).navigate(R.id.action_everyDayFragment_to_setAlarmFragment,bundle);
 
