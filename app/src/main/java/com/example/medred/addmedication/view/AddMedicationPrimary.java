@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 
 import com.example.medred.R;
+import com.example.medred.model.Medication;
 
 import java.util.ArrayList;
 
@@ -58,6 +59,9 @@ public class AddMedicationPrimary extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 unitMedItem=adapterView.getItemAtPosition(i).toString();
                 switch (unitMedItem){
+//                    case "Choose Unit":
+//                        Toast.makeText(getContext(), "no fragment selected" + unitMedItem, Toast.LENGTH_SHORT).show();
+//                        break;
                     case "g":
                         Log.d("TAG", "onItemSelected: "+unitMedItem);
                         break;
@@ -89,6 +93,9 @@ public class AddMedicationPrimary extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 frequencyItem=adapterView.getItemAtPosition(i).toString();
                 switch (frequencyItem){
+//                    case "Choose Frequency":
+//                        Toast.makeText(getContext(), "no fragment selected" + frequencyItem, Toast.LENGTH_SHORT).show();
+//                        break;
                     case "As Needed":
                         fragmentChoose=1;
                         break;
@@ -119,26 +126,64 @@ public class AddMedicationPrimary extends Fragment {
     }
 
     public void nextClicker() {
+        Medication medicationPrimary = new Medication();
+        Bundle bundle = new Bundle();
+
         String medName = medicationNameET.getText().toString();
         String medStrength = medicationStrengthET.getText().toString();
-
         //checking all fields are full
         if (!medName.trim().isEmpty() && !medStrength.trim().isEmpty() && !frequencyItem.isEmpty() && !unitMedItem.isEmpty()) {
+            medicationPrimary.setName(medName);
+            medicationPrimary.setStrength(medStrength);
+            medicationPrimary.setUnit(unitMedItem);
+
             if (fragmentChoose==1) {
-                Navigation.findNavController(view).navigate(R.id.action_addMedicationPrimary_to_addMedicationFinal);
-                medicationMain.setFrequency(fragmentChoose);
+                medicationPrimary.setFrequency(fragmentChoose);
+                bundle.putSerializable("final", medicationPrimary);
+                Navigation.findNavController(view).navigate(R.id.action_addMedicationPrimary_to_addMedicationFinal,bundle);
 
             } else if (fragmentChoose==2) {
-                Navigation.findNavController(view).navigate(R.id.action_addMedicationPrimary_to_everyDayFragment);
-                medicationMain.setFrequency(fragmentChoose);
-                medicationMain.setDays("EveryDay");
+                //Navigation.findNavController(view).navigate(R.id.action_addMedicationPrimary_to_everyDayFragment);
+                //medicationMain.setFrequency(fragmentChoose);
+                medicationPrimary.setFrequency(fragmentChoose);
+                medicationPrimary.setDays("EveryDay");
+                bundle.putSerializable("everyday", medicationPrimary);
+                Navigation.findNavController(view).navigate(R.id.action_addMedicationPrimary_to_everyDayFragment,bundle);
+
             } else if (fragmentChoose==3) {
-                Navigation.findNavController(view).navigate(R.id.action_addMedicationPrimary_to_intervalFragment);
-                medicationMain.setFrequency(fragmentChoose);
+               // Navigation.findNavController(view).navigate(R.id.action_addMedicationPrimary_to_intervalFragment);
+               // medicationMain.setFrequency(fragmentChoose);
+                medicationPrimary.setFrequency(fragmentChoose);
+                bundle.putSerializable("interval", medicationPrimary);
+                Navigation.findNavController(view).navigate(R.id.action_addMedicationPrimary_to_intervalFragment,bundle);
+
             }
-            medicationMain.setName(medName);
-            medicationMain.setStrength(medStrength);
-            medicationMain.setUnit(unitMedItem);
+//            medicationMain.setName(medName);
+//            medicationMain.setStrength(medStrength);
+//            medicationMain.setUnit(unitMedItem);
+
+            //try
+//            FragmentTransaction ft =  getActivity().getSupportFragmentManager().beginTransaction();
+//            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//            AddMedicationFinal fragment2 = new AddMedicationFinal();
+//
+//            Bundle bundle = new Bundle();
+//            //YourObj obj = SET_YOUR_OBJECT_HERE;
+//            //Medication medicationPrimary = new Medication();
+//            medicationPrimary.setName(medName);
+//            medicationPrimary.setStrength(medStrength);
+//            medicationPrimary.setUnit(unitMedItem);
+//            medicationPrimary.setFrequency(fragmentChoose);
+//
+//
+//
+//            bundle.putSerializable("PrimaryMed", medicationPrimary);
+//            fragment2.setArguments(bundle);
+//            ft.replace(android.R.id.content, fragment2);
+//            ft.addToBackStack(null);
+//            ft.commit();
+
+
         }
         else{
             Toast.makeText(getContext(), "fill all fields please"  , Toast.LENGTH_SHORT).show();

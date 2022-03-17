@@ -4,6 +4,7 @@ import static com.example.medred.addmedication.view.AddMedicationActivity.medica
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import androidx.navigation.Navigation;
 
 
 import com.example.medred.R;
+import com.example.medred.model.Medication;
 
 import java.util.Calendar;
 
@@ -35,12 +37,34 @@ public class EveryDayFragment extends Fragment {
     String itemDoseEV;
     public static int numberOfDoseEV;
     SetAlarmFragment setAlarmFragment;
+    Medication everydayMedication = new Medication();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_every_day, container, false);
+        //receive bundle
+        Bundle bundle = getArguments();
+        Medication receiveMedication= (Medication) bundle.getSerializable("everyday");
+        everydayMedication=receiveMedication;
+
+//        Log.d("TAG", "onCreateView: "+receiveMedication.getName());
+//        Log.d("TAG", "onCreateView: "+receiveMedication.getFrequency());
+//        Log.d("TAG", "onCreateView: "+receiveMedication.getStrength());
+//        Log.d("TAG", "onCreateView: "+receiveMedication.getUnit());
+
+//        everydayMedication.setName(receiveMedication.getName());
+//        everydayMedication.setFrequency(receiveMedication.getFrequency());
+//        everydayMedication.setUnit(receiveMedication.getUnit());
+//        everydayMedication.setStrength(receiveMedication.getStrength());
+
+
+
+        //Log.d("TAG", "onCreateView: "+everydayMedication.getName());
+
+
+
 
         nextBtnEveryDay = view.findViewById(R.id.nextBtnEveryDay);
 
@@ -101,6 +125,9 @@ public class EveryDayFragment extends Fragment {
                 itemDoseEV = adapterView.getItemAtPosition(i).toString();
                 // Toast.makeText(getContext(), "reason selected is:"+ itemReason, Toast.LENGTH_SHORT).show();
                 switch (itemDoseEV) {
+                    case "Choose Dose":
+                        Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+                        break;
                     case "1":
                         numberOfDoseEV = 1;
                         break;
@@ -121,7 +148,7 @@ public class EveryDayFragment extends Fragment {
                         break;
                     default:
                         numberOfDoseEV = 0;
-                        Toast.makeText(getContext(), "you must select a dose", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -143,16 +170,33 @@ public class EveryDayFragment extends Fragment {
     }
 
     public void showDate() {
+        Bundle bundle = new Bundle();
+
         String setStartStr = setStartEV.getText().toString();
         String setEndStr = setEndEV.getText().toString();
         if (!setStartStr.trim().isEmpty() && !setEndStr.trim().isEmpty() && numberOfDoseEV != 0) {
             //replaceFragment(new SetAlarmFragment(numberOfDoseEV));
-            Toast.makeText(getContext(), "num is" + numberOfDoseEV, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "num is" + numberOfDoseEV, Toast.LENGTH_SHORT).show();
            // Navigation.findNavController(view).navigate(R.id.action_everyDayFragment_to_setAlarmFragment);
-            medicationMain.setNumberOfDoses(numberOfDoseEV);
-            medicationMain.setStartDate(setStartStr);
-            medicationMain.setEndDate(setEndStr);
-            replaceFragment(new SetAlarmFragment(numberOfDoseEV));
+//            medicationMain.setNumberOfDoses(numberOfDoseEV);
+//            medicationMain.setStartDate(setStartStr);
+//            medicationMain.setEndDate(setEndStr);
+//            replaceFragment(new SetAlarmFragment(numberOfDoseEV));
+
+            everydayMedication.setNumberOfDoses(numberOfDoseEV);
+            everydayMedication.setStartDate(setStartStr);
+            everydayMedication.setEndDate(setEndStr);
+            bundle.putSerializable("alarm", everydayMedication);
+            Navigation.findNavController(view).navigate(R.id.action_everyDayFragment_to_setAlarmFragment,bundle);
+
+
+
+
+
+
+
+
+
 
 
         } else {

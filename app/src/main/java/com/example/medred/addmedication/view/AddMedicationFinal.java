@@ -4,8 +4,10 @@ import static com.example.medred.addmedication.view.AddMedicationActivity.medica
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,8 @@ import android.widget.Toast;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import com.example.medred.Home.view.HomeActivity;
+import com.example.medred.MainActivity;
 import com.example.medred.R;
 import com.example.medred.addmedication.presenter.AddMedicationPresenterInterface;
 import com.example.medred.addmedication.presenter.MedicationPresenter;
@@ -50,7 +54,7 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
 
 
     AddMedicationPresenterInterface addMedicationPresenterInterface;
-
+    Medication finalMedication = new Medication();
 
 
 
@@ -72,6 +76,25 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
         addMedicationActivity = new AddMedicationActivity();
 
         addMedicationPresenterInterface = new MedicationPresenter(this, Repository.getInstance(getContext(),null, ConcreteLocalSource.getInstance(getContext())));
+
+
+        //get bundle
+        //get bundle
+        Bundle bundle = getArguments();
+        Medication receiveMedication= (Medication) bundle.getSerializable("final");
+        finalMedication=receiveMedication;
+
+//        Log.d("TAG", "onCreateView: "+receiveMedication.getName());
+//        Log.d("TAG", "onCreateView: "+receiveMedication.getFrequency());
+//        Log.d("TAG", "onCreateView: "+receiveMedication.getStrength());
+//        Log.d("TAG", "onCreateView: "+receiveMedication.getUnit());
+//
+//        finalMedication.setName(receiveMedication.getName());
+//        finalMedication.setFrequency(receiveMedication.getFrequency());
+//        finalMedication.setUnit(receiveMedication.getUnit());
+//        finalMedication.setStrength(receiveMedication.getStrength());
+
+
 
 
         refillReminderTV.setOnClickListener(new View.OnClickListener() {
@@ -110,8 +133,8 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
                 handleFinalFragment();
                 checkMedication();
 //                insertMovie(medicationMain);
-                setMedicationView(medicationMain);
-                Log.d("TAG", "onClick:DONE ");
+ //               setMedicationView(finalMedication);
+//                Log.d("TAG", "onClick:DONE ");
 
 
 
@@ -141,22 +164,79 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
         reasonsETStr=reasonsET.getText().toString();
 
 
+
+
         if(constraintFinal.getVisibility() == View.VISIBLE&&!pillStockItem.trim().isEmpty()&&!pillLeftItem.trim().isEmpty()&&!refillStr.trim().isEmpty()){
-                Toast.makeText(getContext(), "Done!", Toast.LENGTH_SHORT).show();
-            medicationMain.setRefillReminder(true);
-            medicationMain.setReason(reasonsETStr);
-            medicationMain.setPillStock(pillStockItem);
-            medicationMain.setLeftPillReminder(pillLeftItem);
-            medicationMain.setAlarmRefillTime(refillStr);
+//            int numberStock = Integer.parseInt(pillStockItem);
+//            int numberLeft = Integer.parseInt(pillLeftItem);
+//                medicationMain.setRefillReminder(true);
+//                medicationMain.setReason(reasonsETStr);
+//                medicationMain.setPillStock(pillStockItem);
+//                medicationMain.setLeftPillReminder(pillLeftItem);
+//                medicationMain.setAlarmRefillTime(refillStr);
+
+                //try 17/3 bundle
+            finalMedication.setRefillReminder(true);
+            finalMedication.setReason(reasonsETStr);
+            finalMedication.setPillStock(pillStockItem);
+            finalMedication.setLeftPillReminder(pillLeftItem);
+            finalMedication.setAlarmRefillTime(refillStr);
+
+            //try bundle insert in room
+            setMedicationView(finalMedication);
+            Log.d("TAG", "onClick:DONE ");
+
+
+
+            //mein insert here in room
+                //try
+//            setMedicationView(medicationMain);
+//            Log.d("TAG", "onClick:DONE ");
+
+                Intent intent = new Intent(getContext(), HomeActivity.class);
+                startActivity(intent);
+                Toast.makeText(getContext(), "Medication added successfully!", Toast.LENGTH_SHORT).show();
+               // Log.d("TAG", "handleFinalFragment: "+medicationMain.getName());
+
+
+
            // insertMedication(medicationMain);
+
+
 
         }
         else if (constraintFinal.getVisibility() == View.INVISIBLE&&!pillStockItem.trim().isEmpty()){
                 Toast.makeText(getContext(), "Done!", Toast.LENGTH_SHORT).show();
-                medicationMain.setRefillReminder(false);
-                medicationMain.setReason(reasonsETStr);
-                medicationMain.setPillStock(pillStockItem);
+//                medicationMain.setRefillReminder(false);
+//                medicationMain.setReason(reasonsETStr);
+//                medicationMain.setPillStock(pillStockItem);
+
+                //try bundle 17/3
+            finalMedication.setRefillReminder(false);
+            finalMedication.setReason(reasonsETStr);
+            finalMedication.setPillStock(pillStockItem);
+
+
+
+
+                //insert by bundle 17/3
+            setMedicationView(finalMedication);
+            Log.d("TAG", "onClick:DONE ");
+
+
            // insertMedication(medicationMain);
+            //try
+            //main insert in room here commented
+//            setMedicationView(medicationMain);
+//            Log.d("TAG", "onClick:DONE ");
+
+
+
+            Intent intent = new Intent(getContext(), HomeActivity.class);
+            startActivity(intent);
+
+            Toast.makeText(getContext(), "Medication added successfully!", Toast.LENGTH_SHORT).show();
+            //Log.d("TAG", "handleFinalFragment: "+medicationMain.getName());
 
 
         }
@@ -195,7 +275,7 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
         }
     }
 
-
+//di bet3t el room matensich w temsa7iha
     @Override
     public void setMedicationView(Medication medicationModel) {
         addMedicationPresenterInterface.setMedicationPresenter(medicationModel);
