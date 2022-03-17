@@ -21,9 +21,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 
 import com.example.medred.R;
+import com.example.medred.model.Medication;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,6 +46,7 @@ public class IntervalFragment extends Fragment {
     public static int numberOfDosesInt;
     TextView startDateInt , endDateInt , startInt , endInt;
     DatePickerDialog picker;
+    Medication intervalMedication = new Medication();
 
 
     String[] strFirst ={"Saturday","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"};
@@ -59,6 +62,18 @@ public class IntervalFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_interval, container, false);
+
+        Bundle bundle = getArguments();
+        Medication receiveMedication= (Medication) bundle.getSerializable("interval");
+        intervalMedication=receiveMedication;
+
+
+
+
+
+
+
+
         //handle the next button click
         nextBtnInterval = view.findViewById(R.id.nextBtnInterval);
         nextBtnInterval.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +96,9 @@ public class IntervalFragment extends Fragment {
                 itemDose= adapterView.getItemAtPosition(i).toString();
                 // Toast.makeText(getContext(), "reason selected is:"+ itemReason, Toast.LENGTH_SHORT).show();
                 switch(itemDose){
+                    case "Choose Dose":
+                        Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+                        break;
                     case "1":
                         numberOfDosesInt=1;
                         break;
@@ -221,17 +239,33 @@ public class IntervalFragment extends Fragment {
     }
 
     public void checkInterval(){
+        Bundle bundle = new Bundle();
+
         String startIntStr = startInt.getText().toString();
         String endIntStr = endInt.getText().toString();
         String choosenStr = choosenInt.getText().toString();
         if(!startIntStr.trim().isEmpty()&&!endIntStr.trim().isEmpty()&&numberOfDosesInt!=0&&!choosenStr.trim().isEmpty()){
-            medicationMain.setNumberOfDoses(numberOfDosesInt);
-            medicationMain.setStartDate(startIntStr);
-            medicationMain.setEndDate(endIntStr);
-            medicationMain.setDays(choosenStr);
-            medicationMain.setStartDateInMillis(convertDateToMillis(startIntStr));
-            medicationMain.setEndDateInMillis(convertDateToMillis(endIntStr));
-            replaceFragment(new SetAlarmFragment(numberOfDosesInt));
+
+            intervalMedication.setNumberOfDoses(numberOfDosesInt);
+            intervalMedication.setStartDate(startIntStr);
+            intervalMedication.setEndDate(endIntStr);
+            intervalMedication.setDays(choosenStr);
+
+            bundle.putSerializable("alarm", intervalMedication);
+            Navigation.findNavController(view).navigate(R.id.action_intervalFragment_to_setAlarmFragment);
+
+
+
+
+
+
+
+
+//            medicationMain.setNumberOfDoses(numberOfDosesInt);
+//            medicationMain.setStartDate(startIntStr);
+//            medicationMain.setEndDate(endIntStr);
+//            medicationMain.setDays(choosenStr);
+           // replaceFragment(new SetAlarmFragment(numberOfDosesInt));
            // Navigation.findNavController(view).navigate(R.id.action_intervalFragment_to_setAlarmFragment);
         }
         else{

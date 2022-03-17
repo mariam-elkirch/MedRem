@@ -1,6 +1,7 @@
 package com.example.medred.addmedication.view;
 
 import static com.example.medred.addmedication.view.AddMedicationActivity.medicationMain;
+import static com.example.medred.addmedication.view.SetAlarmFragment.alarmMedication;
 
 import android.app.TimePickerDialog;
 import android.text.Editable;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,11 +33,13 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
     public static String numDoses;
     public static int numD;
     int selectedHour, selectedMinute;
-    ArrayList<String> arrayListNumber = new ArrayList<String>();
+    ArrayList<String> arrayListNumber= new ArrayList<String>();
     //ArrayList<String> arrayListDate = new ArrayList<String>();
     Alarm alarmItem;
-    ArrayList<Alarm> arrayListAlarm = new ArrayList<Alarm>();
+    ArrayList<Alarm> arrayListAlarm= new ArrayList<Alarm>();
+    int numbers;
 
+    SetAlarmFragment setAlarmFragment;
 
     public AlarmAdapter() {
     }
@@ -44,6 +48,14 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
         this.alarm = alarm;
         notifyDataSetChanged();
     }
+
+    public void getNumber(int numbers){
+        this.numbers=numbers;
+        notifyDataSetChanged();
+    }
+
+    ArrayList<String> arrayListNumberOrg= new ArrayList<String>(numbers);
+    ArrayList<Alarm> arrayListAlarmOrg= new ArrayList<Alarm>(numbers);
 
 
     @NonNull
@@ -57,6 +69,12 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        //declare array size
+//        arrayListNumber =new ArrayList<String>(numbers);
+//
+//        arrayListAlarm=  new ArrayList<Alarm>(numbers);
+
         holder.showAlarmTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,8 +99,20 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
                         holder.alarmSetTV.setVisibility(View.VISIBLE);
                         time = holder.alarmSetTV.getText().toString();
                         //arrayListDate.add(time);
+
+
+//                        for (int i = 0 ; i < numbers;i++){
+//                            //alarmItem= new Alarm(selectedHour,selectedMinute,format);
+//                            arrayListAlarm.add(alarmItem);
+//                        }
+
                         alarmItem= new Alarm(selectedHour,selectedMinute,format);
                         arrayListAlarm.add(alarmItem);
+
+
+                        //setAlarmFragment.alarmMedication.setName("ay7aga");
+
+                        //Log.d("TAG", "onTimeSet: "+setAlarmFragment.alarmMedication.getName());
 
 
 
@@ -95,7 +125,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
                             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                                 numDoses= holder.numberPillsED.getText().toString();
 
-                               // Log.d("TAG", "onTimeSet: "+numDoses);
+                                // Log.d("TAG", "onTimeSet: "+numDoses);
 //                                arrayListNumber.add(numDoses);
 //                                Log.d("TAG", "onTimeSet: "+numDoses);
                             }
@@ -103,7 +133,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
                             @Override
                             public void afterTextChanged(Editable editable) {
 //                            numDoses= holder.numberPillsED.getText().toString();
-                               // Log.d("TAG", "onTimeSet: "+numDoses);
+                                // Log.d("TAG", "onTimeSet: "+numDoses);
 //                                arrayListNumber.add(numDoses);
                                 arrayListNumber.add(numDoses);
                             }
@@ -122,10 +152,10 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
         //alarmCheck();
     }
 
-            @Override
-            public int getItemCount() {
-                return alarm.size();
-            }
+    @Override
+    public int getItemCount() {
+        return alarm.size();
+    }
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -154,28 +184,63 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //check the fields
     public int alarmCheck(){
 
         int reInt=0;
+//        for(int i = 0 ; i < arrayListAlarm.size();i++) {
+//            if (arrayListAlarm.get(i)==null) {
+//                Log.d("TAG", "alarmCheck: empty here");
+//            }
+//            else{
+//                Log.d("TAG", "alarmCheck: "+arrayListAlarm.get(i).getHour());
+//            }
+//        }
+
+        Log.d("TAG", "alarmCheck: "+arrayListNumberOrg.size());
+        Log.d("TAG", "alarmCheck: "+arrayListNumber.size());
 
 
 
-        if(numDoses!=null&&!numDoses.trim().isEmpty()&& !time.trim().isEmpty()){
-            reInt=1;
-            for(int i = 0 ; i < arrayListAlarm.size();i++){
-                Log.d("TAG", "item date is:"+ arrayListAlarm.get(i));
-                Log.d("TAG", "alarmCheck: "+arrayListAlarm.get(i));
-                medicationMain.setSetAlarm(arrayListAlarm);
-            }
-            for(int i = 0 ; i < arrayListNumber.size();i++){
-                Log.d("TAG", "item number is:"+ arrayListNumber.get(i));
-                medicationMain.setPillEachDose(arrayListNumber);
-            }
+//here is original down
 
-           // medicationMain.setSetAlarm(alarmItem);
+
+    if(numDoses!=null&&!numDoses.trim().isEmpty()&& !time.trim().isEmpty()){
+        reInt=1;
+        for(int i = 0 ; i < arrayListAlarm.size();i++){
+            //Log.d("TAG", "item date is:"+ arrayListAlarm.get(i));
+            Log.d("TAG", "alarmCheck: "+arrayListAlarm.get(i).getHour());
+           // medicationMain.setSetAlarm(arrayListAlarm);
+            alarmMedication.setSetAlarm(arrayListAlarm);
 
         }
+        for(int i = 0 ; i < arrayListNumber.size();i++){
+            Log.d("TAG", "item number is:"+ arrayListNumber.get(i));
+           // medicationMain.setPillEachDose(arrayListNumber);
+            alarmMedication.setPillEachDose(arrayListNumber);
+        }
+
+        // medicationMain.setSetAlarm(alarmItem);
+
+    }
+
+
         return reInt;
 
     }

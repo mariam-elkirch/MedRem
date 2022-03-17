@@ -24,6 +24,7 @@
         <activity android:name=".addmedication.view.AddMedicationActivity"
             android:exported="true">
 
+
         </activity>
         <activity
             android:name=".MainActivity"

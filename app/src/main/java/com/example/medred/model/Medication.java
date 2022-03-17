@@ -6,11 +6,12 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.versionedparcelable.VersionedParcelize;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "medication")
-public class Medication {
+public class Medication implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private  int id;
 
