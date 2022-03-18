@@ -1,6 +1,7 @@
 package com.example.medred.addmedication.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +10,14 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.medred.R;
 import com.example.medred.model.Alarm;
+import com.example.medred.model.Medication;
 
 import java.util.ArrayList;
 
@@ -26,11 +29,17 @@ public class SetAlarmFragment extends Fragment {
     RecyclerView recyclerViewAlarm;
     int numberDoses;
     Button nextBtnAlarm;
+    public static Medication alarmMedication = new Medication();
 
-    public SetAlarmFragment(int numberDoses){
-
-        this.numberDoses=numberDoses;
-    }
+//    public SetAlarmFragment(int numberDoses){
+//
+//        this.numberDoses=numberDoses;
+//    }
+//
+//    public SetAlarmFragment(){
+//
+//
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,10 +47,32 @@ public class SetAlarmFragment extends Fragment {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_set_alarm, container, false);
 
+        //get bundle
+        Bundle bundle = getArguments();
+        Medication receiveMedication= (Medication) bundle.getSerializable("alarm");
+        numberDoses = receiveMedication.getNumberOfDoses();
+        alarmMedication=receiveMedication;
+
+
+
+       //Log.d("TAG", "onCreateView: "+alarmMedication.getName());
+//        Log.d("TAG", "onCreateView: "+receiveMedication.getFrequency());
+//        Log.d("TAG", "onCreateView: "+receiveMedication.getStrength());
+//        Log.d("TAG", "onCreateView: "+receiveMedication.getUnit());
+
+
+
+
+
+
         //createAlarm();
         recyclerViewAlarm = view.findViewById(R.id.recyclerViewAlarm);
         alarmAdapter = new AlarmAdapter();
         alarmAdapter.setData(getData(numberDoses));
+        //alarmAdapter.getNumber(sendNumbers());
+        alarmAdapter.getNumber(numberDoses);
+
+        //
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewAlarm.setLayoutManager(linearLayoutManager);
@@ -53,7 +84,9 @@ public class SetAlarmFragment extends Fragment {
             public void onClick(View view) {
 
                if(alarmAdapter.alarmCheck()==1){
-                   replaceFragment(new AddMedicationFinal());
+                   //replaceFragment(new AddMedicationFinal());
+                   bundle.putSerializable("final",alarmMedication );
+                   Navigation.findNavController(view).navigate(R.id.action_setAlarmFragment_to_addMedicationFinal,bundle);
                } else{
                    Toast.makeText(getContext(), "please fill all fields", Toast.LENGTH_SHORT).show();
                }
@@ -63,7 +96,7 @@ public class SetAlarmFragment extends Fragment {
         return view;
     }
 
-    public ArrayList<Alarm> getData(int numberDoses){
+    public static ArrayList<Alarm> getData(int numberDoses){
         ArrayList<Alarm> alArrayList = new ArrayList<>();
         for(int i = 0 ; i<numberDoses ; i++){
             alArrayList.add(new Alarm(0,0,"AM"));
@@ -71,14 +104,20 @@ public class SetAlarmFragment extends Fragment {
         return  alArrayList;
     }
 
-
-    public void replaceFragment(Fragment someFragment) {
-
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainer, someFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+    public int sendNumbers(int num){
+        return  num;
     }
+
+
+//    public void replaceFragment(Fragment someFragment) {
+//
+//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//        transaction.replace(R.id.fragmentContainerView, someFragment);
+//        transaction.addToBackStack(null);
+//        transaction.commit();
+//    }
+
+
 
 
 

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/addMedicationPrimary">
+    <fragment
+        android:id="@+id/addMedicationPrimary"
+        android:name="com.example.medred.addmedication.view.AddMedicationPrimary"
+        android:label="fragment_add_medication_primary"
+        tools:layout="@layout/fragment_add_medication_primary" >
+        <action
+            android:id="@+id/action_addMedicationPrimary_to_everyDayFragment"
+            app:destination="@id/everyDayFragment" />
+        <action
+            android:id="@+id/action_addMedicationPrimary_to_intervalFragment"
+            app:destination="@id/intervalFragment" />
+        <action
+            android:id="@+id/action_addMedicationPrimary_to_addMedicationFinal"
+            app:destination="@id/addMedicationFinal" />
+    </fragment>
+    <fragment
+        android:id="@+id/everyDayFragment"
+        android:name="com.example.medred.addmedication.view.EveryDayFragment"
+        android:label="fragment_every_day"
+        tools:layout="@layout/fragment_every_day" >
+        <action
+            android:id="@+id/action_everyDayFragment_to_setAlarmFragment"
+            app:destination="@id/setAlarmFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/intervalFragment"
+        android:name="com.example.medred.addmedication.view.IntervalFragment"
+        android:label="fragment_interval"
+        tools:layout="@layout/fragment_interval" >
+        <action
+            android:id="@+id/action_intervalFragment_to_setAlarmFragment"
+            app:destination="@id/setAlarmFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setAlarmFragment"
+        android:name="com.example.medred.addmedication.view.SetAlarmFragment"
+        android:label="fragment_set_alarm"
+        tools:layout="@layout/fragment_set_alarm" >
+        <action
+            android:id="@+id/action_setAlarmFragment_to_addMedicationFinal"
+            app:destination="@id/addMedicationFinal" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMedicationFinal"
+        android:name="com.example.medred.addmedication.view.AddMedicationFinal"
+        android:label="fragment_add_medication_final"
+        tools:layout="@layout/fragment_add_medication_final" />
+</navigation>

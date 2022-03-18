@@ -85,6 +85,7 @@
 
     //spinner for medication reasons
     <string-array name="doseItemSpinner">
+<!--        <item>Choose Dose</item>-->
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -94,24 +95,19 @@
     </string-array>
 
     //spinner for unit medication
+    //spinner for unit medication
     <string-array name="unitItemSpinner">
+<!--        <item>Choose Unit</item>-->
         <item>g</item>
-        <item>IU</item>
-        <item>mcg</item>
-        <item>mcg/hr</item>
-        <item>mcg/ml</item>
-        <item>mRq</item>
         <item>mg</item>
-        <item>mg/cm2</item>
-        <item>mg/g</item>
-        <item>mg/ml</item>
-        <item>mL</item>
-        <item>%</item>
+        <item>mcg</item>
+        <item>ml</item>
     </string-array>
 
 
     //spinner for frequency medication
     <string-array name="frequencyItemSpinner">
+<!--        <item>Choose Frequency</item>-->
         <item>As Needed</item>
         <item>EveryDay</item>
         <item>Specific Day</item>

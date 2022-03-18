@@ -12,6 +12,9 @@ import com.example.medred.Home.view.HomeActivity;
 import com.example.medred.Registeration.view.ForgotPasswordActivity;
 import com.example.medred.Registeration.view.LoginActivity;
 import com.example.medred.Registeration.view.RegisterActivity;
+import com.example.medred.model.Dependant;
+import com.example.medred.model.HealthTaker;
+import com.example.medred.model.Request;
 import com.example.medred.model.User;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -24,16 +27,20 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
-public class FirebaseManager implements  FirebaseSource {
+public class FirebaseManager implements FirebaseSource {
     ProgressDialog progressDialog;
     GoogleSignInClient mGoogleSignInClient;
     protected FirebaseAuth auth;
     private static  FirebaseManager remoteSource=null;
+    private NetworkDelegate networkDelegate;
     Context context;
     Boolean stored=false;
     Boolean success=false;
@@ -46,6 +53,11 @@ public class FirebaseManager implements  FirebaseSource {
         if(remoteSource==null)
            remoteSource=new FirebaseManager(context);
         return remoteSource;
+    }
+
+    @Override
+    public void setNetworkDelegate(NetworkDelegate networkDelegate) {
+        this.networkDelegate = networkDelegate;
     }
 
     @Override
@@ -191,6 +203,59 @@ public class FirebaseManager implements  FirebaseSource {
                         Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    @Override
+    public void userExistence(String email) {
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                .getReference().child("user");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Boolean exist = false;
+                String receiverId = "none";
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    String existedEmail = dataSnapshot.child("email").getValue().toString();
+                    if(existedEmail.equals(email)){
+                        receiverId = dataSnapshot.child("uid").getValue().toString();
+                        exist = true;
+                        break;
+                    }
+                }
+
+                networkDelegate.isUserExist(exist, receiverId);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void sendRequest(Request request, String receiverId) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                .getReference().child("user").child(receiverId);
+        databaseReference.child("requests").child(request.getSenderId()).setValue(request);
+    }
+
+    @Override
+    public void onAccept(HealthTaker healthTaker, Dependant dependant) {
+
+    }
+
+    @Override
+    public void onReject(String key, String email) {
+
+    }
+
+    @Override
+    public void getRequests() {
+
     }
 
     public interface FireBaseCallBack {
