@@ -61,7 +61,7 @@ public class FirebaseManager implements  FirebaseSource {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         HashMap<String, Object> hashMap = new HashMap<>();
-                        hashMap.put("uid",""+auth.getUid());
+                       hashMap.put("uid",""+auth.getUid());
                         hashMap.put("name",""+user.getName());
                         hashMap.put("email",""+user.getEmail());
                         hashMap.put("password",""+user.getPassword());
@@ -114,7 +114,7 @@ public class FirebaseManager implements  FirebaseSource {
                             FirebaseUser user = auth.getCurrentUser();
 
                             HashMap<String, Object> hashMap = new HashMap<>();
-                            hashMap.put("uid", "" + auth.getUid());
+                          //  hashMap.put("uid", "" + auth.getUid());
                             hashMap.put("name", "" + account.getEmail());
                             hashMap.put("email", "" + account.getEmail());
                             hashMap.put("password", "" + "Password");
