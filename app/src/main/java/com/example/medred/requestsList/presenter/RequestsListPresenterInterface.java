@@ -1,10 +1,9 @@
 package com.example.medred.requestsList.presenter;
 
-import androidx.lifecycle.LifecycleOwner;
+import com.example.medred.model.Request;
 
 public interface RequestsListPresenterInterface {
-
-    void getRequests(LifecycleOwner owner);
-    void refuseRequest(String senderEmail);
-    void acceptRequest(String senderEmail);
+    void getRequests();
+    void acceptRequest(Request request);
+    void rejectRequest(Request request);
 }

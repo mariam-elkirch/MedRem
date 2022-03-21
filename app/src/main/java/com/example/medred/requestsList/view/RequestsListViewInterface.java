@@ -5,4 +5,6 @@ import java.util.List;
 
 public interface RequestsListViewInterface {
     void getRequests(List<Request> requests);
+    void onSuccessAcceptingRequest(Boolean isAccepted);
+    void onSuccessRejectingRequest(Boolean isRejected);
 }

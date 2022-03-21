@@ -32,13 +32,10 @@ public class RegistrationPresenter implements RegisterationPresenterInterface  {
     }
     @Override
     public void createAccount(User user) {
-      repo.authunticateUser(user, new FirebaseManager.FireBaseCallBack() {
-           @Override
-           public void onCallBack(boolean stored) {
-               Log.i("TAG",result+"Result");
-               view.GoToHome(stored);
-           }
-       });
+      repo.authunticateUser(user, stored -> {
+          Log.i("TAG",result+"Result");
+          view.GoToHome(stored);
+      });
 
 
                 // Boolean success=repo.authunticateUser(user);

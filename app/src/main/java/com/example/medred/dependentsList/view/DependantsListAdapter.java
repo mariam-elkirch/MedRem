@@ -44,7 +44,7 @@ public class DependantsListAdapter extends RecyclerView.Adapter<DependantsListAd
         }
 
         holder.binding.btnDependantRemove.setOnClickListener(view -> {
-            listener.deleteDependant(dependant.getEmail());
+            listener.deleteDependant(dependant);
         });
 
         holder.binding.cvDependantItem.setOnClickListener(view -> listener.onClick(dependant.getEmail()));

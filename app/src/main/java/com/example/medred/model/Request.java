@@ -34,5 +34,14 @@ public class Request {
     public void setSenderId(String senderId) {
         this.senderId = senderId;
     }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "senderEmail='" + senderEmail + '\'' +
+                ", senderName='" + senderName + '\'' +
+                ", senderId='" + senderId + '\'' +
+                '}';
+    }
 }
 

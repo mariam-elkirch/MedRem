@@ -45,7 +45,7 @@ public class HealthTakersListAdapter extends RecyclerView.Adapter<HealthTakersLi
         }
 
         holder.binding.ivHealthTakerRemove.setOnClickListener(view -> {
-            listener.onRemoveHealthTaker(healthTaker.getEmail());
+            listener.onRemoveHealthTaker(healthTaker);
         });
     }
 

@@ -10,7 +10,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import java.util.List;
 
 public interface RepositoryInterface {
-void authunticateUser(User user, FirebaseManager.FireBaseCallBack fireBaseCallBack);
+ void authunticateUser(User user, FirebaseManager.FireBaseCallBack fireBaseCallBack);
  void RegisterationGoogle(GoogleSignInAccount account, FirebaseManager.FireBaseCallBack fireBaseCallBack);
  void loginEmailPassword(String email,String  password,FirebaseManager.FireBaseCallBack fireBaseCallBack);
  void forgotPassword(String  email);
@@ -22,5 +22,12 @@ void authunticateUser(User user, FirebaseManager.FireBaseCallBack fireBaseCallBa
  void insertMedication(Medication medicationModel);
  void deleteMedication(Medication medicationModel);
  void userExistence(String receiverEmail);
- void addHealthTaker(Request request, String healthTakerEmail);
+ void addHealthTaker(String healthTakerEmail);
+ void getRequests();
+ void acceptRequest(Request request);
+ void rejectRequest(Request request);
+ void getHealthTakers();
+ void getDependants();
+ void deleteHealthTaker(HealthTaker healthTaker);
+ void deleteDependant(Dependant dependant);
 }

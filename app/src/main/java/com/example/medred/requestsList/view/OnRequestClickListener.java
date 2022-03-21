@@ -1,6 +1,8 @@
 package com.example.medred.requestsList.view;
 
+import com.example.medred.model.Request;
+
 public interface OnRequestClickListener {
-    void onAcceptRequest(String senderEmail);
-    void onRefuseRequest(String senderEmail);
+    void onAcceptRequest(Request request);
+    void onRejectRequest(Request request);
 }

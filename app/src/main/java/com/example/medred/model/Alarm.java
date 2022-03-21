@@ -1,6 +1,8 @@
 package com.example.medred.model;
 
-public class Alarm {
+import java.io.Serializable;
+
+public class Alarm implements Serializable {
     private int hour;
     private int minute;
     private String format;

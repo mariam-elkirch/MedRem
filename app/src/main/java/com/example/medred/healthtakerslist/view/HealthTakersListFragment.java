@@ -43,8 +43,7 @@ public class HealthTakersListFragment extends Fragment implements OnHealthTakerC
     private HealthTakersListAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private HealthTakerPresenterInterface healthTakerPresenter;
-    private String userEmail;
-    private String userName;
+    private boolean sendClicked = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,7 +69,7 @@ public class HealthTakersListFragment extends Fragment implements OnHealthTakerC
         healthTakerPresenter = new HealthTakerPresenter(this,
                 Repository.getInstance(this.getContext(), FirebaseManager.getInstance(this.getContext())
                 , ConcreteLocalSource.getInstance(this.getContext())));
-        //healthTakerPresenter.getHealthTakers(this);
+        healthTakerPresenter.getHealthTakers();
         binding.btnAddHealthTaker.setOnClickListener(view1 -> onAddHealthTaker());
     }
 
@@ -81,8 +80,8 @@ public class HealthTakersListFragment extends Fragment implements OnHealthTakerC
     }
 
     @Override
-    public void onRemoveHealthTaker(String healthTakerEmail) {
-        healthTakerPresenter.deleteHealthTaker(healthTakerEmail);
+    public void onRemoveHealthTaker(HealthTaker healthTaker) {
+        healthTakerPresenter.deleteHealthTaker(healthTaker);
     }
 
     @Override
@@ -104,15 +103,22 @@ public class HealthTakersListFragment extends Fragment implements OnHealthTakerC
 
     @Override
     public void isUserExist(boolean userExistence, String receiverId) {
-        if(userExistence == true && !receiverId.equals("none")){
-            String userId = FirebaseAuth.getInstance().getUid();
-            Request request = new Request(userEmail, userName, userId);
-            healthTakerPresenter.addHealthTaker(request, receiverId);
-            Toast.makeText(this.getContext(), "the request is sent", Toast.LENGTH_SHORT).show();
+        if(sendClicked){
+            if(userExistence == true && !receiverId.equals("none")){
+                healthTakerPresenter.addHealthTaker(receiverId);
+                Toast.makeText(this.getContext(), "the request is sent", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(this.getContext(), "this user does not exist", Toast.LENGTH_SHORT).show();
+            }
+            sendClicked = false;
         }
-        else{
-            Toast.makeText(this.getContext(), "this user does not exist", Toast.LENGTH_SHORT).show();
-        }
+
+    }
+
+    @Override
+    public void onDeletingHealthTaker(boolean isDeleted) {
+        Toast.makeText(this.getContext(), "HealthTaker is removed successfully", Toast.LENGTH_SHORT).show();
     }
 
     public void showAddHealthTakerDialog(){
@@ -126,9 +132,8 @@ public class HealthTakersListFragment extends Fragment implements OnHealthTakerC
         dialog.show();
         binding.btnCancelRequest.setOnClickListener(view -> dialog.dismiss());
         binding.btnSendRequest.setOnClickListener(view -> {
+            sendClicked = true;
             if(Utils.isInternetAvailable(this.getContext())){
-                userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-                userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
                 String email = binding.etHealthTakerEmail.getText().toString().trim();
                  if(email.isEmpty()){
                      binding.etHealthTakerEmail.setError("You must enter an email");
@@ -136,12 +141,15 @@ public class HealthTakersListFragment extends Fragment implements OnHealthTakerC
                  else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                      binding.etHealthTakerEmail.setError("You must enter valid email");
                  }
-                 else if(email.equals(userEmail)){
+                 else if(email.equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
                      binding.etHealthTakerEmail.setError("You can't send request to yourself");
                  }
                  else{
-                    healthTakerPresenter.userExistence(email);
-                    dialog.dismiss();
+                    if(sendClicked){
+                        healthTakerPresenter.userExistence(email);
+                        dialog.dismiss();
+                    }
+
                  }
             }
             else{

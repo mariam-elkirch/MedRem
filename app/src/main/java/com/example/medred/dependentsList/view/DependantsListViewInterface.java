@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface DependantsListViewInterface {
     void showDependants(List<Dependant> dependants);
-    void deleteDependant(String dependantEmail);
+    void deleteDependant(Dependant dependant);
     void onClick(String dependantEmail);
+    void onDeletingDependant(boolean isDeleted);
 }

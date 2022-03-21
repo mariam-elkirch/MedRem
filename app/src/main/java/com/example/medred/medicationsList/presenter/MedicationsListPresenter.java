@@ -1,16 +1,11 @@
 package com.example.medred.medicationsList.presenter;
 
 import android.util.Log;
-
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
-
 import com.example.medred.medicationsList.view.MedicationsListViewInterface;
 import com.example.medred.model.Medication;
 import com.example.medred.model.RepositoryInterface;
-
 import java.util.Calendar;
-import java.util.List;
 
 public class MedicationsListPresenter implements MedicationsListIPresenterInterface{
 

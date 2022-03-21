@@ -2,16 +2,9 @@ package com.example.medred.network;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
-import com.example.medred.Home.view.HomeActivity;
-import com.example.medred.Registeration.view.ForgotPasswordActivity;
-import com.example.medred.Registeration.view.LoginActivity;
-import com.example.medred.Registeration.view.RegisterActivity;
 import com.example.medred.model.Dependant;
 import com.example.medred.model.HealthTaker;
 import com.example.medred.model.Request;
@@ -31,9 +24,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class FirebaseManager implements FirebaseSource {
     ProgressDialog progressDialog;
@@ -207,10 +202,10 @@ public class FirebaseManager implements FirebaseSource {
 
     @Override
     public void userExistence(String email) {
-
+        Log.i("TAG", "inside userExistence");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance()
                 .getReference().child("user");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Boolean exist = false;
@@ -225,8 +220,6 @@ public class FirebaseManager implements FirebaseSource {
                 }
 
                 networkDelegate.isUserExist(exist, receiverId);
-
-
             }
 
             @Override
@@ -237,25 +230,200 @@ public class FirebaseManager implements FirebaseSource {
     }
 
     @Override
-    public void sendRequest(Request request, String receiverId) {
+    public void sendRequest(String receiverId) {
+        Log.i("TAG", "inside sendRequest");
+        String uid = FirebaseAuth.getInstance().getUid();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user/" + uid);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Request request = new Request(snapshot.child("email").getValue().toString(),
+                        snapshot.child("name").getValue().toString(),
+                        snapshot.child("uid").getValue().toString());
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                        .getReference("user/" + receiverId);
+                databaseReference.child("requests").child(uid).setValue(request);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void acceptRequest(Request request) {
+        Log.i("TAG", "acceptRequest");
+        String uid = FirebaseAuth.getInstance().getUid();
+
+        // add dependant to current user
+        Dependant dependant = new Dependant(request.getSenderId(), request.getSenderName(),
+                request.getSenderEmail(), null);
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("user/" + uid);
+        reference.child("dependants").child(request.getSenderId()).setValue(dependant);
+
+        // add healthTaker to sender
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user/" + uid);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                HealthTaker healthTaker = new HealthTaker(
+                        snapshot.child("uid").getValue().toString(),
+                        snapshot.child("name").getValue().toString(),
+                        snapshot.child("email").getValue().toString(),
+                        null);
+                DatabaseReference reference = FirebaseDatabase.getInstance()
+                        .getReference("user/" + request.getSenderId());
+                reference.child("healthTakers").child(uid).setValue(healthTaker);
+
+                // remove request from current user requests list
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                        .getReference("user/" + uid);
+                databaseReference.child("requests").child(request.getSenderId()).removeValue();
+
+                networkDelegate.onSuccessAcceptingRequest(true);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                networkDelegate.onSuccessAcceptingRequest(false);
+            }
+        });
+
+    }
+
+    @Override
+    public void rejectRequest(Request request) {
+        Log.i("TAG", "rejectRequest");
+        String uid = FirebaseAuth.getInstance().getUid();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance()
-                .getReference().child("user").child(receiverId);
-        databaseReference.child("requests").child(request.getSenderId()).setValue(request);
-    }
-
-    @Override
-    public void onAccept(HealthTaker healthTaker, Dependant dependant) {
-
-    }
-
-    @Override
-    public void onReject(String key, String email) {
-
+                .getReference("user/" + uid);
+        databaseReference.child("requests").child(request.getSenderId()).removeValue();
+        networkDelegate.onSuccessRejectingRequest(true);
     }
 
     @Override
     public void getRequests() {
+        Log.i("TAG", "getRequests");
+        List<Request> requests = new ArrayList<>();
+        Query query = FirebaseDatabase.getInstance()
+                .getReference("user/"+ FirebaseAuth.getInstance().getUid()+"/requests");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                requests.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    if(dataSnapshot.child("senderEmail").getValue() != null){
+                        String senderEmail = dataSnapshot.child("senderEmail").getValue().toString();
+                        String senderName = dataSnapshot.child("senderName").getValue().toString();
+                        String senderId = dataSnapshot.child("senderId").getValue().toString();
+                        Request request = new Request(senderEmail, senderName, senderId);
+                        requests.add(request);
+                    }
+                }
+                networkDelegate.onSuccessRequests(requests);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                networkDelegate.onFailureRequests(error.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getHealthTakers() {
+        Log.i("TAG", "getHealthTakers");
+        List<HealthTaker> healthTakers = new ArrayList<>();
+        Query query = FirebaseDatabase.getInstance()
+                .getReference("user/"+ FirebaseAuth.getInstance().getUid()+"/healthTakers");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                healthTakers.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    if(dataSnapshot.child("email").getValue() != null){
+                        String uid = dataSnapshot.child("uid").getValue().toString();
+                        String name = dataSnapshot.child("name").getValue().toString();
+                        String email = dataSnapshot.child("email").getValue().toString();
+                        //String imgUrl = dataSnapshot.child("imgURL").getValue().toString();
+                        HealthTaker healthTaker = new HealthTaker(uid, name, email, null);
+                        healthTakers.add(healthTaker);
+                    }
+                }
+                networkDelegate.onSuccessGettingHealthTakers(healthTakers);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void getDependants() {
+        Log.i("TAG", "getDependants");
+        List<Dependant> dependants = new ArrayList<>();
+        Query query = FirebaseDatabase.getInstance()
+                .getReference("user/"+ FirebaseAuth.getInstance().getUid()+"/dependants");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                dependants.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    if(dataSnapshot.child("email").getValue() != null){
+                        String uid = dataSnapshot.child("uid").getValue().toString();
+                        String name = dataSnapshot.child("name").getValue().toString();
+                        String email = dataSnapshot.child("email").getValue().toString();
+                        //String imgUrl = dataSnapshot.child("imgURL").getValue().toString();
+                        Dependant dependant = new Dependant(uid, name, email, null);
+                        dependants.add(dependant);
+                    }
+                }
+                networkDelegate.onSuccessGettingDependants(dependants);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void deleteHealthTaker(HealthTaker healthTaker) {
+        Log.i("TAG", "deleteHealthTaker");
+        String uid = FirebaseAuth.getInstance().getUid();
+        // remove current user from healthTaker dependants list
+        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance()
+                .getReference("user");
+
+        databaseReference1.child(healthTaker.getUid() + "/dependants").child(uid).setValue(null);
+
+        // remove healthTaker from current user healthTakers list
+        DatabaseReference databaseReference2 = FirebaseDatabase.getInstance()
+                .getReference("user");
+        databaseReference2.child(uid + "/healthTakers").child(healthTaker.getUid()).setValue(null);
+        networkDelegate.onDeletingHealthTaker(true);
+    }
+
+    @Override
+    public void deleteDependant(Dependant dependant) {
+        Log.i("TAG", "deleteDependant");
+        String uid = FirebaseAuth.getInstance().getUid();
+
+        // remove current user from dependant healthTakers list
+        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance()
+                .getReference("user");
+        databaseReference1.child(dependant.getUid() + "/healthTakers").child(uid).setValue(null);
+        // remove dependant from current user dependants list
+        DatabaseReference databaseReference2 = FirebaseDatabase.getInstance()
+                .getReference("user");
+        databaseReference2.child(uid + "/dependants").child(dependant.getUid()).setValue(null);
+        networkDelegate.onDeletingDependant(true);
     }
 
     public interface FireBaseCallBack {

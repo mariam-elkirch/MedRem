@@ -34,11 +34,11 @@ public class RequestsListAdapter extends RecyclerView.Adapter<RequestsListAdapte
                 .setText(request.getSenderName()
                 + " wants you to be his health taker, Do you want to accept him as one of your dependants?");
         holder.binding.btnDependantAccept.setOnClickListener(view -> {
-            listener.onAcceptRequest(request.getSenderEmail());
+            listener.onAcceptRequest(request);
         });
 
         holder.binding.btnDependantRefuse.setOnClickListener(view -> {
-            listener.onRefuseRequest(request.getSenderEmail());
+            listener.onRejectRequest(request);
         });
     }
 

@@ -100,8 +100,43 @@ public class Repository implements RepositoryInterface{
     }
 
     @Override
-    public void addHealthTaker(Request request, String healthTakerEmail) {
-        firebaseSource.sendRequest(request, healthTakerEmail);
+    public void addHealthTaker(String healthTakerEmail) {
+        firebaseSource.sendRequest(healthTakerEmail);
+    }
+
+    @Override
+    public void getRequests() {
+        firebaseSource.getRequests();
+    }
+
+    @Override
+    public void acceptRequest(Request request) {
+        firebaseSource.acceptRequest(request);
+    }
+
+    @Override
+    public void rejectRequest(Request request) {
+        firebaseSource.rejectRequest(request);
+    }
+
+    @Override
+    public void getHealthTakers() {
+        firebaseSource.getHealthTakers();
+    }
+
+    @Override
+    public void getDependants() {
+        firebaseSource.getDependants();
+    }
+
+    @Override
+    public void deleteHealthTaker(HealthTaker healthTaker) {
+        firebaseSource.deleteHealthTaker(healthTaker);
+    }
+
+    @Override
+    public void deleteDependant(Dependant dependant) {
+        firebaseSource.deleteDependant(dependant);
     }
 
 }
