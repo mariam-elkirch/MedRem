@@ -3,6 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android ITI Mob/MedRed/app/src/main/res/layout/activity_home.xml" value="0.1" />
+        <entry key="..\:/Android ITI Mob/MedRed/app/src/main/res/layout/dependant_item.xml" value="0.16621376811594202" />
+        <entry key="..\:/Android ITI Mob/MedRed/app/src/main/res/layout/fragment_dependants_list.xml" value="0.16621376811594202" />
+        <entry key="..\:/Android ITI Mob/MedRed/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Android ITI Mob/MedRed/app/src/main/res/layout/fragment_medications_list.xml" value="0.16621376811594202" />
+        <entry key="..\:/Android ITI Mob/MedRed/app/src/main/res/layout/fragment_set_alarm.xml" value="0.15081521739130435" />
+        <entry key="..\:/Android ITI Mob/MedRed/app/src/main/res/layout/home_medication_item.xml" value="0.16621376811594202" />
+        <entry key="..\:/Android ITI Mob/MedRed/app/src/main/res/layout/medication_item.xml" value="0.16621376811594202" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/drawable/custom_input.xml" value="0.14635416666666667" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/alarm_item.xml" value="0.13020833333333334" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/fragment_add_medication_final.xml" value="0.13020833333333334" />

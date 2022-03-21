@@ -8,7 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.ListFragment;
+import androidx.work.WorkManager;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,11 +19,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.medred.R;
-import com.example.medred.addmedication.view.AddMedicationActivity;
 import com.example.medred.dependentsList.view.DependantsListFragment;
 import com.example.medred.healthtakerslist.view.HealthTakersListFragment;
 import com.example.medred.medicationsList.view.MedicationsListFragment;
 import com.example.medred.requestsList.view.RequestsListFragment;
+import com.example.medred.workmanager.AlarmWorkManager.ManageWorkManager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -36,8 +36,9 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-
+        //cancel periodic
+        WorkManager.getInstance(this).cancelAllWorkByTag("periodic");
+        ManageWorkManager.setPeriodicRequest(this);
         mToolbar  = findViewById(R.id.toolBar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView=findViewById(R.id.nav_view);
