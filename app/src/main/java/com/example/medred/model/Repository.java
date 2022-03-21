@@ -139,15 +139,15 @@ public class Repository implements RepositoryInterface{
         firebaseSource.deleteDependant(dependant);
     }
 
+
+
+
     @Override
     public LiveData<List<Medication>> getCalenderMedications(long time) {
       return   localSource.getCalenderMedications(time);
     }
 
-    @Override
-    public void getFirebaseCalenderMedications(long time) {
 
-    }
 
     @Override
     public LiveData<List<Medication>> getSpecificDayCalenderMedications(long time, String day) {

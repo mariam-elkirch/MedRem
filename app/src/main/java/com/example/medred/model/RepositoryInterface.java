@@ -30,8 +30,6 @@ public interface RepositoryInterface {
  void getDependants();
  void deleteHealthTaker(HealthTaker healthTaker);
  void deleteDependant(Dependant dependant);
- void addHealthTaker(Request request, String healthTakerEmail);
  LiveData<List<Medication>> getCalenderMedications(long time);
- void getFirebaseCalenderMedications(long time);
  LiveData<List<Medication>> getSpecificDayCalenderMedications(long time,String day);
 }
