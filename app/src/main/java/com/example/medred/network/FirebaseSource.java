@@ -1,10 +1,15 @@
 package com.example.medred.network;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.medred.model.Dependant;
 import com.example.medred.model.HealthTaker;
+import com.example.medred.model.Medication;
 import com.example.medred.model.Request;
 import com.example.medred.model.User;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
+import java.util.List;
 
 public interface FirebaseSource {
 void authunticateUser(User user, FirebaseManager.FireBaseCallBack fireBaseCallBack);
@@ -17,4 +22,5 @@ void onAccept(HealthTaker healthTaker, Dependant dependant);
 void onReject(String key, String email);
 void getRequests();
 void setNetworkDelegate(NetworkDelegate networkDelegate);
+void getFirbaseCalenderMedications(long time);
 }

@@ -28,7 +28,7 @@ public class MedicationsListPresenter implements MedicationsListIPresenterInterf
 
     @Override
     public void getActiveMedications(LifecycleOwner owner) {
-        Log.d("TAG", time+"");
+
         repo.getActiveMedications(time).observe(owner, medications -> medView.getActiveMeds(medications));
     }
 

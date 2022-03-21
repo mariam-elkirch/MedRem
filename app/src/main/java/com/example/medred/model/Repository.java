@@ -104,4 +104,19 @@ public class Repository implements RepositoryInterface{
         firebaseSource.sendRequest(request, healthTakerEmail);
     }
 
+    @Override
+    public LiveData<List<Medication>> getCalenderMedications(long time) {
+      return   localSource.getCalenderMedications(time);
+    }
+
+    @Override
+    public void getFirebaseCalenderMedications(long time) {
+
+    }
+
+    @Override
+    public LiveData<List<Medication>> getSpecificDayCalenderMedications(long time, String day) {
+        return localSource.getSpecificDayCalenderMedications(time,day);
+    }
+
 }

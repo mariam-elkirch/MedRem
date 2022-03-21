@@ -23,4 +23,7 @@ void authunticateUser(User user, FirebaseManager.FireBaseCallBack fireBaseCallBa
  void deleteMedication(Medication medicationModel);
  void userExistence(String receiverEmail);
  void addHealthTaker(Request request, String healthTakerEmail);
+ LiveData<List<Medication>> getCalenderMedications(long time);
+ void getFirebaseCalenderMedications(long time);
+ LiveData<List<Medication>> getSpecificDayCalenderMedications(long time,String day);
 }
