@@ -13,4 +13,6 @@ public interface LocalSource {
     LiveData<List<Medication>> getAllMedications();
     LiveData<List<Medication>> getActiveMedications(long time);
     LiveData<List<Medication>> getInactiveMedications(long time);
+    LiveData<Medication> getShowMedication(int medID);
+    void updateMedication(Medication medicationModel);
 }

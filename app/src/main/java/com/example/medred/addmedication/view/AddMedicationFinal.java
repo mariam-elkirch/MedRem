@@ -3,14 +3,17 @@ package com.example.medred.addmedication.view;
 import static com.example.medred.addmedication.view.AddMedicationActivity.medicationMain;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -21,6 +24,8 @@ import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
 
 import com.example.medred.Home.view.HomeActivity;
 import com.example.medred.MainActivity;
@@ -28,8 +33,16 @@ import com.example.medred.R;
 import com.example.medred.addmedication.presenter.AddMedicationPresenterInterface;
 import com.example.medred.addmedication.presenter.MedicationPresenter;
 import com.example.medred.db.ConcreteLocalSource;
+import com.example.medred.db.MedicationDAO;
 import com.example.medred.model.Medication;
 import com.example.medred.model.Repository;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AddMedicationFinal extends Fragment implements AddMedicationViewInterface {
@@ -51,10 +64,18 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
     int selectedHour, selectedMinute;
     String format;
     String reasonsETStr;
+    Dialog dialogSucess;
+    Button doneSucessBtn;
 
 
     AddMedicationPresenterInterface addMedicationPresenterInterface;
     Medication finalMedication = new Medication();
+
+
+    //try firebase
+    private FirebaseUser user;
+    private DatabaseReference reference , databaseReference;
+    private String userId;
 
 
 
@@ -63,6 +84,34 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_add_medication_final, container, false);
+
+        //try firebase
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        reference= FirebaseDatabase.getInstance().getReference("user");
+        userId=user.getUid();
+        //Log.d("TAG", "onCreateView: "+user+userId);
+        //databaseReference=FirebaseDatabase.getInstance().getReference(userId);
+
+
+        //sucess dialog
+        dialogSucess =new Dialog(getContext());
+
+
+            dialogSucess.setContentView(R.layout.medication_sucess_layout);
+            dialogSucess.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialogSucess.setCancelable(false);
+
+
+        doneSucessBtn=dialogSucess.findViewById(R.id.doneSucessBtn);
+        doneSucessBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogSucess.dismiss();
+                Intent intent = new Intent(getContext(), HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         // set all ids for the components
         pillLeftEt=view.findViewById(R.id.pillLeftET);
@@ -131,7 +180,7 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
             @Override
             public void onClick(View view) {
                 handleFinalFragment();
-                checkMedication();
+                //checkMedication();
 //                insertMovie(medicationMain);
  //               setMedicationView(finalMedication);
 //                Log.d("TAG", "onClick:DONE ");
@@ -162,7 +211,7 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
         pillLeftItem=pillLeftEt.getText().toString();
         String refillStr = dateRefill.getText().toString();
         reasonsETStr=reasonsET.getText().toString();
-        medicationMain.setActive(true);
+        finalMedication.setActive(true);
 
 
 
@@ -186,6 +235,15 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
             setMedicationView(finalMedication);
             Log.d("TAG", "onClick:DONE ");
 
+            //try firebase
+
+            reference.child(userId).child("medication").child(finalMedication.getName()).setValue(finalMedication);
+//            String id = String.valueOf(finalMedication.getId());
+//            Log.d("TAG", "handleFinalFragment: ID "+id);
+
+
+
+
 
 
             //mein insert here in room
@@ -193,12 +251,13 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
 //            setMedicationView(medicationMain);
 //            Log.d("TAG", "onClick:DONE ");
 
+
+
                 Intent intent = new Intent(getContext(), HomeActivity.class);
                 startActivity(intent);
-                Toast.makeText(getContext(), "Medication added successfully!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Medication added successfully!", Toast.LENGTH_SHORT).show();
                // Log.d("TAG", "handleFinalFragment: "+medicationMain.getName());
-
-
+            dialogSucess.show();
 
            // insertMedication(medicationMain);
 
@@ -223,8 +282,13 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
             setMedicationView(finalMedication);
             Log.d("TAG", "onClick:DONE ");
 
+            reference.child(userId).child("medication").child(finalMedication.getName()).setValue(finalMedication);
+//            String id = String.valueOf(finalMedication.getId());
+//            Log.d("TAG", "handleFinalFragment:ID "+id);
 
-           // insertMedication(medicationMain);
+
+
+            // insertMedication(medicationMain);
             //try
             //main insert in room here commented
 //            setMedicationView(medicationMain);
@@ -234,46 +298,47 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
 
             Intent intent = new Intent(getContext(), HomeActivity.class);
             startActivity(intent);
-
-            Toast.makeText(getContext(), "Medication added successfully!", Toast.LENGTH_SHORT).show();
+//
+//            Toast.makeText(getContext(), "Medication added successfully!", Toast.LENGTH_SHORT).show();
             //Log.d("TAG", "handleFinalFragment: "+medicationMain.getName());
 
+            dialogSucess.show();
 
         }
         else{
             Toast.makeText(getContext(), "please fill all fields", Toast.LENGTH_SHORT).show();
         }
     }
-    public void checkMedication(){
-        if(medicationMain==null){
-            Toast.makeText(getContext(), "no", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Log.d("TAG", "checkMedication: "+medicationMain.getName());
-            Log.d("TAG", "checkMedication: "+medicationMain.getStrength());
-            Log.d("TAG", "checkMedication: "+medicationMain.getUnit());
-            Log.d("TAG", "checkMedication: "+medicationMain.getFrequency());
-            Log.d("TAG", "checkMedication: "+medicationMain.getNumberOfDoses());
-            Log.d("TAG", "checkMedication: "+medicationMain.getStartDate());
-            Log.d("TAG", "checkMedication: "+medicationMain.getEndDate());
-            Log.d("TAG", "checkMedication: "+medicationMain.getDays());
-
-            if(medicationMain.getFrequency()==2 || medicationMain.getFrequency()==3){
-                for(int i = 0 ; i<medicationMain.getSetAlarm().size();i++){
-                    Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().get(i).getHour());
-                    Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().get(i).getMinute());
-                    Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().get(i).getFormat());
-                }
-//            Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().getHour());
-//            Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().getMinute());
-//            Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().getFormat());
-                for(int i = 0 ; i<medicationMain.getPillEachDose().size();i++){
-                    Log.d("TAG", "medication doses : "+medicationMain.getPillEachDose().get(i));
-                }}
-
-
-        }
-    }
+//    public void checkMedication(){
+//        if(medicationMain==null){
+//            Toast.makeText(getContext(), "no", Toast.LENGTH_SHORT).show();
+//        }
+//        else{
+//            Log.d("TAG", "checkMedication: "+medicationMain.getName());
+//            Log.d("TAG", "checkMedication: "+medicationMain.getStrength());
+//            Log.d("TAG", "checkMedication: "+medicationMain.getUnit());
+//            Log.d("TAG", "checkMedication: "+medicationMain.getFrequency());
+//            Log.d("TAG", "checkMedication: "+medicationMain.getNumberOfDoses());
+//            Log.d("TAG", "checkMedication: "+medicationMain.getStartDate());
+//            Log.d("TAG", "checkMedication: "+medicationMain.getEndDate());
+//            Log.d("TAG", "checkMedication: "+medicationMain.getDays());
+//
+//            if(medicationMain.getFrequency()==2 || medicationMain.getFrequency()==3){
+//                for(int i = 0 ; i<medicationMain.getSetAlarm().size();i++){
+//                    Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().get(i).getHour());
+//                    Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().get(i).getMinute());
+//                    Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().get(i).getFormat());
+//                }
+////            Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().getHour());
+////            Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().getMinute());
+////            Log.d("TAG", "checkMedication: "+medicationMain.getSetAlarm().getFormat());
+//                for(int i = 0 ; i<medicationMain.getPillEachDose().size();i++){
+//                    Log.d("TAG", "medication doses : "+medicationMain.getPillEachDose().get(i));
+//                }}
+//
+//
+//        }
+//    }
 
 //di bet3t el room matensich w temsa7iha
     @Override
@@ -281,4 +346,16 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
         addMedicationPresenterInterface.setMedicationPresenter(medicationModel);
         Log.d("TAG", "setMedicationView:DONE DONE ");
     }
+
+    @Override
+    public LiveData<Medication> getShowMed(int idMed) {
+        return null;
+    }
+
+    @Override
+    public void updateMedication(Medication medicationModel) {
+
+    }
+
+
 }

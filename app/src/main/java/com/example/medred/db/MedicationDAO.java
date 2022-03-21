@@ -7,6 +7,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.medred.model.Medication;
 
@@ -29,4 +30,11 @@ public interface MedicationDAO {
 
     @Query("SELECT * FROM medication WHERE (:time < startDateInMillis OR :time > endDateInMillis) OR isActive = 0")
     LiveData<List<Medication>> getInactiveMedications(long time);
+
+    @Query("SELECT * FROM medication WHERE :medID = id")
+    LiveData<Medication> getShowMedication(int medID);
+
+    @Update
+    void updateMedication(Medication medicationModel);
+
 }

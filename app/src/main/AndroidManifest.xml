@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.medred">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MedRed">
+        <activity
+            android:name=".addmedication.view.ShowMedicationActivity"
+            android:exported="false" />
         <activity
             android:name=".Registeration.view.ForgotPasswordActivity"
             android:exported="true" />
@@ -21,11 +27,9 @@
         <activity
             android:name=".Registeration.view.LoginActivity"
             android:exported="true" />
-        <activity android:name=".addmedication.view.AddMedicationActivity"
-            android:exported="true">
-
-
-        </activity>
+        <activity
+            android:name=".addmedication.view.AddMedicationActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -36,8 +40,5 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

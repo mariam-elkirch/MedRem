@@ -18,7 +18,10 @@ void authunticateUser(User user, FirebaseManager.FireBaseCallBack fireBaseCallBa
  LiveData<List<Medication>> getAllMedications();
  LiveData<List<Medication>> getActiveMedications(long time);
  LiveData<List<Medication>> getInactiveMedications(long time);
- void getAllMedication(LocalSource localSource);
+ LiveData<Medication> getShowMedication(int medID);
+ void updateMedication(Medication medicationModel);
+
+    void getAllMedication(LocalSource localSource);
  void insertMedication(Medication medicationModel);
  void deleteMedication(Medication medicationModel);
  void userExistence(String receiverEmail);
