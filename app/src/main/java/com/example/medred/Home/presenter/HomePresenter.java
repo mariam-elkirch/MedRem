@@ -1,8 +1,10 @@
 package com.example.medred.Home.presenter;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.work.Data;
@@ -17,6 +19,7 @@ import com.example.medred.model.Utils;
 import com.example.medred.workmanager.AlarmWorkManager.OneTimeWorker;
 import com.example.medred.workmanager.AlarmWorkManager.WorkManager;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -33,6 +36,7 @@ public class HomePresenter implements HomePresenterInterface{
         this.repository=repository;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void getCalenderMedications(Long time,LifecycleOwner owner) {
        // repository.getSpecificDayCalenderMedications(time,"Friday");
@@ -48,9 +52,12 @@ public class HomePresenter implements HomePresenterInterface{
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public List<Reminders> getReminders(List<Medication> medications) {
         //type of med , long time user insert from calender ang compare it with get days
+
+            LocalDate localDate=LocalDate.now();
 
         List<Reminders>sortReminders=new ArrayList<Reminders>();
         String alarmTime;
@@ -59,7 +66,7 @@ public class HomePresenter implements HomePresenterInterface{
            for(int alarm=0;alarm<medications.get(medication).getSetAlarm().size();alarm++){
                //sort alarms make date fixed as i want time to be sorted
               // if(medications.get(medication).getFrequency()==3 ||medications.get(medication).getFrequency()==4){
-                   alarmTime = 20 + "-" + 3 + "-" + 2020 + " " +
+                   alarmTime = localDate.getDayOfMonth() + "-" + localDate.getMonthValue() + "-" + localDate.getYear() + " " +
                            medications.get(medication).getSetAlarm().get(alarm).getHour() + ":" +
                            medications.get(medication).getSetAlarm().get(alarm).getMinute()
                            + " " + medications.get(medication).getSetAlarm().get(alarm).getFormat();

@@ -1,11 +1,15 @@
 package com.example.medred.Home.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +23,7 @@ import com.example.medred.Home.presenter.HomePresenter;
 import com.example.medred.Home.presenter.HomePresenterInterface;
 import com.example.medred.R;
 import com.example.medred.db.ConcreteLocalSource;
+import com.example.medred.medicationsList.view.MedicationsListFragment;
 import com.example.medred.model.Medication;
 import com.example.medred.model.Reminders;
 import com.example.medred.model.Repository;
@@ -93,7 +98,12 @@ public class HomeFragment extends Fragment implements  OnHomeMedicationClickList
         fabb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("TAG","click fab");
+                Fragment MedicationsListFragment=new MedicationsListFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.flContent, MedicationsListFragment );
+                transaction.addToBackStack(null);
+                transaction.commit();
+
             }
         });
     }
@@ -116,10 +126,8 @@ public class HomeFragment extends Fragment implements  OnHomeMedicationClickList
          adapter.setMedications(reminders);
     }
 
-    @Override
-    public void getFirebaseCalenderMeds(List<Medication> calenderMedications) {
 
-    }
+
 
 
 }

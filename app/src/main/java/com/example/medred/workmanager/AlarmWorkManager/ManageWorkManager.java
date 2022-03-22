@@ -29,8 +29,8 @@ public class ManageWorkManager {
     public  static  void setOneTimeRequest(Context context, String time, String medicineName){
         Log.i("TAG", "In side one time request "+medicineName);
         Data data = new Data.Builder()
-                .putString(WorkManager.DATA,medicineName)
-                .putString("id","batot")
+                .putString("medicine",medicineName)
+               // .putString("id","batot")
                 .build();
         long initialTime= Utils.convertDateAndTimeToFinalTimeInMills(time);
         OneTimeWorkRequest reminderRequest = new OneTimeWorkRequest.Builder(OneTimeWorker.class)

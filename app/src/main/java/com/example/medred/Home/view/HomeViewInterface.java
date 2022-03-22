@@ -11,6 +11,6 @@ import java.util.List;
 public interface HomeViewInterface {
 
     void getCalenderMeds(List<Medication> calenderMedications);
-    void getFirebaseCalenderMeds(List<Medication> calenderMedications);
+
 
 }

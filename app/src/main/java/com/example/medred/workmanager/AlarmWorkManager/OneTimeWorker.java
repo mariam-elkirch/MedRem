@@ -3,14 +3,17 @@ package com.example.medred.workmanager.AlarmWorkManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
+import androidx.work.Data;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
@@ -24,13 +27,15 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 
+import static android.app.Notification.EXTRA_NOTIFICATION_ID;
 import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class OneTimeWorker extends Worker {
     private static Context context;
     private static List<Reminders> remindersList = null;
-
-
+    private static final String ACTION_SNOOZE = "snooze";
+    private static final String ACTION_TAKE = "take";
+    private static final String ACTION_SKIP = "skip";
     public OneTimeWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         this.context = context;
@@ -42,7 +47,9 @@ public class OneTimeWorker extends Worker {
     @Override
     public Result doWork() {
         Log.i("TAG", "Inside final  dowork notification");
-        displayNotification("mriam");
+        Data inputdata = getInputData();
+        String data = inputdata.getString("medicine");
+        displayNotification(data);
         //get next , setnext
        findTheRest();
 
@@ -62,6 +69,24 @@ public class OneTimeWorker extends Worker {
 
         PendingIntent contentIntent = PendingIntent.getActivity(context, 200, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        Intent snoozeIntent = new Intent(context, SnoozeReceiver.class);
+        snoozeIntent.setAction(ACTION_SNOOZE);
+        snoozeIntent.putExtra(EXTRA_NOTIFICATION_ID, "snooze");
+        PendingIntent snoozePendingIntent =
+                PendingIntent.getBroadcast(context, 0, snoozeIntent, 0);
+
+        Intent takeIntent = new Intent(context, TakeReceiver.class);
+        takeIntent.setAction(ACTION_SNOOZE);
+        takeIntent.putExtra(EXTRA_NOTIFICATION_ID, "take");
+        PendingIntent takePendingIntent =
+                PendingIntent.getBroadcast(context, 1, takeIntent, 0);
+
+        Intent skipIntent = new Intent(context, SkipReceiver.class);
+        takeIntent.setAction(ACTION_SNOOZE);
+        takeIntent.putExtra(EXTRA_NOTIFICATION_ID, "skip");
+        PendingIntent skipPendingIntent =
+                PendingIntent.getBroadcast(context, 1, skipIntent, 0);
+
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -71,10 +96,17 @@ public class OneTimeWorker extends Worker {
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "simplifiedcoding")
-                .setContentTitle("Reminder" + keyword)
+                .setContentTitle("Reminder " + keyword)
                 .setContentText("You have to take your medicine")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(contentIntent)
+                .addAction(R.drawable.ic_launcher_foreground, "Snooze",
+                        snoozePendingIntent)
+                .addAction(R.drawable.ic_launcher_foreground, "Take",
+                        takePendingIntent)
+                .addAction(R.drawable.ic_launcher_foreground, "skip",
+                        skipPendingIntent)
+
                 .setSmallIcon(R.drawable.ic_baseline_medical_services_24);
 
 
@@ -107,8 +139,9 @@ public class OneTimeWorker extends Worker {
                     smallest = timeInMills - currentTime;
                     scheduledAlarm = alarmTime;
                     Log.i("TAG", "FinfResut If "+scheduledAlarm);
+                    medicineName = remindersList.get(i).getName();
                 }
-                medicineName = remindersList.get(i).getName();
+
             }
         }
 

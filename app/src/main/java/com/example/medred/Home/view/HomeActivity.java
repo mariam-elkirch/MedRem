@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.medred.R;
+import com.example.medred.Registeration.view.LoginActivity;
 import com.example.medred.dependentsList.view.DependantsListFragment;
 import com.example.medred.healthtakerslist.view.HealthTakersListFragment;
 import com.example.medred.medicationsList.view.MedicationsListFragment;
@@ -73,7 +74,8 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.nav_logout:
                         FirebaseAuth.getInstance().signOut();
                         navUsername.setText("Guest");
-                        //fabb.hide();
+                        finish();
+                        changeActivity(new LoginActivity());
 
 
                 }
