@@ -28,6 +28,7 @@ import com.example.medred.R;
 import com.example.medred.addmedication.presenter.AddMedicationPresenterInterface;
 import com.example.medred.addmedication.presenter.MedicationPresenter;
 import com.example.medred.db.ConcreteLocalSource;
+import com.example.medred.model.Alarm;
 import com.example.medred.model.Medication;
 import com.example.medred.model.Repository;
 
@@ -51,6 +52,7 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
     int selectedHour, selectedMinute;
     String format;
     String reasonsETStr;
+    Alarm refillAlarm;
 
 
     AddMedicationPresenterInterface addMedicationPresenterInterface;
@@ -119,6 +121,7 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
                         //holder.alarmSetTV.setText(String.format(Locale.getDefault(),"%02d:%02d",hour,minute));
                         dateRefill.setText(selectedHour+":"+selectedMinute+":"+format);
                         dateRefill.setVisibility(View.VISIBLE);
+                        refillAlarm = new Alarm(selectedHour, selectedMinute, format);
                     }
                 };
                 TimePickerDialog timePickerDialog = new TimePickerDialog(view.getContext(), TimePickerDialog.THEME_HOLO_LIGHT, onTimeSetListener,selectedHour,selectedMinute,false);
@@ -181,7 +184,7 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
             finalMedication.setReason(reasonsETStr);
             finalMedication.setPillStock(pillStockItem);
             finalMedication.setLeftPillReminder(pillLeftItem);
-            finalMedication.setAlarmRefillTime(refillStr);
+            finalMedication.setAlarmRefillTime(refillAlarm);
 
             //try bundle insert in room
             setMedicationView(finalMedication);

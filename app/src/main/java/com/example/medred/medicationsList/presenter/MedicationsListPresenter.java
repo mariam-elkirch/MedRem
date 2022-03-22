@@ -5,6 +5,8 @@ import androidx.lifecycle.LifecycleOwner;
 import com.example.medred.medicationsList.view.MedicationsListViewInterface;
 import com.example.medred.model.Medication;
 import com.example.medred.model.RepositoryInterface;
+import com.example.medred.workmanager.RefillWorkManager.OneTimeRefillWorkManager;
+
 import java.util.Calendar;
 
 public class MedicationsListPresenter implements MedicationsListIPresenterInterface{
@@ -24,7 +26,13 @@ public class MedicationsListPresenter implements MedicationsListIPresenterInterf
     @Override
     public void getActiveMedications(LifecycleOwner owner) {
 
-        repo.getActiveMedications(time).observe(owner, medications -> medView.getActiveMeds(medications));
+        repo.getActiveMedications(time).observe(owner, medications -> {
+            medView.getActiveMeds(medications);
+            if(medications != null && medications.size() > 0){
+                OneTimeRefillWorkManager.setRefillMedications(medications);
+                Log.i("Refill", "list Refill");
+            }
+        });
     }
 
     @Override

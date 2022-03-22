@@ -87,7 +87,7 @@ public class Medication implements Serializable {
 
     @ColumnInfo(name = "alarmRefillTime")
 
-    private String alarmRefillTime;
+    private Alarm alarmRefillTime;
 
 
     public Medication() {
@@ -221,11 +221,11 @@ public class Medication implements Serializable {
         this.leftPillReminder = leftPillReminder;
     }
 
-    public String getAlarmRefillTime() {
+    public Alarm getAlarmRefillTime() {
         return alarmRefillTime;
     }
 
-    public void setAlarmRefillTime(String alarmRefillTime) {
+    public void setAlarmRefillTime(Alarm alarmRefillTime) {
         this.alarmRefillTime = alarmRefillTime;
     }
 
@@ -257,7 +257,7 @@ public class Medication implements Serializable {
                       int imageID, int numberOfDoses, String startDate, String endDate, long startDateInMillis,
                       long endDateInMillis, String days, ArrayList<Alarm> setAlarm, ArrayList<String> pillEachDose,
                       String reason, String pillStock, boolean refillReminder, String leftPillReminder,
-                      String alarmRefillTime, boolean isActive) {
+                      Alarm alarmRefillTime, boolean isActive) {
         //this.id = id;
         this.name = name;
         this.strength = strength;
