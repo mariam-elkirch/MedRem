@@ -256,13 +256,6 @@ public class IntervalFragment extends Fragment {
             bundle.putSerializable("alarm", intervalMedication);
             Navigation.findNavController(view).navigate(R.id.action_intervalFragment_to_setAlarmFragment, bundle);
 
-
-
-
-
-
-
-
 //            medicationMain.setNumberOfDoses(numberOfDosesInt);
 //            medicationMain.setStartDate(startIntStr);
 //            medicationMain.setEndDate(endIntStr);

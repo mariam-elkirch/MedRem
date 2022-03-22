@@ -122,7 +122,7 @@ public class HomeFragment extends Fragment implements  OnHomeMedicationClickList
        // adapter.setMedications(calenderMedications);
 
 
-        Log.i("TAG",reminders.get(0).getName());
+        //Log.i("TAG",reminders.get(0).getName());
          adapter.setMedications(reminders);
     }
 

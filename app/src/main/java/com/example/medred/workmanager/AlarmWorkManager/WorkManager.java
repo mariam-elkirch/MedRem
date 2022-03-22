@@ -3,11 +3,11 @@ package com.example.medred.workmanager.AlarmWorkManager;
 import android.content.Context;
 import android.os.Build;
 import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+import com.example.medred.workmanager.RefillWorkManager.OneTimeRefillWorkManager;
 
 public class WorkManager extends Worker {
     public static final String DATA = "repeat";
@@ -23,13 +23,10 @@ public class WorkManager extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        Log.i("TAG", "Inside periodic dowork");
-        String timeAndDate = 21 +"-" + 3+"-" + 2022+" " + 8 +":" + 8+" PM" ;
-        //getnext and set next in Myworkmanager
+        Log.i("TAG", "Inside periodic doWork");
         OneTimeWorker.findTheRest();
-       // ManageWorkManager.setOneTimeRequest(mcontext,timeAndDate,"panadol");
-        Log.i("TAG", "after ont time reqest");
-        //pushPeriodicNotification();
+        OneTimeRefillWorkManager.getNextRefillReminder();
+        Log.i("TAG", "After one time request");
         return Result.success();
 
     }

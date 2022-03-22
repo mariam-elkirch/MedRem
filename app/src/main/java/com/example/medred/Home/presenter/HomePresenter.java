@@ -91,9 +91,9 @@ public class HomePresenter implements HomePresenterInterface{
 
        }
 
-        Log.i("TAG",sortReminders.get(0).getName());
+        //Log.i("TAG",sortReminders.get(0).getName());
         sort(sortReminders, Comparator.comparingLong(Reminders::getTimeImMills));
-        Log.i("TAG",sortReminders.get(0).getName());
+        //Log.i("TAG",sortReminders.get(0).getName());
 
        return sortReminders;
     }

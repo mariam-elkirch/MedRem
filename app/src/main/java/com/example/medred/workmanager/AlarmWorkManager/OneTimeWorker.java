@@ -6,10 +6,8 @@ import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
@@ -17,7 +15,6 @@ import androidx.work.Data;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-
 import com.example.medred.Home.view.HomeActivity;
 import com.example.medred.R;
 import com.example.medred.model.Reminders;
@@ -117,40 +114,41 @@ public class OneTimeWorker extends Worker {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static void findTheRest() {
-        //refrence from repo fing medication
-        WorkManager.getInstance().cancelAllWorkByTag("alarms");
-        long currentTime = Calendar.getInstance().getTimeInMillis();
-        long smallest = currentTime;
-        String medicineName = null;
-        String scheduledAlarm = null;
-        LocalDate localDate=LocalDate.now();
-      //  Calendar mycalobj = Calendar.getInstance();
-        for (int i = 0; i < remindersList.size(); i++) {
-            for (int alarm = 0; alarm < remindersList.get(i).getSetAlarm().size(); alarm++) {
+        if(remindersList != null && remindersList.size() > 0) {
+            //refrence from repo fing medication
+            WorkManager.getInstance().cancelAllWorkByTag("alarms");
+            long currentTime = Calendar.getInstance().getTimeInMillis();
+            long smallest = currentTime;
+            String medicineName = null;
+            String scheduledAlarm = null;
+            LocalDate localDate = LocalDate.now();
+            //  Calendar mycalobj = Calendar.getInstance();
+            for (int i = 0; i < remindersList.size(); i++) {
+                for (int alarm = 0; alarm < remindersList.get(i).getSetAlarm().size(); alarm++) {
 
-                String alarmTime = localDate.getDayOfMonth()+ "-" + localDate.getMonthValue() + "-" + localDate.getYear() + " " +
-                        remindersList.get(i).getSetAlarm().get(alarm).getHour() + ":" +
-                        remindersList.get(i).getSetAlarm().get(alarm).getMinute()
-                        + " " + remindersList.get(i).getSetAlarm().get(alarm).getFormat();
-                Log.i("TAG", "In side findRest "+alarmTime);
-                long timeInMills = Utils.convertDateAndTimeToTimeInMills(alarmTime);
-                Log.i("TAG", "In side findRestMills "+timeInMills+"  "+alarmTime+" "+(timeInMills-currentTime));
-                if (timeInMills - currentTime >= 0 && timeInMills - currentTime < smallest) {
-                    smallest = timeInMills - currentTime;
-                    scheduledAlarm = alarmTime;
-                    Log.i("TAG", "FinfResut If "+scheduledAlarm);
-                    medicineName = remindersList.get(i).getName();
+                    String alarmTime = localDate.getDayOfMonth() + "-" + localDate.getMonthValue() + "-" + localDate.getYear() + " " +
+                            remindersList.get(i).getSetAlarm().get(alarm).getHour() + ":" +
+                            remindersList.get(i).getSetAlarm().get(alarm).getMinute()
+                            + " " + remindersList.get(i).getSetAlarm().get(alarm).getFormat();
+                    Log.i("TAG", "In side findRest " + alarmTime);
+                    long timeInMills = Utils.convertDateAndTimeToTimeInMills(alarmTime);
+                    Log.i("TAG", "In side findRestMills " + timeInMills + "  " + alarmTime + " " + (timeInMills - currentTime));
+                    if (timeInMills - currentTime >= 0 && timeInMills - currentTime < smallest) {
+                        smallest = timeInMills - currentTime;
+                        scheduledAlarm = alarmTime;
+                        Log.i("TAG", "FinfResut If " + scheduledAlarm);
+                        medicineName = remindersList.get(i).getName();
+                    }
+
                 }
+            }
+
+            if (scheduledAlarm != null) {
+                Log.i("TAG", "In side smallest reminder method");
+                ManageWorkManager.setOneTimeRequest(context, scheduledAlarm, medicineName);
 
             }
         }
-
-        if (scheduledAlarm != null) {
-            Log.i("TAG", "In side smallest reminder method");
-            ManageWorkManager.setOneTimeRequest(context, scheduledAlarm, medicineName);
-
-        }
-
         //
     }
 }
