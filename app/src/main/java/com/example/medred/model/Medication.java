@@ -13,6 +13,7 @@ import java.util.List;
 @Entity(tableName = "medication")
 public class Medication implements Serializable {
     @PrimaryKey(autoGenerate = true)
+    @NonNull
     private  int id;
 
     @ColumnInfo(name = "name")
@@ -87,8 +88,7 @@ public class Medication implements Serializable {
 
     @ColumnInfo(name = "alarmRefillTime")
 
-    private Alarm alarmRefillTime;
-
+    private String alarmRefillTime;
 
     public Medication() {
     }

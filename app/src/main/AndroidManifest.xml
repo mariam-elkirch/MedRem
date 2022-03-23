@@ -10,9 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MedRed">
         <activity
+            android:name=".addmedication.view.ShowMedicationActivity"
+            android:exported="false" />
+        <activity
             android:name=".Registeration.view.ForgotPasswordActivity"
             android:exported="true" />
-
         <activity
             android:name=".Home.view.HomeActivity"
             android:exported="true" />

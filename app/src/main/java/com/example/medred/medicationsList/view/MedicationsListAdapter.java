@@ -1,5 +1,6 @@
 package com.example.medred.medicationsList.view;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

@@ -20,19 +20,5 @@ public class AddMedicationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medication);
         medicationMain = new Medication();
-
-
-
-
     }
-//    public void checkMedication(){
-//        if(medicationMain==null){
-//            Toast.makeText(AddMedicationActivity.this, "no", Toast.LENGTH_SHORT).show();
-//        }
-//        else{
-//            Toast.makeText(AddMedicationActivity.this, "ok", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-
-
 }

@@ -31,16 +31,6 @@ public class SetAlarmFragment extends Fragment {
     Button nextBtnAlarm;
     public static Medication alarmMedication = new Medication();
 
-//    public SetAlarmFragment(int numberDoses){
-//
-//        this.numberDoses=numberDoses;
-//    }
-//
-//    public SetAlarmFragment(){
-//
-//
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,39 +42,21 @@ public class SetAlarmFragment extends Fragment {
         Medication receiveMedication= (Medication) bundle.getSerializable("alarm");
         numberDoses = receiveMedication.getNumberOfDoses();
         alarmMedication=receiveMedication;
-
-
-
-       //Log.d("TAG", "onCreateView: "+alarmMedication.getName());
-//        Log.d("TAG", "onCreateView: "+receiveMedication.getFrequency());
-//        Log.d("TAG", "onCreateView: "+receiveMedication.getStrength());
-//        Log.d("TAG", "onCreateView: "+receiveMedication.getUnit());
-
-
-
-
-
-
         //createAlarm();
         recyclerViewAlarm = view.findViewById(R.id.recyclerViewAlarm);
         alarmAdapter = new AlarmAdapter();
         alarmAdapter.setData(getData(numberDoses));
-        //alarmAdapter.getNumber(sendNumbers());
         alarmAdapter.getNumber(numberDoses);
-
-        //
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewAlarm.setLayoutManager(linearLayoutManager);
         recyclerViewAlarm.setAdapter(alarmAdapter);
-
         nextBtnAlarm=view.findViewById(R.id.nextBtnAlarm);
         nextBtnAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                if(alarmAdapter.alarmCheck()==1){
-                   //replaceFragment(new AddMedicationFinal());
                    bundle.putSerializable("final",alarmMedication );
                    Navigation.findNavController(view).navigate(R.id.action_setAlarmFragment_to_addMedicationFinal,bundle);
                } else{
@@ -92,10 +64,8 @@ public class SetAlarmFragment extends Fragment {
                }
             }
         });
-
         return view;
     }
-
     public static ArrayList<Alarm> getData(int numberDoses){
         ArrayList<Alarm> alArrayList = new ArrayList<>();
         for(int i = 0 ; i<numberDoses ; i++){
@@ -103,22 +73,5 @@ public class SetAlarmFragment extends Fragment {
         }
         return  alArrayList;
     }
-
-    public int sendNumbers(int num){
-        return  num;
-    }
-
-
-//    public void replaceFragment(Fragment someFragment) {
-//
-//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//        transaction.replace(R.id.fragmentContainerView, someFragment);
-//        transaction.addToBackStack(null);
-//        transaction.commit();
-//    }
-
-
-
-
 
 }
