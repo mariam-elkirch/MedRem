@@ -85,7 +85,6 @@ public class HomeFragment extends Fragment implements  OnHomeMedicationClickList
                 .datesNumberOnScreen(5)
                 .build();
         //internet condn
-
        // presenter.getCalenderMedications(Calendar.getInstance().getTimeInMillis(),this);
         presenter.getFirebaseMedications(Calendar.getInstance().getTimeInMillis(),this);
         LifecycleOwner lifecycleOwner=this;
