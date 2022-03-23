@@ -132,17 +132,6 @@ public class EditMedication extends Fragment  implements AddMedicationViewInterf
                 startActivity(intent);
             }
         });
-//        cancelBtnEdit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Bundle bundle = new Bundle();
-////                bundle.putSerializable("ID", editMedication.getId());
-////                replaceFragment(bundle);
-////                getActivity(). getFragmentManager(). popBackStack();
-//            }
-//        });
-
-
 
         return view;
     }
@@ -151,19 +140,7 @@ public class EditMedication extends Fragment  implements AddMedicationViewInterf
         nameEditED.setText(editMedication.getName());
         //alarms
         //try
-
         alarmArrayListEdit=editMedication.getSetAlarm();
-
-//        if(alarmArrayListEdit==null){
-//            alarmOneEdit.setText("Set Alarm");
-//            alarmTwoEdit.setText("Set Alarm");
-//            alarmThreeEdit.setText("Set Alarm");
-//            alarmFourEdit.setText("Set Alarm");
-//            alarmFiveEdit.setText("Set Alarm");
-//            alarmSixEdit.setText("Set Alarm");
-//
-//        }
-
             if(0 >= editMedication.getSetAlarm().size()||editMedication.getSetAlarm().get(0)==null){
                 alarmOneEdit.setText("Set Alarm");
             }else{
@@ -200,9 +177,6 @@ public class EditMedication extends Fragment  implements AddMedicationViewInterf
                 alarmSixEdit.setText(editMedication.getSetAlarm().get(5).getHour()+":"+editMedication.getSetAlarm().get(5).getMinute()+":"+editMedication.getSetAlarm().get(5).getFormat());
             }
 
-
-
-
         showStartDateEdit.setText(editMedication.getStartDate());
         showEndDataEdit.setText(editMedication.getEndDate());
         showUnit.setText(editMedication.getUnit());
@@ -220,7 +194,6 @@ public class EditMedication extends Fragment  implements AddMedicationViewInterf
             default:
                 showFrequency.setText("Set Frequency");
         }
-
         //set alarms
         editDialog =new Dialog(getContext());
         editDialog.setContentView(R.layout.edit_alarm_dialog);
@@ -230,10 +203,6 @@ public class EditMedication extends Fragment  implements AddMedicationViewInterf
         cancelBtn=editDialog.findViewById(R.id.cancelBtn);
         doneEditBtn=editDialog.findViewById(R.id.doneEditBtn);
         alarmPickerEdit=editDialog.findViewById(R.id.alarmPickerEdit);
-
-
-
-
             alarmOneEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -722,11 +691,7 @@ public class EditMedication extends Fragment  implements AddMedicationViewInterf
 
     void setUpdate(){
       String nameUpdated=  nameEditED.getText().toString();
-//      String showStartStr = showStartDateEdit.getText().toString();
-//      String showEndStr = showEndDataEdit.getText().toString();
-//
       //alarm updates
-
       alarmOneStr=alarmOneEdit.getText().toString();
       alarmTwoStr=alarmTwoEdit.getText().toString();
       alarmThreeStr=alarmThreeEdit.getText().toString();
@@ -857,13 +822,5 @@ public class EditMedication extends Fragment  implements AddMedicationViewInterf
 
     }
 
-    public void replaceFragment( Bundle bundle) {
-        ShowMedication showMedication = new ShowMedication();
-        showMedication.setArguments(bundle);
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainerView2, showMedication);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
 
 }

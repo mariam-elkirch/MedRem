@@ -61,12 +61,8 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
     ImageView showMedImg;
     Button updateStockBtn ,addDoseBtn ;
     TextView stateBtn,editTV;
-    Button editBtn;
-
     static int ID;
     Medication medicationShowItem;
-    MedicationDAO medicationDAO;
-
     AddMedicationPresenterInterface addMedicationPresenterInterface;
     String reminderStr , doseStr;
     Dialog dialogAddDose ,dialogStock;
@@ -78,7 +74,7 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
     String format,dose,time,stock;
     Alarm alarmItem;
     private FirebaseUser user;
-    private DatabaseReference reference , databaseReference;
+    private DatabaseReference reference ;
     private String userId;
 
 
@@ -100,19 +96,15 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
         addDoseBtn=view.findViewById(R.id.addDoseBtn);
         stateBtn=view.findViewById(R.id.stateBtn);
         editTV=view.findViewById(R.id.editTV);
-        //editBtn=view.findViewById(R.id.editBtn);
         //getting bundle
-
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             ID = bundle.getInt("ID");
         }
-
         //setting data
         medicationShowItem = new Medication();
         addMedicationPresenterInterface = new MedicationPresenter(this, Repository.getInstance(getContext(),null, ConcreteLocalSource.getInstance(getContext())));
         getMedicine(ID);
-
         //end of dialog setting
         addDoseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,10 +112,6 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
                 dialogAddDose.show();
             }
         });
-
-
-
-
         return view;
     }
 
@@ -132,24 +120,10 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
         medicine.observe(this, new Observer<Medication>() {
             @Override
             public void onChanged(Medication medication) {
-                //Log.d("TAG", "getMedicine:  okay it is here " + medication.getName());
                 showMedication(medication);
-
-               //
             }
         });
     }
-
-//    private void updateMedicationShort(Medication medication) {
-//        ArrayList<Alarm> arrayListA = medication.getSetAlarm();
-//        ArrayList<String>arrayListD = medication.getPillEachDose();
-//        int size = medication.getSetAlarm().size()+1;
-//        arrayListA.add(size,alarmItem);
-//        medication.setSetAlarm(arrayListA);
-//        arrayListD.add(size,dose);
-//        medication.setPillEachDose(arrayListD);
-//    }
-
     //show the received object
     void showMedication(Medication medication){
         if(medication.isActive()){
@@ -184,24 +158,17 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
                 reminderShowMed.append("\n");
             }
         }
-
-
         //try
-
         //set dialog for add dose
         dialogAddDose =new Dialog(getContext());
-
-
         dialogAddDose.setContentView(R.layout.add_dose);
         dialogAddDose.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogAddDose.setCancelable(false);
-
         cancelAddBtn=dialogAddDose.findViewById(R.id.cancelAddBtn);
         doneAddBtn=dialogAddDose.findViewById(R.id.doneAddBtn);
         showClockTV=dialogAddDose.findViewById(R.id.showclockTV);
         clockSetTV=dialogAddDose.findViewById(R.id.clockSetTV);
         doseED=dialogAddDose.findViewById(R.id.doseED);
-
         showClockTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -226,25 +193,16 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
                         clockSetTV.setVisibility(View.VISIBLE);
                         time=clockSetTV.getText().toString();
                         alarmItem = new Alarm(pHour,pMinute,format);
-//                        if(dose.isEmpty()||dose==null||time.isEmpty()||time==null){
-//                            Toast.makeText(getContext(), "please fill all fields", Toast.LENGTH_SHORT).show();
-//                        }
-
                         doseED.addTextChangedListener(new TextWatcher() {
                             @Override
                             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                                //dose=doseED.getText().toString();
                             }
                             @Override
                             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                                 dose=doseED.getText().toString();
-//                                if(dose.isEmpty()||dose==null||time.isEmpty()||time==null){
-//                                    Toast.makeText(getContext(), "please fill all fields", Toast.LENGTH_SHORT).show();
-//                                }
                             }
                             @Override
                             public void afterTextChanged(Editable editable) {
-                                //dose=doseED.getText().toString();
                             }
                         });
                     }
@@ -264,21 +222,12 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
         doneAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(dose.isEmpty()||dose==null||time.isEmpty()||time==null){
-//                    Toast.makeText(getContext(), "please fill all fields", Toast.LENGTH_SHORT).show();
-//                }
-              //  if(!dose.trim().isEmpty()&&!time.trim().isEmpty()){
                     if(alarmItem!=null){
                     //code here
                     ArrayList<Alarm> arrayListA = medication.getSetAlarm();
                     ArrayList<String>arrayListD = medication.getPillEachDose();
                     arrayListA.add(alarmItem);
                     arrayListD.add(dose);
-//                    Log.d("TAG", "onClick: hereeeee"+alarmItem.getHour());
-//                    Log.d("TAG", "onClick: hereeeee"+alarmItem.getMinute());
-//                    Log.d("TAG", "onClick: hereeeee"+alarmItem.getFormat());
-//                    Log.d("TAG", "onClick: hereeeee"+dose);
-
                     medication.setPillEachDose(arrayListD);
                     medication.setSetAlarm(arrayListA);
                     updateMedication(medication);
@@ -290,19 +239,14 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
                     reference.child(userId).child("medication").child(medication.getName()).setValue(medication);
                     Toast.makeText(getContext(), "Dose is Added successfully", Toast.LENGTH_SHORT).show();
                     dialogAddDose.dismiss();
-                    //showMedication(medication);
                     Intent intent = new Intent(getContext(),HomeActivity.class);
                     startActivity(intent);
-
                 }
                 else{
                     Toast.makeText(getContext(), "please fill all fields", Toast.LENGTH_SHORT).show();
                }
-
             }
         });
-
-
         stateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -324,20 +268,13 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
                 startActivity(intent);
             }
         });
-
-
-
-
-
         dialogStock =new Dialog(getContext());
         dialogStock.setContentView(R.layout.update_stock);
         dialogStock.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogStock.setCancelable(false);
-
         stockED=dialogStock.findViewById(R.id.stockED);
         cancelStockBtn=dialogStock.findViewById(R.id.cancelStockBtn);
         doneStockBtn=dialogStock.findViewById(R.id.doneStockBtn);
-
         doneStockBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -354,8 +291,6 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
                     reference= FirebaseDatabase.getInstance().getReference("user");
                     userId=user.getUid();
                     reference.child(userId).child("medication").child(medication.getName()).setValue(medication);
-
-
                     dialogStock.dismiss();
                     Toast.makeText(getContext(), "Stock Updated", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getContext(), HomeActivity.class);
@@ -363,64 +298,46 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
                 }
             }
         });
-
         cancelStockBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialogStock.dismiss();
             }
         });
-
-
         updateStockBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialogStock.show();
             }
         });
-
-
         editTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("edit", medication);
-//                Navigation.findNavController(view).navigate(R.id.action_showMedication_to_editMedication);
-//                // Log.d("TAG", "onClick: "+medication.getName());
                 replaceFragment(bundle);
-
             }
         });
-
-
     }
-
 
     @Override
     public void setMedicationView(Medication medicationModel) {
         addMedicationPresenterInterface.setMedicationPresenter(medicationModel);
     }
-
     @Override
     public LiveData<Medication> getShowMed(int idMed) {
         return addMedicationPresenterInterface.getShowMed(idMed);
     }
-
     @Override
     public void updateMedication(Medication medicationModel) {
         addMedicationPresenterInterface.updateMedication(medicationModel);
     }
-
     @Override
     public void takeMedication(String pillStock, int Id) {
-
     }
-
     @Override
     public void rescheduleMedication(Alarm alarm, int Id) {
-
     }
-
     public void replaceFragment( Bundle bundle) {
         EditMedication editMedication = new EditMedication();
         editMedication.setArguments(bundle);

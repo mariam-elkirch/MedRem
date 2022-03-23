@@ -49,26 +49,7 @@ public class EveryDayFragment extends Fragment {
         Bundle bundle = getArguments();
         Medication receiveMedication= (Medication) bundle.getSerializable("everyday");
         everydayMedication=receiveMedication;
-
-//        Log.d("TAG", "onCreateView: "+receiveMedication.getName());
-//        Log.d("TAG", "onCreateView: "+receiveMedication.getFrequency());
-//        Log.d("TAG", "onCreateView: "+receiveMedication.getStrength());
-//        Log.d("TAG", "onCreateView: "+receiveMedication.getUnit());
-
-//        everydayMedication.setName(receiveMedication.getName());
-//        everydayMedication.setFrequency(receiveMedication.getFrequency());
-//        everydayMedication.setUnit(receiveMedication.getUnit());
-//        everydayMedication.setStrength(receiveMedication.getStrength());
-
-
-
-        //Log.d("TAG", "onCreateView: "+everydayMedication.getName());
-
-
-
-
         nextBtnEveryDay = view.findViewById(R.id.nextBtnEveryDay);
-
         startDateClickEV = view.findViewById(R.id.startDateClickEV);
         endDateClickEV = view.findViewById(R.id.endDateClickEV);
         setStartEV = view.findViewById(R.id.setStartEV);
@@ -117,7 +98,6 @@ public class EveryDayFragment extends Fragment {
         //spinner
         doseSpinnerEV = view.findViewById(R.id.doseSpinnerEV);
         ArrayAdapter<CharSequence> arrAdapterCycle = ArrayAdapter.createFromResource(getContext(), R.array.doseItemSpinner, android.R.layout.simple_spinner_item);
-
         arrAdapterCycle.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         doseSpinnerEV.setAdapter(arrAdapterCycle);
         doseSpinnerEV.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -151,14 +131,11 @@ public class EveryDayFragment extends Fragment {
                         numberOfDoseEV = 0;
                         Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
                 }
-
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
-
         nextBtnEveryDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,24 +143,14 @@ public class EveryDayFragment extends Fragment {
             }
         });
 
-
         return view;
     }
 
     public void showDate() {
         Bundle bundle = new Bundle();
-
         String setStartStr = setStartEV.getText().toString();
         String setEndStr = setEndEV.getText().toString();
         if (!setStartStr.trim().isEmpty() && !setEndStr.trim().isEmpty() && numberOfDoseEV != 0) {
-            //replaceFragment(new SetAlarmFragment(numberOfDoseEV));
-            //Toast.makeText(getContext(), "num is" + numberOfDoseEV, Toast.LENGTH_SHORT).show();
-           // Navigation.findNavController(view).navigate(R.id.action_everyDayFragment_to_setAlarmFragment);
-//            medicationMain.setNumberOfDoses(numberOfDoseEV);
-//            medicationMain.setStartDate(setStartStr);
-//            medicationMain.setEndDate(setEndStr);
-//            replaceFragment(new SetAlarmFragment(numberOfDoseEV));
-
             everydayMedication.setNumberOfDoses(numberOfDoseEV);
             everydayMedication.setStartDate(setStartStr);
             everydayMedication.setEndDate(setEndStr);
@@ -191,29 +158,11 @@ public class EveryDayFragment extends Fragment {
             everydayMedication.setEndDateInMillis(convertDateToMillis(setEndStr));
             bundle.putSerializable("alarm", everydayMedication);
             Navigation.findNavController(view).navigate(R.id.action_everyDayFragment_to_setAlarmFragment,bundle);
-
-
-
-
-
-
-
-
-
-
-
         } else {
             Toast.makeText(getContext(), "please fill all fields", Toast.LENGTH_SHORT).show();
         }
     }
 
-        public void replaceFragment(Fragment someFragment) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainerView, someFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-
-    }
 
 
 
