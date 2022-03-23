@@ -2,6 +2,7 @@ package com.example.medred.medicationsList.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.medred.Home.view.HomeActivity;
+import com.example.medred.R;
 import com.example.medred.addmedication.view.AddMedicationActivity;
+import com.example.medred.addmedication.view.EditMedication;
+import com.example.medred.addmedication.view.ShowMedication;
+import com.example.medred.addmedication.view.ShowMedicationActivity;
 import com.example.medred.databinding.FragmentMedicationsListBinding;
 import com.example.medred.db.ConcreteLocalSource;
 import com.example.medred.medicationsList.presenter.MedicationsListIPresenterInterface;
@@ -32,6 +40,8 @@ public class MedicationsListFragment extends Fragment implements OnMedicationCli
     private RecyclerView.LayoutManager activeLayoutManager;
     private RecyclerView.LayoutManager inActiveLayoutManager;
     private MedicationsListIPresenterInterface medsPresenter;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -115,12 +125,16 @@ public class MedicationsListFragment extends Fragment implements OnMedicationCli
 
     @Override
     public void onClick(int medicationId) {
-
+        Intent intent = new Intent(getContext(), ShowMedicationActivity.class);
+        intent.putExtra("IDFromOrigin", medicationId);;
+        startActivity(intent);
     }
 
     @Override
     public void onEdit(int medicationId) {
-
+        Intent intent = new Intent(getContext(), ShowMedicationActivity.class);
+        intent.putExtra("IDFromOrigin", medicationId);;
+        startActivity(intent);
     }
 
     @Override

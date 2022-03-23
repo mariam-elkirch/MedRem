@@ -1,5 +1,4 @@
 package com.example.medred.workmanager.AlarmWorkManager;
-
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -17,6 +16,7 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import com.example.medred.Home.view.HomeActivity;
 import com.example.medred.R;
+import com.example.medred.addmedication.view.AlarmReminderDialog;
 import com.example.medred.model.Reminders;
 import com.example.medred.model.Utils;
 
@@ -50,23 +50,23 @@ public class OneTimeWorker extends Worker {
         id=inputdata.getInt("id",100);
         displayNotification(data);
         //get next , setnext
-       findTheRest();
+        findTheRest();
 
         return Result.success();
     }
 
     public static void setMedicationList(List<Reminders> reminders) {
         remindersList = reminders;
-       // findTheRest();
+        // findTheRest();
 
     }
 
     private void displayNotification(String keyword) {
         //intent to dialog instead of home
-        Intent notificationIntent = new Intent(getApplicationContext(), HomeActivity.class);
+        Intent notificationIntent = new Intent(getApplicationContext(), AlarmReminderDialog.class);
 
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        notificationIntent.putExtra("dialog",keyword);
+        //notificationIntent.putExtra("dialog",keyword);
         notificationIntent.putExtra("dialogid",id);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 200, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -159,4 +159,3 @@ public class OneTimeWorker extends Worker {
         //
     }
 }
-

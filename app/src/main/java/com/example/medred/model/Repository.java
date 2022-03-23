@@ -78,6 +78,27 @@ public class Repository implements RepositoryInterface{
     }
 
     @Override
+    public LiveData<Medication> getShowMedication(int medID) {
+        return localSource.getShowMedication(medID);
+    }
+
+    @Override
+    public void updateMedication(Medication medicationModel) {
+        localSource.updateMedication(medicationModel);
+    }
+
+    @Override
+    public void takeMedication(String pillStock, int Id) {
+        localSource.takeMedication(pillStock,Id);
+    }
+
+    @Override
+    public void rescheduleMedication(Alarm alarm, int Id) {
+        localSource.rescheduleMedication(alarm,Id);
+    }
+
+
+    @Override
     public void getAllMedication(LocalSource localSource) {
 
         localSource.getAllMedications();

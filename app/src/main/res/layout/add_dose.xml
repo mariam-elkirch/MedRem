@@ -10,7 +10,9 @@
         android:layout_height="match_parent"
         app:cardElevation="10dp"
         app:cardCornerRadius="20dp"
+        android:layout_margin="10dp"
         app:cardBackgroundColor="@color/white"
+        app:cardMaxElevation="12dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +25,7 @@
 
 
             <TextView
-                android:id="@+id/showAlarmTV"
+                android:id="@+id/showclockTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
@@ -31,13 +33,13 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/setAlarm"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/alaramSetTV"
+                app:layout_constraintEnd_toStartOf="@+id/clockSetTV"
                 app:layout_constraintHorizontal_bias="0.021"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/alaramSetTV"
+                android:id="@+id/clockSetTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
@@ -45,14 +47,14 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="TextView"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/showAlarmTV"
+                app:layout_constraintBottom_toBottomOf="@+id/showclockTV"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
 
             <EditText
-                android:id="@+id/numberPillsED"
+                android:id="@+id/doseED"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -67,10 +69,38 @@
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.65"
+                app:layout_constraintHorizontal_bias="0.609"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/showAlarmTV"
+                app:layout_constraintTop_toBottomOf="@+id/showclockTV"
+                app:layout_constraintVertical_bias="0.086"
                 tools:ignore="SpeakableTextPresentCheck" />
+
+            <Button
+                android:id="@+id/cancelAddBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/cancel"
+                android:layout_marginBottom="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/doneAddBtn"
+                app:layout_constraintHorizontal_bias="0.513"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/doseED"
+                app:layout_constraintVertical_bias="0.004" />
+
+            <Button
+                android:id="@+id/doneAddBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="52dp"
+                android:text="@string/done"
+                android:layout_marginBottom="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/doseED"
+                app:layout_constraintVertical_bias="0.004" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

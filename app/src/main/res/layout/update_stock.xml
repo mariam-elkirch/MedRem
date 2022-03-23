@@ -10,7 +10,9 @@
         android:layout_height="match_parent"
         app:cardElevation="10dp"
         app:cardCornerRadius="20dp"
+        android:layout_margin="10dp"
         app:cardBackgroundColor="@color/white"
+        app:cardMaxElevation="12dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,41 +24,12 @@
             android:layout_height="match_parent">
 
 
-            <TextView
-                android:id="@+id/showAlarmTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="28dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/setAlarm"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/alaramSetTV"
-                app:layout_constraintHorizontal_bias="0.021"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/alaramSetTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="68dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="TextView"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/showAlarmTV"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-
-
             <EditText
-                android:id="@+id/numberPillsED"
+                android:id="@+id/stockED"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/custom_input"
                 android:ems="10"
                 android:fontFamily="sans-serif-medium"
@@ -65,12 +38,34 @@
                 android:minHeight="48dp"
                 android:padding="15dp"
                 android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.609"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/cancelStockBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="@string/cancel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/stockED"
+                app:layout_constraintTop_toBottomOf="@+id/stockED"
+                app:layout_constraintVertical_bias="0.487" />
+
+            <Button
+                android:id="@+id/doneStockBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="@string/done"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.65"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/showAlarmTV"
-                tools:ignore="SpeakableTextPresentCheck" />
+                app:layout_constraintHorizontal_bias="0.6"
+                app:layout_constraintStart_toEndOf="@+id/cancelStockBtn"
+                app:layout_constraintTop_toBottomOf="@+id/stockED"
+                app:layout_constraintVertical_bias="0.487" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

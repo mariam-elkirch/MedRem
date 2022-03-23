@@ -35,20 +35,13 @@ import java.util.Collections;
 public class IntervalFragment extends Fragment {
     View view;
 
-   // Switch switchEveryday,switchSaturday,switchSunday,switchMonday,switchTuesday,switchWednesday,switchThursday,switchFriday;
 
     Button nextBtnInterval;
-    EditText timesDayETInterval;
-    DatePicker startDateIntervals, endDateIntervals;
-    String timesDayInterval;
-    int yearStartInt , monthStartInt , dayStartInt , yearEndInt , monthEndInt , dayEndInt;
     String itemDose;
     public static int numberOfDosesInt;
     TextView startDateInt , endDateInt , startInt , endInt;
     DatePickerDialog picker;
     Medication intervalMedication = new Medication();
-
-
     String[] strFirst ={"Saturday","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"};
     TextView chooseDayInt , choosenInt;
     boolean[] selectedDays;
@@ -66,14 +59,6 @@ public class IntervalFragment extends Fragment {
         Bundle bundle = getArguments();
         Medication receiveMedication= (Medication) bundle.getSerializable("interval");
         intervalMedication=receiveMedication;
-
-
-
-
-
-
-
-
         //handle the next button click
         nextBtnInterval = view.findViewById(R.id.nextBtnInterval);
         nextBtnInterval.setOnClickListener(new View.OnClickListener() {
@@ -83,18 +68,15 @@ public class IntervalFragment extends Fragment {
                 checkInterval();
             }
         });
-
         //spinner
         doseSpinner= view.findViewById(R.id.doseSpinnerInt);
         ArrayAdapter<CharSequence> arrAdapterCycle= ArrayAdapter.createFromResource(getContext(),R.array.doseItemSpinner,android.R.layout.simple_spinner_item);
-
         arrAdapterCycle.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         doseSpinner.setAdapter(arrAdapterCycle);
         doseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 itemDose= adapterView.getItemAtPosition(i).toString();
-                // Toast.makeText(getContext(), "reason selected is:"+ itemReason, Toast.LENGTH_SHORT).show();
                 switch(itemDose){
                     case "Choose Dose":
                         Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
@@ -121,16 +103,11 @@ public class IntervalFragment extends Fragment {
                         numberOfDosesInt=0;
                         Toast.makeText(getContext(), "you must select a dose", Toast.LENGTH_SHORT).show();
                 }
-
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
-
-
-
         startDateInt = view.findViewById(R.id.startClickInt);
         startInt= view.findViewById(R.id.startInt);
         startDateInt.setOnClickListener(new View.OnClickListener() {
@@ -156,7 +133,6 @@ public class IntervalFragment extends Fragment {
 
         endDateInt= view.findViewById(R.id.endClickInt);
         endInt=view.findViewById(R.id.endInt);
-
         endDateInt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -234,10 +210,8 @@ public class IntervalFragment extends Fragment {
                 builder.show();
             }
         });
-
         return view;
     }
-
     public void checkInterval(){
         Bundle bundle = new Bundle();
 
@@ -252,26 +226,11 @@ public class IntervalFragment extends Fragment {
             intervalMedication.setDays(choosenStr);
             intervalMedication.setStartDateInMillis(convertDateToMillis(startIntStr));
             intervalMedication.setEndDateInMillis(convertDateToMillis(endIntStr));
-
             bundle.putSerializable("alarm", intervalMedication);
-            Navigation.findNavController(view).navigate(R.id.action_intervalFragment_to_setAlarmFragment, bundle);
-
-//            medicationMain.setNumberOfDoses(numberOfDosesInt);
-//            medicationMain.setStartDate(startIntStr);
-//            medicationMain.setEndDate(endIntStr);
-//            medicationMain.setDays(choosenStr);
-           // replaceFragment(new SetAlarmFragment(numberOfDosesInt));
-           // Navigation.findNavController(view).navigate(R.id.action_intervalFragment_to_setAlarmFragment);
+            Navigation.findNavController(view).navigate(R.id.action_intervalFragment_to_setAlarmFragment,bundle);
         }
         else{
             Toast.makeText(getContext(), "please fill all fields", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public void replaceFragment(Fragment someFragment) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainerView, someFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 }
