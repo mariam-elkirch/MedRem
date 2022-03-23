@@ -33,6 +33,7 @@ public class OneTimeWorker extends Worker {
     private static final String ACTION_SNOOZE = "snooze";
     private static final String ACTION_TAKE = "take";
     private static final String ACTION_SKIP = "skip";
+    int id;
     public OneTimeWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         this.context = context;
@@ -46,6 +47,7 @@ public class OneTimeWorker extends Worker {
         Log.i("TAG", "Inside final  dowork notification");
         Data inputdata = getInputData();
         String data = inputdata.getString("medicine");
+        id=inputdata.getInt("id",100);
         displayNotification(data);
         //get next , setnext
        findTheRest();
@@ -60,11 +62,12 @@ public class OneTimeWorker extends Worker {
     }
 
     private void displayNotification(String keyword) {
-        //intent to dialog
+        //intent to dialog instead of home
         Intent notificationIntent = new Intent(getApplicationContext(), HomeActivity.class);
 
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         notificationIntent.putExtra("dialog",keyword);
+        notificationIntent.putExtra("dialogid",id);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 200, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Intent snoozeIntent = new Intent(context, SnoozeReceiver.class);
@@ -141,6 +144,7 @@ public class OneTimeWorker extends Worker {
                         Log.i("TAG", "FinfResut If " + scheduledAlarm);
                         medicineName = remindersList.get(i).getName();
                         medicineId=remindersList.get(i).getId();
+                        Log.i("TAG",medicineId+"Medicine iddddddddd");
                     }
 
                 }
