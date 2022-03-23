@@ -18,5 +18,9 @@
         android:id="@+id/editMedication"
         android:name="com.example.medred.addmedication.view.EditMedication"
         android:label="fragment_edit_medication"
-        tools:layout="@layout/fragment_edit_medication" />
+        tools:layout="@layout/fragment_edit_medication" >
+        <action
+            android:id="@+id/action_editMedication_to_showMedication"
+            app:destination="@id/showMedication" />
+    </fragment>
 </navigation>

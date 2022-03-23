@@ -256,11 +256,12 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
 
 
 
-                Intent intent = new Intent(getContext(), HomeActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getContext(), HomeActivity.class);
+//                startActivity(intent);
                 //Toast.makeText(getContext(), "Medication added successfully!", Toast.LENGTH_SHORT).show();
                // Log.d("TAG", "handleFinalFragment: "+medicationMain.getName());
-            dialogSucess.show();
+               dialogSucess.show();
+
 
            // insertMedication(medicationMain);
 
@@ -299,8 +300,8 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
 
 
 
-            Intent intent = new Intent(getContext(), HomeActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(getContext(), HomeActivity.class);
+//            startActivity(intent);
 //
 //            Toast.makeText(getContext(), "Medication added successfully!", Toast.LENGTH_SHORT).show();
             //Log.d("TAG", "handleFinalFragment: "+medicationMain.getName());
@@ -357,6 +358,16 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
 
     @Override
     public void updateMedication(Medication medicationModel) {
+
+    }
+
+    @Override
+    public void takeMedication(String pillStock, int Id) {
+
+    }
+
+    @Override
+    public void rescheduleMedication(Alarm alarm, int Id) {
 
     }
 

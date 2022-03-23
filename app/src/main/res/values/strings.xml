@@ -80,6 +80,9 @@
     <string name="addDose">Add Dose</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="reschedule">Reschedule</string>
+    <string name="take">Take</string>
+    <string name="skip">Skip</string>
 
     //try spinner for cycle
     <string-array name="cycleItemSpinner">

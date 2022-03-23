@@ -9,6 +9,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.medred.model.Alarm;
 import com.example.medred.model.Medication;
 
 import java.util.List;
@@ -36,5 +37,11 @@ public interface MedicationDAO {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateMedication(Medication medicationModel);
+
+    @Query("UPDATE medication SET pillStock=:pillStock  WHERE :Id = id")
+    void takeMedication (String pillStock,int Id);
+
+    @Query("UPDATE medication SET alarmRefillTime=:alarm  WHERE :Id = id")
+    void rescheduleMedication (Alarm alarm, int Id);
 
 }

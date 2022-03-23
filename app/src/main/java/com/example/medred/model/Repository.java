@@ -86,6 +86,16 @@ public class Repository implements RepositoryInterface{
         localSource.updateMedication(medicationModel);
     }
 
+    @Override
+    public void takeMedication(String pillStock, int Id) {
+        localSource.takeMedication(pillStock,Id);
+    }
+
+    @Override
+    public void rescheduleMedication(Alarm alarm, int Id) {
+        localSource.rescheduleMedication(alarm,Id);
+    }
+
 
     @Override
     public void getAllMedication(LocalSource localSource) {

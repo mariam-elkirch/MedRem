@@ -10,7 +10,7 @@ import com.example.medred.R;
 
 public class ShowMedicationActivity extends AppCompatActivity {
 
-    static int idOfMedication;
+    static int idOfMedication ;
 
 
 
@@ -28,7 +28,9 @@ public class ShowMedicationActivity extends AppCompatActivity {
 
 
 
+
     }
+
 
 
 

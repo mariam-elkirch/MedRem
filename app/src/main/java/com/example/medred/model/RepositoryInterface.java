@@ -20,6 +20,9 @@ void authunticateUser(User user, FirebaseManager.FireBaseCallBack fireBaseCallBa
  LiveData<List<Medication>> getInactiveMedications(long time);
  LiveData<Medication> getShowMedication(int medID);
  void updateMedication(Medication medicationModel);
+ void takeMedication (String pillStock,int Id);
+ void rescheduleMedication (Alarm alarm, int Id);
+
 
     void getAllMedication(LocalSource localSource);
  void insertMedication(Medication medicationModel);

@@ -3,6 +3,7 @@ package com.example.medred.db;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.medred.model.Alarm;
 import com.example.medred.model.Medication;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface LocalSource {
     LiveData<List<Medication>> getInactiveMedications(long time);
     LiveData<Medication> getShowMedication(int medID);
     void updateMedication(Medication medicationModel);
+    void takeMedication (String pillStock,int Id);
+    void rescheduleMedication (Alarm alarm, int Id);
 }

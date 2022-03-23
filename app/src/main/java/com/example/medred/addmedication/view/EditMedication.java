@@ -10,7 +10,10 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -76,6 +79,7 @@ public class EditMedication extends Fragment  implements AddMedicationViewInterf
     private FirebaseUser user;
     private DatabaseReference reference , databaseReference;
     private String userId;
+    int ID;
 
 
     @Override
@@ -105,7 +109,7 @@ public class EditMedication extends Fragment  implements AddMedicationViewInterf
         frequencySpinnerEdit=view.findViewById(R.id.frequencySpinnerEdit);
         unitSpinnerEdit=view.findViewById(R.id.unitSpinnerEdit);
         doneBtnEdit =view.findViewById(R.id.doneBtnEdit);
-        cancelBtnEdit=view.findViewById(R.id.cancelBtnEdit);
+       // cancelBtnEdit=view.findViewById(R.id.cancelBtnEdit);
         showFrequency=view.findViewById(R.id.showFrequency);
         showUnit=view.findViewById(R.id.showUnit);
 
@@ -113,6 +117,10 @@ public class EditMedication extends Fragment  implements AddMedicationViewInterf
         Bundle bundle = getArguments();
         Medication eMedication= (Medication) bundle.getSerializable("edit");
         editMedication=eMedication;
+
+
+
+
 
 
         showMedication();
@@ -124,12 +132,15 @@ public class EditMedication extends Fragment  implements AddMedicationViewInterf
                 startActivity(intent);
             }
         });
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().getFragmentManager().popBackStack();
-            }
-        });
+//        cancelBtnEdit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Bundle bundle = new Bundle();
+////                bundle.putSerializable("ID", editMedication.getId());
+////                replaceFragment(bundle);
+////                getActivity(). getFragmentManager(). popBackStack();
+//            }
+//        });
 
 
 
@@ -834,6 +845,25 @@ public class EditMedication extends Fragment  implements AddMedicationViewInterf
     @Override
     public void updateMedication(Medication medicationModel) {
         addMedicationPresenterInterface.updateMedication(medicationModel);
+    }
+
+    @Override
+    public void takeMedication(String pillStock, int Id) {
+
+    }
+
+    @Override
+    public void rescheduleMedication(Alarm alarm, int Id) {
+
+    }
+
+    public void replaceFragment( Bundle bundle) {
+        ShowMedication showMedication = new ShowMedication();
+        showMedication.setArguments(bundle);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainerView2, showMedication);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 }

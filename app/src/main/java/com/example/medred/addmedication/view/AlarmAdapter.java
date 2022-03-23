@@ -38,6 +38,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
     Alarm alarmItem;
     ArrayList<Alarm> arrayListAlarm= new ArrayList<Alarm>();
     int numbers;
+    static int counterTrial=0;
 
     SetAlarmFragment setAlarmFragment;
 
@@ -98,6 +99,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
                         holder.alarmSetTV.setText(selectedHour+":"+selectedMinute+":"+format);
                         holder.alarmSetTV.setVisibility(View.VISIBLE);
                         time = holder.alarmSetTV.getText().toString();
+                        counterTrial=counterTrial+1;
+                        Log.d("TAG", "onTimeSet: trial number"+counterTrial);
                         //arrayListDate.add(time);
 
 
@@ -221,7 +224,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
 //here is original down
 
 
-    if(numDoses!=null&&!numDoses.trim().isEmpty()&& !time.trim().isEmpty()){
+    if(numDoses!=null&&!numDoses.trim().isEmpty()&& !time.trim().isEmpty()&&counterTrial==numbers){
         reInt=1;
         for(int i = 0 ; i < arrayListAlarm.size();i++){
             //Log.d("TAG", "item date is:"+ arrayListAlarm.get(i));

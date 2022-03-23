@@ -226,19 +226,25 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
                         clockSetTV.setVisibility(View.VISIBLE);
                         time=clockSetTV.getText().toString();
                         alarmItem = new Alarm(pHour,pMinute,format);
+//                        if(dose.isEmpty()||dose==null||time.isEmpty()||time==null){
+//                            Toast.makeText(getContext(), "please fill all fields", Toast.LENGTH_SHORT).show();
+//                        }
 
                         doseED.addTextChangedListener(new TextWatcher() {
                             @Override
                             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                                dose=doseED.getText().toString();
+                                //dose=doseED.getText().toString();
                             }
                             @Override
                             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                                 dose=doseED.getText().toString();
+//                                if(dose.isEmpty()||dose==null||time.isEmpty()||time==null){
+//                                    Toast.makeText(getContext(), "please fill all fields", Toast.LENGTH_SHORT).show();
+//                                }
                             }
                             @Override
                             public void afterTextChanged(Editable editable) {
-                                dose=doseED.getText().toString();
+                                //dose=doseED.getText().toString();
                             }
                         });
                     }
@@ -258,7 +264,11 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
         doneAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!dose.isEmpty()&&!time.isEmpty()){
+//                if(dose.isEmpty()||dose==null||time.isEmpty()||time==null){
+//                    Toast.makeText(getContext(), "please fill all fields", Toast.LENGTH_SHORT).show();
+//                }
+              //  if(!dose.trim().isEmpty()&&!time.trim().isEmpty()){
+                    if(alarmItem!=null){
                     //code here
                     ArrayList<Alarm> arrayListA = medication.getSetAlarm();
                     ArrayList<String>arrayListD = medication.getPillEachDose();
@@ -287,7 +297,8 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
                 }
                 else{
                     Toast.makeText(getContext(), "please fill all fields", Toast.LENGTH_SHORT).show();
-                }
+               }
+
             }
         });
 
@@ -398,6 +409,16 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
     @Override
     public void updateMedication(Medication medicationModel) {
         addMedicationPresenterInterface.updateMedication(medicationModel);
+    }
+
+    @Override
+    public void takeMedication(String pillStock, int Id) {
+
+    }
+
+    @Override
+    public void rescheduleMedication(Alarm alarm, int Id) {
+
     }
 
     public void replaceFragment( Bundle bundle) {
