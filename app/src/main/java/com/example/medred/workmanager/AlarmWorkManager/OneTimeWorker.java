@@ -60,10 +60,11 @@ public class OneTimeWorker extends Worker {
     }
 
     private void displayNotification(String keyword) {
+        //intent to dialog
         Intent notificationIntent = new Intent(getApplicationContext(), HomeActivity.class);
 
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
+        notificationIntent.putExtra("dialog",keyword);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 200, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Intent snoozeIntent = new Intent(context, SnoozeReceiver.class);
@@ -121,6 +122,7 @@ public class OneTimeWorker extends Worker {
             long smallest = currentTime;
             String medicineName = null;
             String scheduledAlarm = null;
+            int medicineId = 0;
             LocalDate localDate = LocalDate.now();
             //  Calendar mycalobj = Calendar.getInstance();
             for (int i = 0; i < remindersList.size(); i++) {
@@ -138,6 +140,7 @@ public class OneTimeWorker extends Worker {
                         scheduledAlarm = alarmTime;
                         Log.i("TAG", "FinfResut If " + scheduledAlarm);
                         medicineName = remindersList.get(i).getName();
+                        medicineId=remindersList.get(i).getId();
                     }
 
                 }
@@ -145,7 +148,7 @@ public class OneTimeWorker extends Worker {
 
             if (scheduledAlarm != null) {
                 Log.i("TAG", "In side smallest reminder method");
-                ManageWorkManager.setOneTimeRequest(context, scheduledAlarm, medicineName);
+                ManageWorkManager.setOneTimeRequest(context, scheduledAlarm, medicineName,medicineId);
 
             }
         }

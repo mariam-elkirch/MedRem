@@ -41,4 +41,6 @@ public interface MedicationDAO {
 
     @Query("SELECT * FROM medication WHERE ((:time BETWEEN startDateInMillis AND endDateInMillis) AND isActive = 1) AND((frequency=2)OR(frequency=3 AND days LIKE:day))")
     LiveData<List<Medication>> getSpecificDayCalenderMedications(long time,String day);
+
+    //where medication name pillstock -1 in case take
 }

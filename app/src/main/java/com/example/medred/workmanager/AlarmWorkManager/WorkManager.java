@@ -9,6 +9,8 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import com.example.medred.workmanager.RefillWorkManager.OneTimeRefillWorkManager;
 
+import static com.example.medred.workmanager.RefillWorkManager.OneTimeRefillWorkManager.setRefillMedications;
+
 public class WorkManager extends Worker {
     public static final String DATA = "repeat";
     public static final String INITIAL = "initial";
@@ -26,6 +28,7 @@ public class WorkManager extends Worker {
         Log.i("TAG", "Inside periodic doWork");
         OneTimeWorker.findTheRest();
         OneTimeRefillWorkManager.getNextRefillReminder();
+
         Log.i("TAG", "After one time request");
         return Result.success();
 

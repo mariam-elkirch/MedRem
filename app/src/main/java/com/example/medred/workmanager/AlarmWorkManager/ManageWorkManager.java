@@ -29,11 +29,11 @@ public class ManageWorkManager {
                 periodicRequest);
         Log.i("TAG", "In side periodic request setter");
     }
-    public  static  void setOneTimeRequest(Context context, String time, String medicineName){
+    public  static  void setOneTimeRequest(Context context, String time, String medicineName,int medicneId){
         Log.i("TAG", "In side one time request "+medicineName);
         Data data = new Data.Builder()
                 .putString("medicine",medicineName)
-               // .putString("id","batot")
+                .putInt("id",medicneId)
                 .build();
         long initialTime= Utils.convertDateAndTimeToFinalTimeInMills(time);
         OneTimeWorkRequest reminderRequest = new OneTimeWorkRequest.Builder(OneTimeWorker.class)

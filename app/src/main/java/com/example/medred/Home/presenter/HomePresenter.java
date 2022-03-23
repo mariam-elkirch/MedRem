@@ -18,6 +18,7 @@ import com.example.medred.model.RepositoryInterface;
 import com.example.medred.model.Utils;
 import com.example.medred.workmanager.AlarmWorkManager.OneTimeWorker;
 import com.example.medred.workmanager.AlarmWorkManager.WorkManager;
+import com.example.medred.workmanager.RefillWorkManager.OneTimeRefillWorkManager;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -49,7 +50,13 @@ public class HomePresenter implements HomePresenterInterface{
                OneTimeWorker.setMedicationList(getReminders(medications));
 
        });
+       repository.getActiveMedications(time).observe(owner, medications -> {
 
+            if(medications != null && medications.size() > 0){
+                OneTimeRefillWorkManager.setRefillMedications(medications);
+                Log.i("Refill", "list Refill");
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

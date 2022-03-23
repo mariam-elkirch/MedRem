@@ -28,10 +28,10 @@ public class MedicationsListPresenter implements MedicationsListIPresenterInterf
 
         repo.getActiveMedications(time).observe(owner, medications -> {
             medView.getActiveMeds(medications);
-            if(medications != null && medications.size() > 0){
+           /* if(medications != null && medications.size() > 0){
                 OneTimeRefillWorkManager.setRefillMedications(medications);
                 Log.i("Refill", "list Refill");
-            }
+            }*/
         });
     }
 
