@@ -19,7 +19,7 @@ public interface MedicationDAO {
     @Query("SELECT * from medication")
     LiveData<List<Medication>> getAllMedications();
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMedication(Medication medicationModel);
 
     @Delete
@@ -34,7 +34,7 @@ public interface MedicationDAO {
     @Query("SELECT * FROM medication WHERE :medID = id")
     LiveData<Medication> getShowMedication(int medID);
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateMedication(Medication medicationModel);
 
 }

@@ -95,9 +95,10 @@
                 android:background="@drawable/custom_input"
                 android:src="@drawable/ic_baseline_restore_24"
                 android:text="@string/updateStock"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/addDoseBtn"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pillsStockShowMed"
+                app:layout_constraintStart_toEndOf="@+id/addDoseBtn"
+                app:layout_constraintTop_toTopOf="@+id/addDoseBtn"
                 app:layout_constraintVertical_bias="0.217" />
 
             <Button
@@ -110,8 +111,6 @@
                 android:src="@drawable/ic_baseline_library_add_24"
                 android:text="@string/addDose"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/updateStockBtn"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/pillsStockShowMed"
                 app:layout_constraintVertical_bias="0.0" />
@@ -176,9 +175,9 @@
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/edit"
                     android:textColor="#F3EFEF"
-                    app:layout_constraintBottom_toBottomOf="@+id/nameShowMed"
+                    app:layout_constraintBottom_toBottomOf="@+id/stateBtn"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/stateBtn"
                     app:layout_constraintVertical_bias="0.125" />
 
                 <TextView

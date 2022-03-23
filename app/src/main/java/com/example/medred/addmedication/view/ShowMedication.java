@@ -170,15 +170,21 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
         }
         ArrayList<Alarm> arrayListAlarm = medication.getSetAlarm();
         ArrayList<String>arrayListDose = medication.getPillEachDose();
-        for(int i = 0 ; i < arrayListAlarm.size()&& i < arrayListDose.size();i++){
-            Log.d("TAG", "showMedication: "+arrayListAlarm.get(i).getHour()+":"+arrayListAlarm.get(i).getMinute()+":"+arrayListAlarm.get(i).getFormat());
-            Log.d("TAG", "showMedication: "+arrayListDose.get(i));
-            reminderStr=arrayListAlarm.get(i).getHour()+":"+arrayListAlarm.get(i).getMinute()+":"+arrayListAlarm.get(i).getFormat();
-            doseStr=arrayListDose.get(i);
-            reminderShowMed.append(reminderStr+" Dose: "+doseStr);
-            reminderShowMed.append("\n");
-            reminderShowMed.append("\n");
+        if(arrayListAlarm==null||arrayListDose==null){
+            reminderShowMed.append("No Reminder Is Set");
         }
+        else{
+            for(int i = 0 ; i < arrayListAlarm.size()&& i < arrayListDose.size();i++){
+                Log.d("TAG", "showMedication: "+arrayListAlarm.get(i).getHour()+":"+arrayListAlarm.get(i).getMinute()+":"+arrayListAlarm.get(i).getFormat());
+                Log.d("TAG", "showMedication: "+arrayListDose.get(i));
+                reminderStr=arrayListAlarm.get(i).getHour()+":"+arrayListAlarm.get(i).getMinute()+":"+arrayListAlarm.get(i).getFormat();
+                doseStr=arrayListDose.get(i);
+                reminderShowMed.append(reminderStr+" Dose: "+doseStr);
+                reminderShowMed.append("\n");
+                reminderShowMed.append("\n");
+            }
+        }
+
 
         //try
 

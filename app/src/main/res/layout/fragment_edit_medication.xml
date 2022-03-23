@@ -243,23 +243,26 @@
                 android:id="@+id/doneBtnEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
                 android:layout_marginEnd="48dp"
                 android:text="@string/done"
+                app:layout_constraintBottom_toBottomOf="@+id/cancelBtnEdit"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/unitSpinnerEdit" />
+                app:layout_constraintHorizontal_bias="0.764"
+                app:layout_constraintStart_toEndOf="@+id/cancelBtnEdit"
+                app:layout_constraintTop_toTopOf="@+id/cancelBtnEdit"
+                app:layout_constraintVertical_bias="0.0" />
 
             <Button
                 android:id="@+id/cancelBtnEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
                 android:layout_marginTop="28dp"
-                android:layout_marginEnd="96dp"
                 android:text="@string/cancel"
-                app:layout_constraintEnd_toStartOf="@+id/doneBtnEdit"
-                app:layout_constraintHorizontal_bias="0.679"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/unitSpinnerEdit" />
+                app:layout_constraintTop_toBottomOf="@+id/unitSpinnerEdit"
+                app:layout_constraintVertical_bias="0.063" />
 
             <TextView
                 android:id="@+id/showFrequency"
