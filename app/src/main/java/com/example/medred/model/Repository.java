@@ -1,6 +1,7 @@
 package com.example.medred.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -152,6 +153,13 @@ public class Repository implements RepositoryInterface{
     @Override
     public LiveData<List<Medication>> getSpecificDayCalenderMedications(long time, String day) {
         return localSource.getSpecificDayCalenderMedications(time,day);
+    }
+
+    @Override
+    public void getFirebaseMedications() {
+        Log.i("TAG", "getmedication Repo");
+        firebaseSource.getMedications();
+
     }
 
 }

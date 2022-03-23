@@ -84,13 +84,16 @@ public class HomeFragment extends Fragment implements  OnHomeMedicationClickList
                 .range(startDate, endDate)
                 .datesNumberOnScreen(5)
                 .build();
-        presenter.getCalenderMedications(Calendar.getInstance().getTimeInMillis(),this);
+        //internet condn
+
+       // presenter.getCalenderMedications(Calendar.getInstance().getTimeInMillis(),this);
+        presenter.getFirebaseMedications(Calendar.getInstance().getTimeInMillis(),this);
         LifecycleOwner lifecycleOwner=this;
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {
-
-                presenter.getCalenderMedications(date.getTimeInMillis(),lifecycleOwner);
+                presenter.getFirebaseMedications(Calendar.getInstance().getTimeInMillis(),lifecycleOwner);
+             //   presenter.getCalenderMedications(date.getTimeInMillis(),lifecycleOwner);
                 Log.i("TAG", "CURRENT DATE IS " + date.getTimeInMillis());
             }
         });
@@ -118,6 +121,8 @@ public class HomeFragment extends Fragment implements  OnHomeMedicationClickList
     @Override
     public void getCalenderMeds(List<Medication> calenderMedications) {
         //To Do Set Alarms
+       // presenter.getFirebaseMedications();
+        Log.i("TAG","med"+calenderMedications.size());
        List<Reminders> reminders=presenter.getReminders(calenderMedications);
        // adapter.setMedications(calenderMedications);
 

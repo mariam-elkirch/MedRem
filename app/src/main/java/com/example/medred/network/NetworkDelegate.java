@@ -19,4 +19,5 @@ public interface NetworkDelegate {
     void onSuccessGettingDependants(List<Dependant> dependants);
     void onDeletingHealthTaker(boolean isDeleted);
     void onDeletingDependant(boolean isDeleted);
+    void onSuccessMedicationList(List<Medication> medicationModel);
 }

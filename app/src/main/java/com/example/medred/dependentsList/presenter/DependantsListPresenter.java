@@ -45,6 +45,11 @@ public class DependantsListPresenter implements DependantsListPresenterInterface
     }
 
     @Override
+    public void onSuccessMedicationList(List<Medication> medicationModel) {
+
+    }
+
+    @Override
     public void onDeletingHealthTaker(boolean isDeleted) {
 
     }

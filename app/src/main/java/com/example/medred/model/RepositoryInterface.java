@@ -32,4 +32,5 @@ public interface RepositoryInterface {
  void deleteDependant(Dependant dependant);
  LiveData<List<Medication>> getCalenderMedications(long time);
  LiveData<List<Medication>> getSpecificDayCalenderMedications(long time,String day);
+ void getFirebaseMedications();
 }

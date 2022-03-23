@@ -6,7 +6,7 @@ public class Alarm implements Serializable {
     private int hour;
     private int minute;
     private String format;
-
+    public Alarm(){}
     public Alarm(int hour, int minute, String shift) {
         this.hour = hour;
         this.minute = minute;

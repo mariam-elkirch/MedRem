@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import com.example.medred.model.Dependant;
 import com.example.medred.model.HealthTaker;
+import com.example.medred.model.Medication;
 import com.example.medred.model.Request;
 import com.example.medred.model.User;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -29,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FirebaseManager implements FirebaseSource {
     ProgressDialog progressDialog;
@@ -178,6 +180,36 @@ public class FirebaseManager implements FirebaseSource {
                         Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    @Override
+    public void getMedications() {
+        Log.i("TAG", "getmedication");
+        List<Medication> medicationList = new ArrayList<>();
+        Map<String, String> meds = new HashMap<>();
+        DatabaseReference reference=  FirebaseDatabase.getInstance().getReference("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("medication");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                medicationList.clear();
+                for(DataSnapshot snapshot1: datasnapshot.getChildren()){
+                    Medication medicine= snapshot1.getValue(Medication.class);
+                    medicationList.add(medicine);
+
+                    Log.i("TAG",  "Result "+medicine.getName()+" "+medicationList.size());
+                }
+              //  success = true;
+               // fireBaseCallBack.onCallBack(success,medicationList);
+                networkDelegate.onSuccessMedicationList(medicationList);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override
@@ -428,5 +460,8 @@ public class FirebaseManager implements FirebaseSource {
 
     public interface FireBaseCallBack {
         void onCallBack(boolean stored);
+    }
+    public interface FireBaseCallBackMed {
+        void onCallBack(boolean stored,   List<Medication> medicationList);
     }
 }
