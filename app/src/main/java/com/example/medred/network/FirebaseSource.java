@@ -10,6 +10,7 @@ public interface FirebaseSource {
     void authunticateUser(User user, FirebaseManager.FireBaseCallBack fireBaseCallBack);
     void RegisterationGoogle(GoogleSignInAccount account,FirebaseManager.FireBaseCallBack fireBaseCallBack);
     void loginEmailPassword(String email,String password,FirebaseManager.FireBaseCallBack fireBaseCallBack);
+    void getMedications();
     void forgotPassword(String email);
     void userExistence(String email);
     void sendRequest(String receiverId);

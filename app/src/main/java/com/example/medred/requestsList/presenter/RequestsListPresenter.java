@@ -84,6 +84,11 @@ public class RequestsListPresenter implements RequestsListPresenterInterface, Ne
     }
 
     @Override
+    public void onSuccessMedicationList(List<Medication> medicationModel) {
+
+    }
+
+    @Override
     public void onSuccessResult(ArrayList<Medication> medicationModel) {
 
     }

@@ -67,6 +67,11 @@ public class HealthTakerPresenter implements HealthTakerPresenterInterface, Netw
     }
 
     @Override
+    public void onSuccessMedicationList(List<Medication> medicationModel) {
+
+    }
+
+    @Override
     public void onSuccessGettingDependants(List<Dependant> dependants) {
 
     }

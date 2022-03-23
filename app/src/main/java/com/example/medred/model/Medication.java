@@ -253,6 +253,7 @@ public class Medication implements Serializable {
         this.endDateInMillis = endDateInMillis;
     }
 
+
     public Medication(String name, String strength, String unit, int frequency,
                       int imageID, int numberOfDoses, String startDate, String endDate, long startDateInMillis,
                       long endDateInMillis, String days, ArrayList<Alarm> setAlarm, ArrayList<String> pillEachDose,
