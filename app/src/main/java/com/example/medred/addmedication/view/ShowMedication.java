@@ -336,10 +336,10 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
         addMedicationPresenterInterface.updateMedication(medicationModel);
     }
     @Override
-    public void takeMedication(String pillStock, int Id) {
+    public void takeMedication(String pillStock,String name) {
     }
     @Override
-    public void rescheduleMedication(Alarm alarm, int Id) {
+    public void rescheduleMedication(Alarm alarm,String name) {
     }
     public void replaceFragment( Bundle bundle) {
         EditMedication editMedication = new EditMedication();

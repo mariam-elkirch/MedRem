@@ -814,12 +814,12 @@ public class EditMedication extends Fragment  implements AddMedicationViewInterf
     }
 
     @Override
-    public void takeMedication(String pillStock, int Id) {
+    public void takeMedication(String pillStock, String name) {
 
     }
 
     @Override
-    public void rescheduleMedication(Alarm alarm, int Id) {
+    public void rescheduleMedication(Alarm alarm, String name) {
 
     }
 

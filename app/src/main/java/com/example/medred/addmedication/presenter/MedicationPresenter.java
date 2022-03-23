@@ -40,14 +40,13 @@ public class MedicationPresenter implements AddMedicationPresenterInterface {
     }
 
     @Override
-    public void takeMedication(String pillStock, int Id) {
-        repository.takeMedication(pillStock, Id);
+    public void takeMedication(String pillStock, String name) {
+        repository.takeMedication(pillStock,name);
     }
 
     @Override
-    public void rescheduleMedication(Alarm alarm, int Id) {
-
-        repository.rescheduleMedication(alarm, Id);
+    public void rescheduleMedication(Alarm alarm, String name) {
+        repository.rescheduleMedication(alarm, name);
     }
 
 

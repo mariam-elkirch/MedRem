@@ -51,10 +51,10 @@ public interface MedicationDAO {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateMedication(Medication medicationModel);
 
-    @Query("UPDATE medication SET pillStock=:pillStock  WHERE :Id = id")
-    void takeMedication (String pillStock,int Id);
+    @Query("UPDATE medication SET pillStock=:pillStock  WHERE name LIKE :name")
+    void takeMedication (String pillStock,String name);
 
-    @Query("UPDATE medication SET alarmRefillTime=:alarm  WHERE :Id = id")
-    void rescheduleMedication (Alarm alarm, int Id);
+    @Query("UPDATE medication SET alarmRefillTime=:alarm  WHERE name LIKE :name")
+    void rescheduleMedication (Alarm alarm, String name);
 
 }

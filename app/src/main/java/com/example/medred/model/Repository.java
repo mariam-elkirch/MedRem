@@ -87,13 +87,13 @@ public class Repository implements RepositoryInterface{
     }
 
     @Override
-    public void takeMedication(String pillStock, int Id) {
-        localSource.takeMedication(pillStock,Id);
+    public void takeMedication(String pillStock, String name) {
+        localSource.takeMedication(pillStock,name);
     }
 
     @Override
-    public void rescheduleMedication(Alarm alarm, int Id) {
-        localSource.rescheduleMedication(alarm,Id);
+    public void rescheduleMedication(Alarm alarm, String name) {
+        localSource.rescheduleMedication(alarm,name);
     }
 
 

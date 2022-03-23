@@ -73,16 +73,16 @@ public class ConcreteLocalSource implements LocalSource{
     }
 
     @Override
-    public void takeMedication(String pillStock, int Id) {
+    public void takeMedication(String pillStock,String name) {
         new Thread(() -> {
-            medicationDAO.takeMedication(pillStock, Id);
+            medicationDAO.takeMedication(pillStock, name);
         }).start();
     }
 
     @Override
-    public void rescheduleMedication(Alarm alarm, int Id) {
+    public void rescheduleMedication(Alarm alarm, String name) {
         new Thread(() -> {
-            medicationDAO.rescheduleMedication(alarm,Id);
+            medicationDAO.rescheduleMedication(alarm,name);
         }).start();
     }
 
