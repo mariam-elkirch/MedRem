@@ -3,14 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android ITI Mob/MedRed/app/src/main/res/layout/activity_home.xml" value="0.1" />
-        <entry key="..\:/Android ITI Mob/MedRed/app/src/main/res/layout/dependant_item.xml" value="0.16621376811594202" />
-        <entry key="..\:/Android ITI Mob/MedRed/app/src/main/res/layout/fragment_dependants_list.xml" value="0.16621376811594202" />
-        <entry key="..\:/Android ITI Mob/MedRed/app/src/main/res/layout/fragment_home.xml" value="0.1" />
-        <entry key="..\:/Android ITI Mob/MedRed/app/src/main/res/layout/fragment_medications_list.xml" value="0.16621376811594202" />
-        <entry key="..\:/Android ITI Mob/MedRed/app/src/main/res/layout/fragment_set_alarm.xml" value="0.15081521739130435" />
-        <entry key="..\:/Android ITI Mob/MedRed/app/src/main/res/layout/home_medication_item.xml" value="0.16621376811594202" />
-        <entry key="..\:/Android ITI Mob/MedRed/app/src/main/res/layout/medication_item.xml" value="0.16621376811594202" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/drawable/custom_input.xml" value="0.14635416666666667" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/drawable/ic_baseline_library_add_24.xml" value="0.26615384615384613" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/drawable/ic_baseline_restore_24.xml" value="0.26615384615384613" />
@@ -22,6 +14,7 @@
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/drawable/medication_drop.xml" value="0.2703125" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/drawable/medication_onbackpressed.xml" value="0.2703125" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/activity_add_medication.xml" value="0.25416666666666665" />
+        <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/activity_alarm_reminder_dialog.xml" value="0.25416666666666665" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/activity_main.xml" value="0.2504528985507246" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/activity_show_medication.xml" value="0.25416666666666665" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/add_dose.xml" value="0.2504528985507246" />
@@ -34,6 +27,7 @@
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/fragment_every_day.xml" value="0.13020833333333334" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/fragment_interval.xml" value="0.25416666666666665" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/fragment_medications_list.xml" value="0.264" />
+        <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/fragment_set_alarm.xml" value="0.25416666666666665" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/fragment_show_medication.xml" value="0.264" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/medication_item.xml" value="0.25317028985507245" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/medication_onbackpressed.xml" value="0.25416666666666665" />

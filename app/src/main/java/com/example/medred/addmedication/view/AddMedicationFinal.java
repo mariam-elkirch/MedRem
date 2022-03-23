@@ -98,6 +98,7 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
                 dialogSucess.dismiss();
                 Intent intent = new Intent(getContext(), HomeActivity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 
@@ -120,19 +121,6 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
         Bundle bundle = getArguments();
         Medication receiveMedication= (Medication) bundle.getSerializable("final");
         finalMedication=receiveMedication;
-
-//        Log.d("TAG", "onCreateView: "+receiveMedication.getName());
-//        Log.d("TAG", "onCreateView: "+receiveMedication.getFrequency());
-//        Log.d("TAG", "onCreateView: "+receiveMedication.getStrength());
-//        Log.d("TAG", "onCreateView: "+receiveMedication.getUnit());
-//
-//        finalMedication.setName(receiveMedication.getName());
-//        finalMedication.setFrequency(receiveMedication.getFrequency());
-//        finalMedication.setUnit(receiveMedication.getUnit());
-//        finalMedication.setStrength(receiveMedication.getStrength());
-
-
-
 
         refillReminderTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,11 +158,6 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
             public void onClick(View view) {
                 handleFinalFragment();
                 checkMedication();
-//                insertMovie(medicationMain);
- //               setMedicationView(finalMedication);
-//                Log.d("TAG", "onClick:DONE ");
-
-
 
             }
         });
@@ -203,14 +186,6 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
         finalMedication.setActive(true);
 
         if(constraintFinal.getVisibility() == View.VISIBLE&&!pillStockItem.trim().isEmpty()&&!pillLeftItem.trim().isEmpty()&&!refillStr.trim().isEmpty()){
-//            int numberStock = Integer.parseInt(pillStockItem);
-//            int numberLeft = Integer.parseInt(pillLeftItem);
-//                medicationMain.setRefillReminder(true);
-//                medicationMain.setReason(reasonsETStr);
-//                medicationMain.setPillStock(pillStockItem);
-//                medicationMain.setLeftPillReminder(pillLeftItem);
-//                medicationMain.setAlarmRefillTime(refillStr);
-
                 //try 17/3 bundle
             finalMedication.setRefillReminder(true);
             finalMedication.setReason(reasonsETStr);
@@ -225,19 +200,11 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
                dialogSucess.show();
         }
         else if (constraintFinal.getVisibility() == View.INVISIBLE&&!pillStockItem.trim().isEmpty()){
-                Toast.makeText(getContext(), "Done!", Toast.LENGTH_SHORT).show();
-//                medicationMain.setRefillReminder(false);
-//                medicationMain.setReason(reasonsETStr);
-//                medicationMain.setPillStock(pillStockItem);
-
+                //Toast.makeText(getContext(), "Done!", Toast.LENGTH_SHORT).show();
                 //try bundle 17/3
             finalMedication.setRefillReminder(false);
             finalMedication.setReason(reasonsETStr);
             finalMedication.setPillStock(pillStockItem);
-
-
-
-
                 //insert by bundle 17/3
             setMedicationView(finalMedication);
             Log.d("TAG", "onClick:DONE ");

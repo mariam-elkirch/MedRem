@@ -239,8 +239,9 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
                     reference.child(userId).child("medication").child(medication.getName()).setValue(medication);
                     Toast.makeText(getContext(), "Dose is Added successfully", Toast.LENGTH_SHORT).show();
                     dialogAddDose.dismiss();
-                    Intent intent = new Intent(getContext(),HomeActivity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(getContext(),HomeActivity.class);
+//                    startActivity(intent);
+                        getActivity().finish();
                 }
                 else{
                     Toast.makeText(getContext(), "please fill all fields", Toast.LENGTH_SHORT).show();
@@ -264,8 +265,9 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
                 userId=user.getUid();
                 reference.child(userId).child("medication").child(medication.getName()).setValue(medication);
                 Toast.makeText(getContext(), "State is changed", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getContext(),HomeActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getContext(),HomeActivity.class);
+//                startActivity(intent);
+                getActivity().finish();
             }
         });
         dialogStock =new Dialog(getContext());
@@ -293,8 +295,9 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
                     reference.child(userId).child("medication").child(medication.getName()).setValue(medication);
                     dialogStock.dismiss();
                     Toast.makeText(getContext(), "Stock Updated", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getContext(), HomeActivity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(getContext(), HomeActivity.class);
+//                    startActivity(intent);
+                    getActivity().finish();
                 }
             }
         });

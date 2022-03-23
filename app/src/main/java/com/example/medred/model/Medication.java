@@ -88,7 +88,7 @@ public class Medication implements Serializable {
 
     @ColumnInfo(name = "alarmRefillTime")
 
-    private String alarmRefillTime;
+    private Alarm alarmRefillTime;
 
     public Medication() {
     }

@@ -128,8 +128,9 @@ public class EditMedication extends Fragment  implements AddMedicationViewInterf
             @Override
             public void onClick(View view) {
                 setUpdate();
-                Intent intent = new Intent(getContext(), HomeActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getContext(), HomeActivity.class);
+//                startActivity(intent);
+                getActivity().finish();
             }
         });
 

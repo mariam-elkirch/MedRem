@@ -207,6 +207,9 @@ public class AddMedicationPrimary extends Fragment {
                         }
                     });
                     Log.d("TAG", "onKey: hena aho");
+//                    AddMedicationActivity addMedicationActivity = new AddMedicationActivity();
+//                    addMedicationActivity.finish();
+                    getActivity().finish();
 
                     return true;
                 }
