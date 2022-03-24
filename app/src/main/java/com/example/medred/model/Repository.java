@@ -11,6 +11,7 @@ import com.example.medred.network.FirebaseSource;
 import com.example.medred.network.NetworkDelegate;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Repository implements RepositoryInterface{
@@ -88,13 +89,18 @@ public class Repository implements RepositoryInterface{
     }
 
     @Override
-    public void takeMedication(String pillStock, int Id) {
-        localSource.takeMedication(pillStock,Id);
+    public void takeMedication(String pillStock, String name) {
+        localSource.takeMedication(pillStock,name);
     }
 
     @Override
-    public void rescheduleMedication(Alarm alarm, int Id) {
-        localSource.rescheduleMedication(alarm,Id);
+    public void rescheduleMedication(ArrayList<Alarm> alarm, String name) {
+        localSource.rescheduleMedication(alarm,name);
+    }
+
+    @Override
+    public LiveData<Medication> getPill(String name) {
+        return  localSource.getPill(name);
     }
 
 

@@ -7,6 +7,7 @@ import com.example.medred.network.FirebaseManager;
 import com.example.medred.network.NetworkDelegate;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface RepositoryInterface {
@@ -20,8 +21,9 @@ public interface RepositoryInterface {
  LiveData<List<Medication>> getInactiveMedications(long time);
  LiveData<Medication> getShowMedication(int medID);
  void updateMedication(Medication medicationModel);
- void takeMedication (String pillStock,int Id);
- void rescheduleMedication (Alarm alarm, int Id);
+ void takeMedication (String pillStock,String name);
+ void rescheduleMedication (ArrayList<Alarm> alarm, String name);
+ LiveData<Medication> getPill(String name);
 
 
     void getAllMedication(LocalSource localSource);
