@@ -15,10 +15,15 @@
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/drawable/medication_onbackpressed.xml" value="0.2703125" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/activity_add_medication.xml" value="0.25416666666666665" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/activity_alarm_reminder_dialog.xml" value="0.25416666666666665" />
+        <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/activity_home.xml" value="0.25416666666666665" />
+        <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/activity_main.xml" value="0.2504528985507246" />
+        <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/activity_show_medication.xml" value="0.25416666666666665" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/add_dose.xml" value="0.2504528985507246" />
+        <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/add_health_taker_dialog.xml" value="0.25416666666666665" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/alarm_item.xml" value="0.264" />
+        <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/dependant_item.xml" value="0.25416666666666665" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/edit_alarm_dialog.xml" value="0.264" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/edit_dialog.xml" value="0.22871376811594202" />
         <entry key="..\:/ITI-Mobile-Development/Android/Project/MedRem/app/src/main/res/layout/fragment_add_medication_final.xml" value="0.13020833333333334" />

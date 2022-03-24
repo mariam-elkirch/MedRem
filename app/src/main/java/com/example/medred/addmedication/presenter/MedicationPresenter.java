@@ -49,6 +49,11 @@ public class MedicationPresenter implements AddMedicationPresenterInterface {
         repository.rescheduleMedication(alarm, name);
     }
 
+    @Override
+    public LiveData<Medication> getPill(String name) {
+       return repository.getPill(name);
+    }
+
 
     @Override
     public void getIdFromShow(int id) {

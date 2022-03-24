@@ -19,11 +19,10 @@
 
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imageDialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:src="@drawable/medication_sucess"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -34,38 +33,44 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginEnd="4dp"
                 android:text="@string/reschedule"
-                app:layout_constraintEnd_toEndOf="@+id/takeBtn"
-                app:layout_constraintHorizontal_bias="0.638"
-                app:layout_constraintStart_toStartOf="@+id/skipBtn"
-                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/takeBtn"
+                app:layout_constraintStart_toEndOf="@+id/skipBtn" />
 
             <Button
                 android:id="@+id/takeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="28dp"
                 android:text="@string/take"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.825"
-                app:layout_constraintStart_toEndOf="@+id/skipBtn"
-                app:layout_constraintTop_toBottomOf="@+id/resecheduleBtn"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <Button
                 android:id="@+id/skipBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-                android:layout_marginStart="68dp"
+                android:layout_marginStart="4dp"
                 android:text="@string/skip"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/nameDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/skipBtn"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/resecheduleBtn"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/imageDialog" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

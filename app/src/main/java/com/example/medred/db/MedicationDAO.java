@@ -57,4 +57,7 @@ public interface MedicationDAO {
     @Query("UPDATE medication SET alarmRefillTime=:alarm  WHERE name LIKE :name")
     void rescheduleMedication (Alarm alarm, String name);
 
+    @Query("SELECT * FROM medication WHERE name LIKE :name")
+    LiveData<Medication> getPill(String name);
+
 }

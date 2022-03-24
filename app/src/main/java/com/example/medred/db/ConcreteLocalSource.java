@@ -86,6 +86,10 @@ public class ConcreteLocalSource implements LocalSource{
         }).start();
     }
 
+    @Override
+    public LiveData<Medication> getPill(String name) {
+        return medicationDAO.getPill(name);
+    }
 
 
     @Override

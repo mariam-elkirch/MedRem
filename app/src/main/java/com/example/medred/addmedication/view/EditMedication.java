@@ -823,5 +823,10 @@ public class EditMedication extends Fragment  implements AddMedicationViewInterf
 
     }
 
+    @Override
+    public LiveData<Medication> getPill(String name) {
+return null;
+    }
+
 
 }

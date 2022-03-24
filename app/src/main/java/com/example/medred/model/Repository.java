@@ -97,6 +97,11 @@ public class Repository implements RepositoryInterface{
         localSource.rescheduleMedication(alarm,name);
     }
 
+    @Override
+    public LiveData<Medication> getPill(String name) {
+        return  localSource.getPill(name);
+    }
+
 
     @Override
     public void getAllMedication(LocalSource localSource) {

@@ -16,6 +16,7 @@ public interface AddMedicationPresenterInterface {
     void updateMedication(Medication medicationModel);
     void takeMedication (String pillStock,String name);
     void rescheduleMedication (Alarm alarm, String name);
+    LiveData<Medication> getPill(String name);
 
     void getIdFromShow (int id);
 

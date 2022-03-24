@@ -268,5 +268,10 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
     public void rescheduleMedication(Alarm alarm,String name) {
     }
 
+    @Override
+    public LiveData<Medication> getPill(String name) {
+return null;
+    }
+
 
 }

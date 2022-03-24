@@ -105,24 +105,26 @@ public class OneTimeRefillWorkManager extends Worker {
 
             for (int i = 0; i < refillMedications.size(); i++) {
                 Log.i("Refill", "inside for loop");
-                if(refillMedications.get(i).isRefillReminder()){
+                if(refillMedications.get(i).isRefillReminder()) {
                     Log.i("Refill", "inside second if");
-                    String alarmTime = localDate.getDayOfMonth()+ "-" + localDate.getMonthValue() + "-" + localDate.getYear() + " " +
-                            refillMedications.get(i).getAlarmRefillTime().getHour() + ":" +
-                            refillMedications.get(i).getAlarmRefillTime().getMinute()
-                            + " " + refillMedications.get(i).getAlarmRefillTime().getFormat();
+                    if (refillMedications.get(i).getAlarmRefillTime() != null) {
+                        String alarmTime = localDate.getDayOfMonth() + "-" + localDate.getMonthValue() + "-" + localDate.getYear() + " " +
+                                refillMedications.get(i).getAlarmRefillTime().getHour() + ":" +
+                                refillMedications.get(i).getAlarmRefillTime().getMinute()
+                                + " " + refillMedications.get(i).getAlarmRefillTime().getFormat();
 
-                    long timeInMills = Utils.convertDateAndTimeToTimeInMills(alarmTime);
+                        long timeInMills = Utils.convertDateAndTimeToTimeInMills(alarmTime);
 
-                    int stock = Integer.parseInt(refillMedications.get(i).getPillStock());
-                    int reminder = Integer.parseInt(refillMedications.get(i).getLeftPillReminder());
-                    if (reminder >= stock && timeInMills - currentTime > 0 && timeInMills - currentTime < smallest) {
-                        smallest = timeInMills - currentTime;
-                        reminderAlarm = alarmTime;
-                        Log.i("Refill", "Refill: FinfResut If "+reminderAlarm);
-                        medicationName = refillMedications.get(i).getName();
+                        int stock = Integer.parseInt(refillMedications.get(i).getPillStock());
+                        int reminder = Integer.parseInt(refillMedications.get(i).getLeftPillReminder());
+                        if (reminder >= stock && timeInMills - currentTime > 0 && timeInMills - currentTime < smallest) {
+                            smallest = timeInMills - currentTime;
+                            reminderAlarm = alarmTime;
+                            Log.i("Refill", "Refill: FinfResut If " + reminderAlarm);
+                            medicationName = refillMedications.get(i).getName();
+                        }
+
                     }
-
                 }
             }
 

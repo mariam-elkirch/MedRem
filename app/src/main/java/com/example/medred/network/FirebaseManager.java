@@ -193,10 +193,12 @@ public class FirebaseManager implements FirebaseSource {
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                 medicationList.clear();
                 for(DataSnapshot snapshot1: datasnapshot.getChildren()){
-                    Medication medicine= snapshot1.getValue(Medication.class);
-                    medicationList.add(medicine);
+                    if(snapshot1.getValue(Medication.class)!=null) {
+                        Medication medicine = snapshot1.getValue(Medication.class);
+                        medicationList.add(medicine);
 
-                    Log.i("TAG",  "Result "+medicine.getName()+" "+medicationList.size());
+                        // Log.i("TAG",  "Result "+medicine.getName()+" "+medicationList.size());
+                    }
                 }
               //  success = true;
                // fireBaseCallBack.onCallBack(success,medicationList);

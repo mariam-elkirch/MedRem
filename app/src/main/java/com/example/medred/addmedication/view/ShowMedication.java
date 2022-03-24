@@ -341,6 +341,12 @@ public class ShowMedication extends Fragment implements AddMedicationViewInterfa
     @Override
     public void rescheduleMedication(Alarm alarm,String name) {
     }
+
+    @Override
+    public LiveData<Medication> getPill(String name) {
+return null;
+    }
+
     public void replaceFragment( Bundle bundle) {
         EditMedication editMedication = new EditMedication();
         editMedication.setArguments(bundle);

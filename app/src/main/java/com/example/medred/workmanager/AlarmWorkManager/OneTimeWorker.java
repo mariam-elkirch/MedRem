@@ -66,8 +66,8 @@ public class OneTimeWorker extends Worker {
         Intent notificationIntent = new Intent(getApplicationContext(), AlarmReminderDialog.class);
 
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        //notificationIntent.putExtra("dialog",keyword);
-        notificationIntent.putExtra("dialogid",id);
+        notificationIntent.putExtra("dialog",keyword);
+        //notificationIntent.putExtra("dialogid",id);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 200, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Intent snoozeIntent = new Intent(context, SnoozeReceiver.class);
