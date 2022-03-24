@@ -22,4 +22,5 @@ public interface FirebaseSource {
     void getDependants();
     void deleteHealthTaker(HealthTaker healthTaker);
     void deleteDependant(Dependant dependant);
+    //void chooseImage
 }

@@ -4,25 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/splash_color"
+
     tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="275dp"
         android:layout_height="182dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_medremm" />
+        app:srcCompat="@drawable/ic_med" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/medrem"
-        android:textColor="@color/white"
+        android:textColor="@color/blue"
         android:textSize="40dp"
         android:textStyle="bold"
         android:layout_marginBottom="20dp"

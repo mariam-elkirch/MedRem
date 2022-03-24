@@ -2,6 +2,7 @@ package com.example.medred.network;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -41,6 +42,12 @@ public class FirebaseManager implements FirebaseSource {
     Context context;
     Boolean stored=false;
     Boolean success=false;
+
+    protected static final int Storage_Request_Code=300;
+    protected static final int ImagePickGalleryCode=400;
+    protected String[] StoragePermission;
+    protected Uri ImgUri;
+    protected    Uri downloadImageUri;
 
     private  static FirebaseSource instance=null;
     private FirebaseManager(Context context){

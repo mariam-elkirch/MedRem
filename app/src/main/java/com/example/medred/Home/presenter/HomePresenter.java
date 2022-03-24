@@ -57,6 +57,7 @@ public class HomePresenter implements HomePresenterInterface, NetworkDelegate {
        });
 */
        repository.getCalenderMedications(time).observe(owner, medications -> {
+
            view.getCalenderMeds(medications);
            if(medications!=null && medications.size()>0)
                OneTimeWorker.setMedicationList(getReminders(medications));
