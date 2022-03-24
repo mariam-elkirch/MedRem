@@ -12,6 +12,10 @@ import java.util.Date;
 
 public class Utils {
 
+    public static String SHARED_PREF = "SHARED_PREFS";
+    public static String UID_KEY = "UID";
+    public static String IS_DEPENDANT_KEY = "IS_DEPENDANT";
+
     public static long convertDateToMillis(String dateStr){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
         Calendar calendar = Calendar.getInstance();

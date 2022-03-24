@@ -6,6 +6,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.example.medred.R;
 import com.example.medred.Registeration.presenter.RegistrationPresenter;
 import com.example.medred.model.Repository;
 import com.example.medred.model.User;
+import com.example.medred.model.Utils;
 import com.example.medred.network.FirebaseManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -54,6 +56,10 @@ public class RegisterActivity extends AppCompatActivity implements Registeration
     GoogleSignInClient mGoogleSignInClient;
     protected FirebaseAuth auth;
     RegistrationPresenter registrationPresenter;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity implements Registeration
         auth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
         initView();
+        initSharedPrefs();
         registrationPresenter=new RegistrationPresenter(Repository.getInstance(this,FirebaseManager.getInstance(this),null), this);
         mGoogleIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +90,10 @@ public class RegisterActivity extends AppCompatActivity implements Registeration
         });
     }
 
+    private void initSharedPrefs() {
+        sharedPreferences = getSharedPreferences(Utils.SHARED_PREF, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+    }
 
 
     private void googleSignUp() {
@@ -169,6 +180,11 @@ public class RegisterActivity extends AppCompatActivity implements Registeration
     public void GoToHome(Boolean succes) {
         if(succes){
            // progressDialog.dismiss();
+            if(auth.getCurrentUser().getUid() != null){
+                editor.putString(Utils.UID_KEY, auth.getCurrentUser().getUid());
+                editor.putBoolean(Utils.IS_DEPENDANT_KEY, false);
+                editor.apply();
+            }
             startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
             finish();
         }

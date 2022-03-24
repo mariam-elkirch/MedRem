@@ -6,6 +6,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -20,6 +21,7 @@ import com.example.medred.R;
 import com.example.medred.Registeration.presenter.RegistrationPresenter;
 import com.example.medred.db.ConcreteLocalSource;
 import com.example.medred.model.Repository;
+import com.example.medred.model.Utils;
 import com.example.medred.network.FirebaseManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -54,11 +56,16 @@ public class LoginActivity extends AppCompatActivity implements  LoginViewInterf
     private String Email, Password;
     GoogleSignInClient mGoogleSignInClient;
     RegistrationPresenter registrationPresenter;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
+        initSharedPrefs();
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait..");
@@ -146,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements  LoginViewInterf
             return;
         }
           loginEmailPassword(Email,Password);
-      //  progressDialog.setMessage("Logging in");
+       //  progressDialog.setMessage("Logging in");
        // progressDialog.show();
 
 
@@ -161,6 +168,11 @@ public class LoginActivity extends AppCompatActivity implements  LoginViewInterf
 
     }
 
+    private void initSharedPrefs() {
+        sharedPreferences = getSharedPreferences(Utils.SHARED_PREF, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+    }
+
     @Override
     public void loginEmailPassword(String email, String password) {
         registrationPresenter.loginEmailPassword(email,password);
@@ -170,6 +182,11 @@ public class LoginActivity extends AppCompatActivity implements  LoginViewInterf
     public void GoToHome(Boolean succes) {
        // progressDialog.dismiss();
         if(succes){
+            if(FirebaseAuth.getInstance().getCurrentUser().getUid() != null){
+                editor.putString(Utils.UID_KEY, FirebaseAuth.getInstance().getCurrentUser().getUid());
+                editor.putBoolean(Utils.IS_DEPENDANT_KEY, false);
+                editor.apply();
+            }
         startActivity(new Intent(LoginActivity.this, HomeActivity.class));
         finish();}
 
