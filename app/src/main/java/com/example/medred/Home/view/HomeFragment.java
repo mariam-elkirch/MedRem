@@ -3,10 +3,12 @@ package com.example.medred.Home.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -27,11 +29,16 @@ import com.example.medred.medicationsList.view.MedicationsListFragment;
 import com.example.medred.model.Medication;
 import com.example.medred.model.Reminders;
 import com.example.medred.model.Repository;
+import com.example.medred.model.Utils;
 import com.example.medred.network.FirebaseManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
@@ -62,6 +69,7 @@ public class HomeFragment extends Fragment implements  OnHomeMedicationClickList
         return  inflater.inflate(R.layout.fragment_home, container, false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -72,7 +80,7 @@ public class HomeFragment extends Fragment implements  OnHomeMedicationClickList
         layoutManager = new LinearLayoutManager(HomeFragment.this.getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
+        String day = LocalDate.now().getDayOfWeek().name();
         presenter = new HomePresenter(this, Repository.getInstance(this.getContext(),
                 FirebaseManager.getInstance(getActivity()), ConcreteLocalSource.getInstance(this.getContext())));
 
@@ -85,16 +93,33 @@ public class HomeFragment extends Fragment implements  OnHomeMedicationClickList
                 .datesNumberOnScreen(5)
                 .build();
         //internet condn
-       // presenter.getCalenderMedications(Calendar.getInstance().getTimeInMillis(),this);
-        presenter.getFirebaseMedications(Calendar.getInstance().getTimeInMillis(),this);
+
+        if(Utils.isInternetAvailable(getActivity())){
+            presenter.getFirebaseMedications(Calendar.getInstance().getTimeInMillis(),this,day);
+        }
+        else{
+            presenter.getCalenderMedications(Calendar.getInstance().getTimeInMillis(),this,day);
+        }
+       //
+
         LifecycleOwner lifecycleOwner=this;
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {
-                presenter.getFirebaseMedications(Calendar.getInstance().getTimeInMillis(),lifecycleOwner);
-             //   presenter.getCalenderMedications(date.getTimeInMillis(),lifecycleOwner);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+                System.out.println("Today's date: "+sdf.format(date.getTime()));
+
+
+                Format f = new SimpleDateFormat("EEEE");
+                String str = f.format(new Date());
+                if(Utils.isInternetAvailable(getActivity())){
+                presenter.getFirebaseMedications(Calendar.getInstance().getTimeInMillis(),lifecycleOwner,str);
+                }
+                else{
+                presenter.getCalenderMedications(date.getTimeInMillis(),lifecycleOwner,str);
                 Log.i("TAG", "CURRENT DATE IS " + date.getTimeInMillis());
-            }
+            }}
         });
         FloatingActionButton fabb=view.findViewById(R.id.fab);
         fabb.setOnClickListener(new View.OnClickListener() {

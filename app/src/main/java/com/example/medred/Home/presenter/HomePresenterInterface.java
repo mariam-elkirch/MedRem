@@ -12,7 +12,7 @@ import com.example.medred.model.Reminders;
 import java.util.List;
 
 public interface HomePresenterInterface {
-    void getCalenderMedications(Long time,LifecycleOwner owner);
+    void getCalenderMedications(Long time,LifecycleOwner owner,String day);
     List<Reminders> getReminders(List<Medication>reminders);
-    public void getFirebaseMedications(long time,LifecycleOwner owner);
+    public void getFirebaseMedications(long time,LifecycleOwner owner,String day);
 }

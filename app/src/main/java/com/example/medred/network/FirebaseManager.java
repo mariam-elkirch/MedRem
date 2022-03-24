@@ -3,6 +3,7 @@ package com.example.medred.network;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import com.example.medred.model.HealthTaker;
 import com.example.medred.model.Medication;
 import com.example.medred.model.Request;
 import com.example.medred.model.User;
+import com.example.medred.model.Utils;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,6 +50,9 @@ public class FirebaseManager implements FirebaseSource {
     protected String[] StoragePermission;
     protected Uri ImgUri;
     protected    Uri downloadImageUri;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     private  static FirebaseSource instance=null;
     private FirebaseManager(Context context){
@@ -193,8 +198,13 @@ public class FirebaseManager implements FirebaseSource {
     public void getMedications() {
         Log.i("TAG", "getmedication");
         List<Medication> medicationList = new ArrayList<>();
-        Map<String, String> meds = new HashMap<>();
-        DatabaseReference reference=  FirebaseDatabase.getInstance().getReference("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("medication");
+        sharedPreferences = context.getSharedPreferences(Utils.SHARED_PREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String uid = sharedPreferences.getString(Utils.UID_KEY, null);
+        if(uid == null){
+            uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }
+        DatabaseReference reference=  FirebaseDatabase.getInstance().getReference("user").child(uid).child("medication");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {

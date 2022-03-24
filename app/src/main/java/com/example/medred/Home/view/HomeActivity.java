@@ -12,17 +12,20 @@ import androidx.work.WorkManager;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.medred.R;
 import com.example.medred.Registeration.view.LoginActivity;
 import com.example.medred.dependentsList.view.DependantsListFragment;
 import com.example.medred.healthtakerslist.view.HealthTakersListFragment;
 import com.example.medred.medicationsList.view.MedicationsListFragment;
+import com.example.medred.model.Utils;
 import com.example.medred.requestsList.view.RequestsListFragment;
 import com.example.medred.workmanager.AlarmWorkManager.ManageWorkManager;
 import com.example.medred.workmanager.RefillWorkManager.OneTimeRefillWorkManager;
@@ -34,6 +37,11 @@ public class HomeActivity extends AppCompatActivity {
     NavigationView navigationView;
     DrawerLayout drawerLayout;
     TextView userName;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    String uid = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +50,22 @@ public class HomeActivity extends AppCompatActivity {
         WorkManager.getInstance(this).cancelAllWorkByTag("periodic");
         ManageWorkManager.setPeriodicRequest(this);
 
+        initSharedPrefs();
+        String uid = sharedPreferences.getString(Utils.UID_KEY, null);
+        boolean isDependant = sharedPreferences.getBoolean(Utils.IS_DEPENDANT_KEY, false);
+        Log.i("TAG", "isDependant: " + isDependant);
+
         mToolbar  = findViewById(R.id.toolBar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView=findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         TextView navUsername = (TextView) headerView.findViewById(R.id.name_text);
-        navUsername.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        if(isDependant){
+            navUsername.setText("Dependant");
+        }
+        else{
+            navUsername.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        }
       //   userName.setText("FirebaseAuth.getInstance().getCurrentUser().getDisplayName()");
         getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new HomeFragment()).commit();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -62,22 +80,46 @@ public class HomeActivity extends AppCompatActivity {
                         changeFragment(new HomeFragment());
                         break;
                     case R.id.nav_healthtaker:
-                        changeFragment(new HealthTakersListFragment());
+                        if(isDependant){
+                            Toast.makeText(HomeActivity.this, "Unauthorized Access", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            changeFragment(new HealthTakersListFragment());
+                        }
                         break;
                     case R.id.nav_medication:
+                        if(isDependant){
+                        Toast.makeText(HomeActivity.this, "Unauthorized Access", Toast.LENGTH_SHORT).show();
+                    }
+                        else{
                         changeFragment(new MedicationsListFragment());
+                    }
                         break;
                     case R.id.nav_dependent:
                         changeFragment(new DependantsListFragment());
                         break;
                     case R.id.nav_requests:
-                        changeFragment(new RequestsListFragment());
+                        if(isDependant){
+                            Toast.makeText(HomeActivity.this, "Unauthorized Access", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            changeFragment(new RequestsListFragment());
+                        }
                         break;
                     case R.id.nav_logout:
-                        FirebaseAuth.getInstance().signOut();
-                        navUsername.setText("Guest");
-                        finish();
-                        changeActivity(new LoginActivity());
+                        if(isDependant){
+                            Toast.makeText(HomeActivity.this, "Unauthorized Access", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            FirebaseAuth.getInstance().signOut();
+                            editor.putBoolean(Utils.IS_DEPENDANT_KEY, false);
+                            editor.putString(Utils.UID_KEY, null);
+                            editor.apply();
+                            navUsername.setText("Guest");
+                            finish();
+                            changeActivity(new LoginActivity());
+                        }
+
 
 
                 }
@@ -112,6 +154,11 @@ public class HomeActivity extends AppCompatActivity {
 
         Intent i = new Intent(HomeActivity.this, activity.getClass());
         startActivity(i);
+    }
+
+    private void initSharedPrefs() {
+        sharedPreferences = getSharedPreferences(Utils.SHARED_PREF, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
     }
 
 }

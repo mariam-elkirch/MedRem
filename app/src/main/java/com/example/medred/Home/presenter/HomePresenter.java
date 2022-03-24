@@ -35,108 +35,109 @@ import java.util.concurrent.TimeUnit;
 import static java.util.Collections.*;
 
 public class HomePresenter implements HomePresenterInterface, NetworkDelegate {
-   HomeViewInterface view;
+    HomeViewInterface view;
     RepositoryInterface repository;
     LifecycleOwner myowner;
     long myTime;
+    String day;
     public HomePresenter(HomeViewInterface view, RepositoryInterface repository) {
-      this.view=view;
-        this.repository=repository;
+        this.view = view;
+        this.repository = repository;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public void getCalenderMedications(Long time,LifecycleOwner owner) {
-       // repository.getSpecificDayCalenderMedications(time,"Friday");
-     /*  repository.getSpecificDayCalenderMedications(time,"%Friday%").observe(owner, medications -> {
-           view.getCalenderMeds(medications);
-          if(medications != null && medications.size() > 0){
-               OneTimeRefillWorkManager.setRefillMedications(medications);
-               Log.i("Refill", "list Refill");
-           }
-       });
-*/
-       repository.getCalenderMedications(time).observe(owner, medications -> {
+    public void getCalenderMedications(Long time, LifecycleOwner owner, String day) {
 
-           view.getCalenderMeds(medications);
-           if(medications!=null && medications.size()>0)
-               OneTimeWorker.setMedicationList(getReminders(medications));
+        List<Medication> medicationList = new ArrayList<>();
+        repository.getCalenderMedications(time).observe(owner, medications -> {
 
-       });
-       repository.getActiveMedications(time).observe(owner, medications -> {
+            for (int i = 0; i < medications.size(); i++) {
+                //if medicans freq
+                //case 2 if day contain, case 3 d5l 3latol
+                if (medications.get(i).getFrequency() == 3) {
+                    if (medications.get(i).getDays().contains(day)) {
+                        medicationList.add(medications.get(i));
+                    }
+                } else {
+                    medicationList.add(medications.get(i));
+                }
+            }
+            view.getCalenderMeds(medicationList);
+            if (medications != null && medications.size() > 0)
+                OneTimeWorker.setMedicationList(getReminders(medications));
 
-            if(medications != null && medications.size() > 0){
+        });
+        repository.getActiveMedications(time).observe(owner, medications -> {
+
+            if (medications != null && medications.size() > 0) {
                 OneTimeRefillWorkManager.setRefillMedications(medications);
                 Log.i("Refill", "list Refill");
             }
         });
     }
 
+
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public List<Reminders> getReminders(List<Medication> medications) {
         //type of med , long time user insert from calender ang compare it with get days
 
-            LocalDate localDate=LocalDate.now();
+        LocalDate localDate = LocalDate.now();
 
-        List<Reminders>sortReminders=new ArrayList<Reminders>();
+        List<Reminders> sortReminders = new ArrayList<Reminders>();
         String alarmTime;
-        Reminders reminder=null;
-       for(int medication=0;medication<medications.size();medication++) {
-           if (medications.get(medication).getSetAlarm() != null) {
-               for (int alarm = 0; alarm < medications.get(medication).getSetAlarm().size(); alarm++) {
-                   //sort alarms make date fixed as i want time to be sorted
-                   // if(medications.get(medication).getFrequency()==3 ||medications.get(medication).getFrequency()==4){
-                   if (medications.get(medication).getSetAlarm().get(alarm) != null) {
-                       alarmTime = localDate.getDayOfMonth() + "-" + localDate.getMonthValue() + "-" + localDate.getYear() + " " +
-                               medications.get(medication).getSetAlarm().get(alarm).getHour() + ":" +
-                               medications.get(medication).getSetAlarm().get(alarm).getMinute()
-                               + " " + medications.get(medication).getSetAlarm().get(alarm).getFormat();
+        Reminders reminder = null;
+        for (int medication = 0; medication < medications.size(); medication++) {
+            if (medications.get(medication).getSetAlarm() != null) {
+                for (int alarm = 0; alarm < medications.get(medication).getSetAlarm().size(); alarm++) {
+                    //sort alarms make date fixed as i want time to be sorted
+                    // if(medications.get(medication).getFrequency()==3 ||medications.get(medication).getFrequency()==4){
+                    if (medications.get(medication).getSetAlarm().get(alarm) != null) {
+                        alarmTime = localDate.getDayOfMonth() + "-" + localDate.getMonthValue() + "-" + localDate.getYear() + " " +
+                                medications.get(medication).getSetAlarm().get(alarm).getHour() + ":" +
+                                medications.get(medication).getSetAlarm().get(alarm).getMinute()
+                                + " " + medications.get(medication).getSetAlarm().get(alarm).getFormat();
 
-                       Alarm alarm1 = new Alarm(medications.get(medication).getSetAlarm().get(alarm).getHour()
-                               , medications.get(medication).getSetAlarm().get(alarm).getMinute(),
-                               medications.get(medication).getSetAlarm().get(alarm).getFormat());
+                        Alarm alarm1 = new Alarm(medications.get(medication).getSetAlarm().get(alarm).getHour()
+                                , medications.get(medication).getSetAlarm().get(alarm).getMinute(),
+                                medications.get(medication).getSetAlarm().get(alarm).getFormat());
 
-                       ArrayList<Alarm> alarmList = new ArrayList<>();
-                       alarmList.add(alarm1);
+                        ArrayList<Alarm> alarmList = new ArrayList<>();
+                        alarmList.add(alarm1);
 
-                       long timeInMills = Utils.convertDateAndTimeToTimeInMills(alarmTime);
+                        long timeInMills = Utils.convertDateAndTimeToTimeInMills(alarmTime);
 
-                       reminder = new Reminders(medications.get(medication).getName()
-                               , medications.get(medication).getNumberOfDoses(),
-                               alarmList, medications.get(medication).getImageID(),
-                               medications.get(medication).getStrength(),
-                               medications.get(medication).getUnit(), medications.get(medication).getId(),
-                               timeInMills);
-                       sortReminders.add(reminder);//before sort but if medication has many alarms put it many times
-                   }
-               }
-           }
-       }
+                        reminder = new Reminders(medications.get(medication).getName()
+                                , medications.get(medication).getNumberOfDoses(),
+                                alarmList, medications.get(medication).getImageID(),
+                                medications.get(medication).getStrength(),
+                                medications.get(medication).getUnit(), medications.get(medication).getId(),
+                                timeInMills);
+                        sortReminders.add(reminder);//before sort but if medication has many alarms put it many times
+                    }
+                }
+            }
+        }
         //Log.i("TAG",sortReminders.get(0).getName());
         sort(sortReminders, Comparator.comparingLong(Reminders::getTimeImMills));
         //Log.i("TAG",sortReminders.get(0).getName());
 
-       return sortReminders;
+        return sortReminders;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public void getFirebaseMedications(long time, LifecycleOwner owner) {
+    public void getFirebaseMedications(long time, LifecycleOwner owner, String dayy) {
         Log.i("TAG", "getmedication Presenter");
         repository.setNetworkDelegate(this);
         repository.getFirebaseMedications();
-        myowner=owner;
-        myTime=time;
-       /*repository.getFirebaseMedications((stored, medicationList) ->
-    {
-            view.getCalenderMeds(medicationList);
-            if(medicationList!=null && medicationList.size()>0)
-                OneTimeWorker.setMedicationList(getReminders(medicationList));
+        myowner = owner;
+        myTime = time;
+        day=dayy;
 
-        });*/
-       ///refill
-          }
+    }
 
 
     @Override
@@ -197,23 +198,31 @@ public class HomePresenter implements HomePresenterInterface, NetworkDelegate {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onSuccessMedicationList(List<Medication> medicationModel) {
-        List<Medication>medicationList=new ArrayList<>();
-        if(medicationModel !=null){
-        for (int i=0;i<medicationModel.size();i++){
-            if(myTime >= medicationModel.get(i).getStartDateInMillis() && myTime<=medicationModel.get(i).getEndDateInMillis()
-            && medicationModel.get(i).isActive()){
-                 medicationList.add(medicationModel.get(i));
+        List<Medication> medicationList = new ArrayList<>();
+        if (medicationModel != null) {
+            for (int i = 0; i < medicationModel.size(); i++) {
+                if (myTime >= medicationModel.get(i).getStartDateInMillis() && myTime <= medicationModel.get(i).getEndDateInMillis()
+                        && medicationModel.get(i).isActive()) {
+                    if (medicationModel.get(i).getFrequency() == 3) {
+                        if (medicationModel.get(i).getDays().contains(day)) {
+                            medicationList.add(medicationModel.get(i));
+                        }
+                    }
+                    else {
+                        medicationList.add(medicationModel.get(i));
+                    }
 
-            }}
+                }
+            }
         }
 
-     view.getCalenderMeds(medicationList);
-        if(  medicationList!=null &&   medicationList.size()>0)
-            OneTimeWorker.setMedicationList(getReminders(  medicationList));
-        Long time= Calendar.getInstance().getTimeInMillis();
+        view.getCalenderMeds(medicationList);
+        if (medicationList != null && medicationList.size() > 0)
+            OneTimeWorker.setMedicationList(getReminders(medicationList));
+        Long time = Calendar.getInstance().getTimeInMillis();
         repository.getActiveMedications(time).observe(myowner, medications -> {
 
-            if(medications != null && medications.size() > 0){
+            if (medications != null && medications.size() > 0) {
                 OneTimeRefillWorkManager.setRefillMedications(medications);
                 Log.i("Refill", "list Refill");
             }

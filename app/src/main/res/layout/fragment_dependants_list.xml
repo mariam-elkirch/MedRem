@@ -13,4 +13,26 @@
         android:layout_marginTop="8dp"
         tools:listitem="@layout/dependant_item" />
 
+    <TextView
+        android:id="@+id/tvDataUnavailable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Data Unavailable"
+        android:textSize="32sp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:layout_margin="15dp"
+        android:layout_gravity="center"
+        />
+
+    <Button
+        android:id="@+id/btnBackToMyProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back to my profile"
+        android:padding="10dp"
+        android:gravity="center_horizontal"
+        android:layout_gravity="bottom"/>
+
 </FrameLayout>
