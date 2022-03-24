@@ -8,6 +8,7 @@ import com.example.medred.model.Alarm;
 import com.example.medred.model.Medication;
 import com.example.medred.model.RepositoryInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MedicationPresenter implements AddMedicationPresenterInterface {
@@ -45,7 +46,7 @@ public class MedicationPresenter implements AddMedicationPresenterInterface {
     }
 
     @Override
-    public void rescheduleMedication(Alarm alarm, String name) {
+    public void rescheduleMedication(ArrayList<Alarm> alarm, String name) {
         repository.rescheduleMedication(alarm, name);
     }
 

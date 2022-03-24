@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import com.example.medred.model.Alarm;
 import com.example.medred.model.Medication;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface LocalSource {
@@ -19,6 +20,6 @@ public interface LocalSource {
     LiveData<Medication> getShowMedication(int medID);
     void updateMedication(Medication medicationModel);
     void takeMedication (String pillStock,String name);
-    void rescheduleMedication (Alarm alarm, String name);
+    void rescheduleMedication (ArrayList<Alarm> alarm, String name);
     LiveData<Medication> getPill(String name);
 }

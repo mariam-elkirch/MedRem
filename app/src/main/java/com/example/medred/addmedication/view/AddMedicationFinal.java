@@ -265,7 +265,7 @@ public class AddMedicationFinal extends Fragment implements AddMedicationViewInt
     public void takeMedication(String pillStock,String name) {
     }
     @Override
-    public void rescheduleMedication(Alarm alarm,String name) {
+    public void rescheduleMedication(ArrayList<Alarm> alarm,String name) {
     }
 
     @Override

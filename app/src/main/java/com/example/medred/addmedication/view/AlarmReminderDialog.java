@@ -29,6 +29,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class AlarmReminderDialog extends AppCompatActivity implements AddMedicationViewInterface{
     String nameOfMedication;
     Dialog alarmDialog;
@@ -41,6 +43,7 @@ public class AlarmReminderDialog extends AppCompatActivity implements AddMedicat
     //String name;
     int pills, url;
     Medication medicationA;
+    ArrayList<Alarm>alarmArrayList=new ArrayList<Alarm>();
     //saving
     AddMedicationPresenterInterface addMedicationPresenterInterface;
 
@@ -67,15 +70,12 @@ public class AlarmReminderDialog extends AppCompatActivity implements AddMedicat
         nameDialog.setText(nameOfMedication);
         imageDialog.setImageResource(url);
 
-        alarmDialog.show();
+
         //room
         addMedicationPresenterInterface = new MedicationPresenter(this, Repository.getInstance(AlarmReminderDialog.this,null, ConcreteLocalSource.getInstance(AlarmReminderDialog.this)));
-
         //get object
-
         getMedicinePill(nameOfMedication);
-
-
+        alarmDialog.show();
         resecheduleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,20 +96,26 @@ public class AlarmReminderDialog extends AppCompatActivity implements AddMedicat
                             format = "AM";
                         }
                         alarm = new Alarm(pHour,pMinute,format);
-
+                        alarmArrayList.add(alarm);
+                        Log.d("TAG", "onClick: "+alarm.getHour());
+                        Log.d("TAG", "onClick: "+alarm.getMinute());
+                        Log.d("TAG", "onClick: "+alarm.getFormat());
+                        rescheduleMedication(alarmArrayList,nameOfMedication);
                     }
                 };
                 TimePickerDialog timePickerDialog = new TimePickerDialog(view.getContext(), TimePickerDialog.THEME_HOLO_LIGHT, onTimeSetListener,pHour,pMinute,false);
                 timePickerDialog.setTitle("Set Alarm");
                 timePickerDialog.show();
-                rescheduleMedication(alarm,nameOfMedication);
 
 
 
-                alarmDialog.dismiss();
-                finish();
+
+
+//                alarmDialog.dismiss();
+//                finish();
             }
         });
+
 
         //take btn handler
         takeBtn.setOnClickListener(new View.OnClickListener() {
@@ -120,8 +126,8 @@ public class AlarmReminderDialog extends AppCompatActivity implements AddMedicat
                 takeMedication(p,nameOfMedication);
                 Log.d("TAG", "onClick: pills numbers "+pills);
                 Log.d("TAG", "onClick: name of medication  "+nameOfMedication);
-                alarmDialog.dismiss();
-                finish();
+//                alarmDialog.dismiss();
+//                finish();
             }
         });
         //skip btn
@@ -158,6 +164,8 @@ public class AlarmReminderDialog extends AppCompatActivity implements AddMedicat
         medicationA=medication;
         pills=Integer.parseInt(medicationA.getPillStock());
         url = medicationA.getImageID();
+        alarmArrayList= medicationA.getSetAlarm();
+
 
     }
 
@@ -183,8 +191,10 @@ public class AlarmReminderDialog extends AppCompatActivity implements AddMedicat
     }
 
     @Override
-    public void rescheduleMedication(Alarm alarm, String name) {
+    public void rescheduleMedication(ArrayList<Alarm> alarm, String name) {
+        //Log.d("TAG", "rescheduleMedication: "+alarm.getHour());
         addMedicationPresenterInterface.rescheduleMedication(alarm,name);
+        Log.d("TAG", "rescheduleMedication: DONE DONE ");
     }
 
     @Override

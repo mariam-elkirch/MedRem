@@ -819,7 +819,7 @@ public class EditMedication extends Fragment  implements AddMedicationViewInterf
     }
 
     @Override
-    public void rescheduleMedication(Alarm alarm, String name) {
+    public void rescheduleMedication(ArrayList<Alarm> alarm, String name) {
 
     }
 

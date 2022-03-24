@@ -11,6 +11,7 @@ import com.example.medred.network.FirebaseSource;
 import com.example.medred.network.NetworkDelegate;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Repository implements RepositoryInterface{
@@ -93,7 +94,7 @@ public class Repository implements RepositoryInterface{
     }
 
     @Override
-    public void rescheduleMedication(Alarm alarm, String name) {
+    public void rescheduleMedication(ArrayList<Alarm> alarm, String name) {
         localSource.rescheduleMedication(alarm,name);
     }
 

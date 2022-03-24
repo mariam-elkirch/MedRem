@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import com.example.medred.model.Alarm;
 import com.example.medred.model.Medication;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConcreteLocalSource implements LocalSource{
@@ -80,7 +81,7 @@ public class ConcreteLocalSource implements LocalSource{
     }
 
     @Override
-    public void rescheduleMedication(Alarm alarm, String name) {
+    public void rescheduleMedication(ArrayList<Alarm> alarm, String name) {
         new Thread(() -> {
             medicationDAO.rescheduleMedication(alarm,name);
         }).start();
