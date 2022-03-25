@@ -1,0 +1,133 @@
+<resources>
+    <string name="app_name">MedRem</string>
+    <string name="medrem">MedRem</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="forgot_your_password">Forgot your Password?</string>
+    <string name="don_t_have_an_account">Don\'t Have An Account?</string>
+    <string name="signup">SignUp</string>
+    <string name="continue_as">Continue As?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="name">Name</string>
+    <string name="already_hava_an_account">Already Hava An Account?</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="recover_your_password">Recover Your Password</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="medications">Medications</string>
+    <string name="requests">Requests</string>
+    <string name="medfriends">Medfriends</string>
+    <string name="dependents">Dependents</string>
+    <string name="healthtaker">Healthtaker</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="logout">Logout</string>
+
+    <string name="addMedication">Add Medication Screen</string>
+    <string name="MedicationName">Medication Name</string>
+    <string name="strength">Strength</string>
+    <string name="unit">Unit</string>
+    <string name="apperance">Apperance</string>
+    <string name="frequency">Frequency</string>
+    <string name="next">next</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cycle">Cycle</string>
+    <string name="cycleQuestions">when did you take your first pill ?</string>
+    <string name="everydayfragment">EveryDay Fragment</string>
+    <string name="timesADay">How Many Times A Day</string>
+    <string name="startDate">Start Date</string>
+    <string name="endDate">End Date</string>
+    <string name="daysIntervalFragment">days interval and specific days fragment</string>
+    <string name="chooseDay">Choose A Day</string>
+    <string name="everyday">EveryDay</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="finalFragment">Final Fragment</string>
+    <string name="reasons">Reasons</string>
+    <string name="pillStock">pills in stock</string>
+    <string name="reminderSwitch">Refill Reminder</string>
+    <string name="pillLeft">Remind When Pills Left</string>
+    <string name="reminderRefill">set Refill Reminder</string>
+    <string name="done">Done</string>
+    <string name="setAlarm">Set Alarm</string>
+    <string name="setNumberOfPills">Add Number of Pills</string>
+    <string name="pillleft">Pills Left</string>
+    <string name="medicationAdded">Medication Is Added Successfully</string>
+    <string name="onBackPressed">Are You Sure You Want To Exit ?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+    <string name="reminder">Reminders</string>
+    <string name="prescriptionRefill">Prescription Refill</string>
+    <string name="pillsLeftShow">number+Pills Left</string>
+    <string name="stockReminderShow">Refill Reminder When I have + number + Left</string>
+    <string name="stateShowMed">State</string>
+    <string name="updateStock">Update Stock</string>
+    <string name="addDose">Add Dose</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="reschedule">Reschedule</string>
+    <string name="take">Take</string>
+    <string name="skip">Skip</string>
+
+    //try spinner for cycle
+    <string-array name="cycleItemSpinner">
+        <item>21+7</item>
+        <item>22+6</item>
+        <item>23+5</item>
+        <item>24+4</item>
+        <item>26+2</item>
+        <item>28</item>
+        <item>35+7</item>
+        <item>42+7</item>
+        <item>63+7</item>
+        <item>84+7</item>
+        <item>14+14</item>
+    </string-array>
+
+    //spinner for medication reasons
+    <string-array name="doseItemSpinner">
+        <!--        <item>Choose Dose</item>-->
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    //spinner for unit medication
+    //spinner for unit medication
+    <string-array name="unitItemSpinner">
+        <!--        <item>Choose Unit</item>-->
+        <item>g</item>
+        <item>mg</item>
+        <item>mcg</item>
+        <item>ml</item>
+    </string-array>
+
+
+    //spinner for frequency medication
+    <string-array name="frequencyItemSpinner">
+        <!--        <item>Choose Frequency</item>-->
+        <item>As Needed</item>
+        <item>EveryDay</item>
+        <item>Specific Day</item>
+        <item>Days Interval</item>
+    </string-array>
+
+</resources>

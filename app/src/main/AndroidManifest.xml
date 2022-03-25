@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.medred">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MedRed">
+        <activity
+            android:name=".addmedication.view.AlarmReminderDialog"
+            android:exported="false" />
+        <activity
+            android:name=".addmedication.view.ShowMedicationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Registeration.view.ForgotPasswordActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Home.view.HomeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Registeration.view.RegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Registeration.view.LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".addmedication.view.AddMedicationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".workmanager.AlarmWorkManager.SkipReceiver"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".workmanager.AlarmWorkManager.TakeReceiver"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".workmanager.AlarmWorkManager.SnoozeReceiver"
+            android:enabled="true"
+            android:exported="true" />
+    </application>
+
+</manifest>
