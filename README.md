@@ -29,6 +29,6 @@ a specific time
 * <a href="https://github.com/Mulham-Raee/Horizontal-Calendar">Calender</a>
 
 # Team Members
-* @Nourgweda
-* @mariam-elkirch
-* @abdelrahmanhz
+* Nour Gweda [@Nourgweda]( https://github.com/Nourgweda )
+* Mariam Elkirch [@mariam-elkirch]( https://github.com/mariam-elkirch )
+* Abdelrahman Hamza [@abdelrahmanhz]( https://github.com/abdelrahmanhz )
